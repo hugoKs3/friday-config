@@ -1,0 +1,121 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Météo
+    style: >
+      --popup-max-width: calc(400px + 400px);
+      --ha-card-border-radius: 0;
+    card-mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            # card divider border
+            .: |
+              #root {
+                  margin: -24px 0 !important;
+              }
+            hui-entities-card:
+              $: |
+                .card-content {
+                  padding: var(--popup-content-padding);
+                  padding-bottom: 0.8em;
+                }
+                ha-card {
+                  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                  border-radius: 0;
+                  transition: none;
+                }
+                /* portrait */
+                @media screen and (max-width: 1200px) {
+                  ha-card {
+                    border-right: none;
+                    border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+                  }
+                }
+              $hui-horizontal-stack-card:
+                # horizontal bottom buttons
+                $: |
+                  #root {
+                    justify-content: space-evenly;
+                    margin-top: 1.7em;
+                    max-width: 82vw; /* iphonex */
+                  }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: repeat(2, 1fr)
+        grid-template-rows: 1fr
+        grid-template-areas: |
+          "part1 part2"
+        mediaquery:
+          #phone
+          "(max-width: 800px)":
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(2, 1fr)
+            grid-template-areas: |
+              "part1"
+              "part2"
+      cards:
+
+        - type: entities
+          view_layout:
+            grid-area: part1
+          show_header_toggle: false
+          card_mod:
+            class: header
+            style: |
+              ha-card {
+                margin: 0px !important;
+              }
+          entities:
+
+            - type: custom:hui-vertical-stack-card
+              cards:
+
+                - type: weather-forecast
+                  entity: weather.biot
+
+          footer:
+            type: custom:mini-graph-card
+            entities:
+              - color: red
+                entity: weather.biot
+                attribute: temperature
+                name: Température
+              - color: '#385581'
+                entity: weather.biot
+                attribute: humidity
+                name: Humidité
+                y_axis: secondary
+            align_state: left
+            line_width: 4
+            group: false
+            points_per_hour: 1
+            hour24: true
+            hours_to_show: 24
+            height: 200
+            show:
+              {fill: fade, icon: false, name: false, state: false, name_adaptive_color: true, labels: true, legend: true, labels_secondary: true}
+            tap_action:
+              action: none
+
+        - type: entities
+          view_layout:
+            grid-area: part2
+          show_header_toggle: false
+          card_mod:
+            class: header
+            style: |
+              ha-card {
+                margin: 0px !important;
+              }
+          entities:
+
+            - type: custom:hui-vertical-stack-card
+              cards:
+                - type: iframe
+                  url: >-
+                    https://embed.windy.com/embed2.html?lat=43.623&lon=7.023&detailLat=43.173&detailLon=7.097&width=650&height=450&zoom=11&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1
+                  aspect_ratio: 100%

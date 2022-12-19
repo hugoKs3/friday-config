@@ -1,0 +1,192 @@
+binary_sensor:
+
+  - platform: ping
+    host: !secret ip_camera_nord
+    name: "Caméra Nord"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_camera_sud
+    name: "Caméra Sud"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_gateway_xiaomi
+    name: "Gateway Xiaomi"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_imprimnte
+    name: "Imprimante"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_ap_exterieur
+    name: "AP Extérieur"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_ap_salon
+    name: "AP Salon"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_shelly_cheminee
+    name: "Shelly Cheminée"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_shelly_jardin_sud
+    name: "Shelly Jardin Sud"
+    scan_interval: 30
+  - platform: ping 
+    host: !secret ip_shelly_electrolyseur
+    name: "Shelly Electrolyseur"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_sprinkler
+    name: "Shelly Sprinkler"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_drip
+    name: "Shelly Drip"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_guirlande
+    name: "Shelly Guirlande"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_jardin_nord
+    name: "Shelly Jardin Nord"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_pilier
+    name: "Shelly Pilier"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_plafonnier
+    name: "Shelly Plafonnier"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_pompe
+    name: "Shelly Pompe"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_portail
+    name: "Shelly Portail"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_salon
+    name: "Shelly Salon"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_seche_linge
+    name: "Shelly Sèche-Linge"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_spot
+    name: "Shelly Spot"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_tv_set
+    name: "Shelly TV Set"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_shelly_vanne
+    name: "Shelly Vanne"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_synology
+    name: "Synology"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_tablette_murale
+    name: "Tablette Murale"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_thermostat
+    name: "Thermostat"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_yeelight_gabriel
+    name: "Yeelight Gabriel"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_yeelight_lily
+    name: "Yeelight Lily"
+    scan_interval: 30   
+  - platform: ping
+    host: !secret ip_rpi_4
+    name: "RPI 4"
+    scan_interval: 30  
+  - platform: ping
+    host: !secret ip_rpi_3
+    name: "RPI 3"
+    scan_interval: 30 
+  - platform: ping
+    host: !secret ip_google_home
+    name: "Google Home"
+    scan_interval: 30 
+  - platform: ping
+    host: !secret ip_sonos
+    name: "Sonos"
+    scan_interval: 30 
+  - platform: ping
+    host: !secret ip_chromecast
+    name: "Chromecast"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_ap_buanderie
+    name: "AP Buanderie"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_ap_garage
+    name: "AP Garage"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_ap_lily
+    name: "AP Lily"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_livebox_tv
+    name: "Livebox TV"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_laptop_lily
+    name: "Laptop Lily"
+    scan_interval: 30
+  - platform: ping
+    host: !secret ip_laptop_gabriel
+    name: "Laptop Gabriel"
+    scan_interval: 30
+
+  - platform: group
+    name: "Network pings"
+    all: true
+    entities:
+      - binary_sensor.camera_nord
+      - binary_sensor.camera_sud
+      - binary_sensor.gateway_xiaomi
+      - binary_sensor.imprimante
+      - binary_sensor.ap_exterieur
+      - binary_sensor.ap_salon
+      - binary_sensor.shelly_cheminee
+      - binary_sensor.shelly_jardin_sud
+      - binary_sensor.shelly_electrolyseur
+      - binary_sensor.shelly_sprinkler
+      - binary_sensor.shelly_drip
+      - binary_sensor.shelly_guirlande
+      - binary_sensor.shelly_jardin_nord
+      - binary_sensor.shelly_pilier
+      - binary_sensor.shelly_plafonnier
+      - binary_sensor.shelly_pompe
+      - binary_sensor.shelly_portail
+      - binary_sensor.shelly_salon
+      - binary_sensor.shelly_seche_linge
+      - binary_sensor.shelly_spot
+      - binary_sensor.shelly_tv_set
+      - binary_sensor.shelly_vanne
+      - binary_sensor.synology
+      - binary_sensor.tablette_murale
+      - binary_sensor.thermostat
+      - binary_sensor.yeelight_gabriel
+      - binary_sensor.yeelight_lily
+      - binary_sensor.rpi_4
+      - binary_sensor.google_home
+      - binary_sensor.sonos
+      - binary_sensor.ap_buanderie
+      - binary_sensor.ap_garage
+      - binary_sensor.ap_lily

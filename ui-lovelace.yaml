@@ -1,0 +1,835 @@
+button_card_templates: !include button_card_templates.yaml
+
+views:
+  - type: custom:grid-layout
+    path: 0
+    layout:
+      #default
+      margin: 0
+      grid-gap: var(--custom-layout-card-padding)
+      grid-template-columns: repeat(4, 1fr) 0
+      grid-template-rows: 0 repeat(2, fit-content(100%)) 0fr
+      grid-template-areas: |
+        "sidebar  .       .        .      ."
+        "sidebar  indoor  outdoor  temps  ."
+        "sidebar  media   garden   home   ."
+        "sidebar  footer  footer   footer ."
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: calc(var(--custom-layout-card-padding) * 1.7)
+          grid-template-columns: 0 repeat(2, 1fr) 0
+          grid-template-rows: 0 repeat(5, fit-content(100%)) 0fr
+          grid-template-areas: | 
+            ".  .           .        ."
+            ".  sidebar     sidebar  ."
+            ".  indoor      temps    ."
+            ".  outdoor     garden   ."
+            ".  media       home     ."
+            ".  footer      footer   ."
+            ".  .           .        ."
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: var(--custom-layout-card-padding)
+          grid-template-columns: repeat(3, 1fr) 0
+          grid-template-rows: 0 repeat(3, fit-content(100%)) 0fr
+          grid-template-areas: |
+            "sidebar  .           .       ."
+            "sidebar  indoor      temps   ."
+            "sidebar  outdoor     garden  ."
+            "sidebar  media       home    ."
+            "sidebar  footer      footer  ."
+            "sidebar  .           .       ."
+    cards:
+
+      - type: custom:button-card #extra_styles fix
+        #https://github.com/matt8707/hass-config/issues/118
+        styles:
+          card:
+            - border-width: 0
+
+      #################################################
+      #                                               #
+      #                    SIDEBAR                    #
+      #                                               #
+      #################################################
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: sidebar
+        cards:
+
+          - type: custom:button-card
+            entity: sensor.template_sidebar
+            template: sidebar_template
+
+          # - type: picture
+          #   image: /local/friday2.png 
+          #   card_mod:
+          #     style: |
+          #       ha-card {
+          #         margin: 20%;
+          #       }
+          #   tap_action:
+          #     action: call-service
+          #     service: script.1662903361475
+
+          - type: grid
+            cards:
+
+              - type: button
+                icon: custom:weather
+                tap_action: !include popup/weather.yaml
+                hold_action:  
+                  action: none
+                #https://github.com/matt8707/hass-config/issues/118
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-width: 0;
+                    }
+
+              - type: button
+                icon: custom:mychart
+                tap_action: !include popup/consommations.yaml
+                hold_action:
+                  action: none
+                #https://github.com/matt8707/hass-config/issues/118
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-width: 0;
+                    }
+
+              - type: button
+                icon: custom:check-network
+                tap_action: !include popup/monitoring.yaml
+                hold_action:
+                  action: none
+                #https://github.com/matt8707/hass-config/issues/118
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-width: 0;
+                    }
+
+              - type: button
+                icon: mdi:information-outline
+                tap_action: !include popup/information.yaml
+                hold_action:
+                  action: none
+                #https://github.com/matt8707/hass-config/issues/118
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-width: 0;
+                    }
+
+              - type: custom:restriction-card
+                restrictions:
+                  block:
+                    text: Vous n'êtes pas autorisé à effectuer cette action
+                    exemptions:
+                      - user: !secret interface_id
+                      - user: !secret hugo_id
+                      - user: !secret andrea_id
+                locked_icon: none
+                card:     
+                  type: button
+                  icon: custom:myautos
+                  tap_action: !include popup/configuration.yaml
+                  hold_action:
+                    action: none
+                  #https://github.com/matt8707/hass-config/issues/118
+                  card_mod:
+                    style: |
+                      ha-card {
+                        border-width: 0;
+                      }
+
+              - type: button
+                icon: mdi:arrow-up-bold-circle-outline
+                tap_action: !include popup/updates.yaml
+                hold_action:
+                  action: none
+                #https://github.com/matt8707/hass-config/issues/118
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-width: 0;
+                    }
+
+
+      #################################################
+      #                                               #
+      #                  INTERIEUR                    #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Intérieur
+        view_layout:
+          grid-area: indoor
+        columns: 1
+        cards:
+
+          - type: grid
+            columns: 3
+            cards:
+
+              - type: custom:button-card
+                entity: light.plafonnier
+                name: Plafonnier
+                template:
+                  - light_dimmer
+                  - icon_hue
+    
+              - type: custom:button-card
+                entity: switch.salon
+                name: Lampadaire
+                template:
+                  - light_simple
+                  - icon_shade
+                  
+              - type: custom:button-card
+                entity: switch.cheminee
+                name: Cheminée
+                template:
+                  - light_simple
+                  - icon_lamp
+
+              - type: custom:button-card
+                entity: light.yeelight_gabriel
+                name: Gabriel
+                template:
+                  - light_rgb
+                  - icon_hue
+                  
+              - type: custom:button-card
+                entity: light.yeelight_lily
+                name: Lily
+                template:
+                  - light_rgb
+                  - icon_hue
+
+              - type: custom:button-card
+                entity: switch.tv_set
+                name: TV Set
+                template:
+                  - base
+                  - icon_tv
+
+              - type: custom:button-card
+                entity: binary_sensor.laptop_gabriel
+                name: Gabriel
+                state_display: >
+                  [[[
+                    if (states['binary_sensor.laptop_gabriel'].state === "on") {
+                      return ["On"];
+                    }
+                    else {
+                      return ["Off"];
+                    }
+                  ]]]
+                template:
+                  - base_sensor
+                  - icon_imac
+
+              - type: custom:button-card
+                entity: binary_sensor.laptop_lily
+                name: Lily
+                state_display: >
+                  [[[
+                    if (states['binary_sensor.laptop_lily'].state === "on") {
+                      return ["On"];
+                    }
+                    else {
+                      return ["Off"];
+                    }
+                  ]]]
+                template:
+                  - base_sensor
+                  - icon_imac
+
+              - type: custom:button-card
+                entity: binary_sensor.door_window_sensor_158d00024e4b12
+                name: Porte
+                template:
+                  - base_sensor
+                  - icon_closet
+
+
+      #################################################
+      #                                               #
+      #                    EXTERIEUR                  #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Extérieur
+        view_layout:
+          grid-area: outdoor
+        columns: 1
+        cards:
+              
+          - type: grid
+            columns: 3
+            cards:
+            
+              - type: custom:button-card
+                entity: switch.jardin_est
+                name: Jardin
+                template:
+                  - light_simple
+                  - icon_spot
+                  
+              - type: custom:button-card
+                entity: switch.pilier
+                name: Pilier
+                template:
+                  - light_simple
+                  - icon_spot
+                  
+              - type: custom:button-card
+                entity: switch.guirlande
+                name: Guirlande
+                template:
+                  - light_simple
+                  - icon_spot
+
+              - type: custom:restriction-card
+                restrictions:
+                  block:
+                    text: Vous n'êtes pas autorisé à effectuer cette action
+                    exemptions:
+                      - user: !secret interface_id
+                      - user: !secret hugo_id
+                locked_icon: none
+                card:
+                  type: custom:button-card
+                  entity: switch.spot_temp
+                  name: Piscine
+                  template:
+                    - light_simple
+                    - icon_spot
+
+              - type: custom:button-card
+                entity: switch.cabane
+                name: Cabane
+                template:
+                  - light_simple
+                  - icon_spot
+                  
+              - type: custom:button-card
+                entity: switch.poulailler
+                name: Poulailler
+                template:
+                  - light_simple
+                  - icon_spot
+
+              - type: custom:button-card
+                entity: binary_sensor.seche_linge_en_marche
+                name: Sèche-Linge
+                template:
+                  - base_sensor
+                  - icon_dryer
+
+      #################################################
+      #                                               #
+      #                    TEMP.                      #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Températures
+        view_layout:
+          grid-area: temps
+        columns: 1
+        cards:
+            
+          - type: grid
+            columns: 3
+            cards:
+              - type: custom:restriction-card
+                restrictions:
+                  block:
+                    text: Vous n'êtes pas autorisé à effectuer cette action
+                    exemptions:
+                      - user: !secret interface_id
+                      - user: !secret hugo_id
+                      - user: !secret andrea_id
+                locked_icon: none
+                card:
+                  type: custom:button-card
+                  entity: climate.general
+                  name: Thermostat
+                  hold_action: !include popup/thermostat.yaml
+                  tap_action: !include popup/thermostat.yaml
+                  template:
+                    - base
+                    - icon_climate
+                    - climate
+                  variables:
+                    circle_input: >
+                      [[[
+                        if (entity) {
+                          return entity.attributes.hvac_action !== 'idle' ?
+                            entity.attributes.temperature :
+                            entity.attributes.current_temperature;
+                        }
+                      ]]]
+                    operation_mode: >
+                      [[[
+                        if (entity) {
+                          return entity.attributes.hvac_action;
+                        }
+                      ]]]  
+
+              - type: custom:button-card
+                entity: sensor.temperature_salon
+                name: Salon
+                tap_action: !include popup/temperature_salon.yaml
+                custom_fields:
+                  graph:
+                    card:
+                      entities:
+                        - entity: sensor.temperature_salon
+                          color: '#FF4E33'
+                template:
+                  - thermometre
+                  - icon_temp
+                          
+              - type: custom:button-card
+                entity: sensor.temperature_lily
+                name: Lily
+                tap_action: !include popup/temperature_lily.yaml
+                custom_fields:
+                  graph:
+                    card:
+                      entities:
+                        - entity: sensor.temperature_lily
+                          color: '#9533FF'
+                template:
+                  - thermometre
+                  - icon_temp
+                  
+              - type: custom:button-card
+                entity: sensor.temperature_gabriel
+                name: Gabriel
+                tap_action: !include popup/temperature_gabriel.yaml
+                custom_fields:
+                  graph:
+                    card:
+                      entities:
+                        - entity: sensor.temperature_gabriel
+                          color: '#339DFF'
+                template:
+                  - thermometre
+                  - icon_temp
+
+              - type: custom:button-card
+                entity: sensor.temperature_sdbhaut
+                name: Bains Haut
+                tap_action: !include popup/temperature_sdbhaut.yaml
+                custom_fields:
+                  graph:
+                    card:
+                      entities:
+                        - entity: sensor.temperature_sdbhaut
+                          color: '#33FFFB'
+                template:
+                  - thermometre
+                  - icon_temp
+
+              - type: custom:button-card
+                entity: sensor.temperature_chbas
+                name: Chambre Bas
+                tap_action: !include popup/temperature_chbas.yaml
+                custom_fields:
+                  graph:
+                    card:
+                      entities:
+                        - entity: sensor.temperature_chbas
+                          color: '#FFBA33'
+                template:
+                  - thermometre
+                  - icon_temp
+                  
+              - type: custom:button-card
+                entity: sensor.temperature_sdbbas
+                name: Bains Bas
+                tap_action: !include popup/temperature_sdbbas.yaml
+                custom_fields:
+                  graph:
+                    card:
+                      entities:
+                        - entity: sensor.temperature_sdbbas
+                          color: '#9533FF'
+                template:
+                  - thermometre
+                  - icon_temp
+                  
+              - type: custom:button-card
+                entity: sensor.temperature_outdoor
+                name: Extérieur
+                tap_action: !include popup/temperature_outdoor.yaml
+                custom_fields:
+                  graph:
+                    card:
+                      entities:
+                        - entity: sensor.temperature_outdoor
+                          color: '#3DFF33'
+                template:
+                  - thermometre
+                  - icon_temp
+
+
+      #################################################
+      #                                               #
+      #                     MEDIA                     #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Now Playing
+        view_layout:
+          grid-area: media
+        columns: 1
+        cards:
+
+          - type: custom:swipe-card
+            parameters:
+              roundLengths: true
+              effect: coverflow
+              speed: 650
+              spaceBetween: 20
+              threshold: 7
+              coverflowEffect:
+                rotate: 80
+                depth: 300
+              autoplay:
+                delay: 3000
+                disableOnInteraction: false
+            cards:
+            
+              - type: custom:button-card
+                # camera_view: live
+                entity: camera.cam_sud
+                name: Sud
+                template:
+                  - camera
+
+              - type: custom:button-card
+                # camera_view: live
+                entity: camera.cam_nord
+                name: Nord
+                template:
+                  - camera
+
+              - type: custom:button-card
+                entity: media_player.livebox
+                name: TV
+                template:
+                  - conditional_media
+                  - icon_tv2
+
+              - type: custom:button-card
+                entity: media_player.salon
+                name: Sonos
+                template:
+                  - conditional_media
+                  - icon_sonos
+
+      #################################################
+      #                                               #
+      #                    Jardin                     #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Jardin
+        view_layout:
+          grid-area: garden
+        columns: 2
+        cards:
+
+          - type: conditional
+            conditions:
+              - entity: switch.vanne
+                state: "off"
+            card:
+              type: custom:restriction-card
+              restrictions:
+                block:
+                  text: Vous n'êtes pas autorisé à effectuer cette action
+                  exemptions:
+                    - user: !secret interface_id
+                    - user: !secret hugo_id
+                    - user: !secret andrea_id
+              locked_icon: none
+              card:
+                type: custom:button-card
+                entity: switch.pompe
+                name: Piscine
+                hold_action: !include popup/piscine.yaml
+                tap_action: !include popup/piscine.yaml
+                template:
+                  - base
+                  - pool
+                  - icon_pool
+                variables:
+                  circle_input: >
+                    [[[
+                      return states['sensor.spot_temp_temperature'].state;
+                    ]]]
+
+          - type: conditional
+            conditions:
+              - entity: switch.vanne 
+                state: "on"
+            card:
+              type: custom:restriction-card
+              restrictions:
+                block:
+                  text: Vous n'êtes pas autorisé à effectuer cette action
+                  exemptions:
+                    - user: !secret interface_id
+                    - user: !secret hugo_id
+                    - user: !secret andrea_id
+              locked_icon: none
+              card:
+                type: custom:button-card
+                entity: switch.vanne
+                hold_action: !include popup/piscine.yaml
+                tap_action: !include popup/piscine.yaml
+                name: Remplissage
+                template:
+                  - base
+                  - pool_remplissage
+                  - icon_remplissage
+
+          - type: conditional
+            conditions:
+              - entity: switch.goutte 
+                state: "off"
+            card:
+              type: custom:restriction-card
+              restrictions:
+                block:
+                  text: Vous n'êtes pas autorisé à effectuer cette action
+                  exemptions:
+                    - user: !secret interface_id
+                    - user: !secret hugo_id
+                    - user: !secret andrea_id
+              locked_icon: none
+              card:
+                type: custom:button-card
+                entity: switch.sprinkler
+                hold_action: !include popup/arrosage.yaml
+                tap_action: !include popup/arrosage.yaml
+                name: Arrosage
+                template:
+                  - base
+                  - arrosage_sprinkler
+                  - icon_sprinkler
+
+          - type: conditional
+            conditions:
+              - entity: switch.goutte 
+                state: "on"
+            card:
+              type: custom:restriction-card
+              restrictions:
+                block:
+                  text: Vous n'êtes pas autorisé à effectuer cette action
+                  exemptions:
+                    - user: !secret interface_id
+                    - user: !secret hugo_id
+                    - user: !secret andrea_id
+              locked_icon: none
+              card:
+                type: custom:button-card
+                entity: switch.goutte
+                hold_action: !include popup/arrosage.yaml
+                tap_action: !include popup/arrosage.yaml
+                name: Arrosage
+                template:
+                  - base
+                  - arrosage_goutte
+                  - icon_goutte
+
+          - type: custom:button-card
+            entity: sensor.poubelle_verte
+            name: Poubelle
+            state_display: >
+              [[[
+                if (states['sensor.poubelle_verte'].state === "0") {
+                  return ["Verte"];
+                }
+                else if (states['sensor.poubelle_jaune'].state === "0") {
+                  return ["Jaune"];
+                }
+                else if (states['sensor.poubelle_vegetaux'].state === "0") {
+                  return ["Végétaux"];
+                }
+                else {
+                  return ["Aucune"];
+                }
+              ]]]
+            variables:
+              bintype: >
+                [[[
+                  if (states['sensor.poubelle_verte'].state === "0") {
+                      return "sensor.poubelle_verte";
+                  }
+                  else if (states['sensor.poubelle_jaune'].state === "0") {
+                    return "sensor.poubelle_jaune";
+                  }
+                  else if (states['sensor.poubelle_vegetaux'].state === "0") {
+                    return "sensor.poubelle_vegetaux";
+                  }
+                  else {
+                    return "";
+                  }
+                ]]]
+              binstate: >
+                [[[
+                  return states['sensor.poubelle_verte'].state === "0" || states['sensor.poubelle_jaune'].state === "0" || states['sensor.poubelle_vegetaux'].state === "0";
+                ]]]
+              bincolor: >
+                [[[
+                  if (states['sensor.poubelle_verte'].state === "0") {
+                    return "green";
+                  }
+                  else if (states['sensor.poubelle_jaune'].state === "0") {
+                    return "yellow";
+                  }
+                  else if (states['sensor.poubelle_vegetaux'].state === "0") {
+                    return "#808000";
+                  }
+                  else {
+                    return "#9da0a2";
+                  }
+                ]]]
+
+            template:
+              - base
+              - garbage
+              - icon_garbage
+
+          - type: custom:button-card
+            entity: switch.portail
+            name: Portail
+            template:
+              - light_simple
+              - icon_gate
+
+      #################################################
+      #                                               #
+      #                     Maison                    #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Maison
+        view_layout:
+          grid-area: home
+        columns: 2
+        cards:
+
+          - type: custom:button-card
+            entity: sensor.gj468rk_charging
+            tap_action: !include popup/renault_megane.yaml
+            name: Megane
+            state_display: >
+              [[[
+                if (states['binary_sensor.gj468rk_charging'].state === 'on') {
+                  let mytime = states['sensor.gj468rk_charging_remaining_time'].state / 60;
+                  mytime = mytime.toFixed(1);
+                  return [mytime + " heure(s)"] ;
+                }
+                if (states['binary_sensor.gj468rk_charging'].state === 'off') {
+                  return [Math.round(states['sensor.gj468rk_battery_autonomy'].state) + " km"];
+                }
+              ]]]
+            template:
+              - base
+              - car_megane
+              - icon_renault
+
+          - type: custom:button-card
+            entity: binary_sensor.gg085jj_charging
+            tap_action: !include popup/renault_zoe.yaml
+            name: Zoe
+            state_display: >
+              [[[
+                if (states['binary_sensor.gg085jj_charging'].state === 'on') {
+                  let mytime = states['sensor.gg085jj_charging_remaining_time'].state / 60;
+                  mytime = mytime.toFixed(1);
+                  return [mytime + " heure(s)"] ;
+                }
+                if (states['binary_sensor.gg085jj_charging'].state === 'off') {
+                  return [Math.round(states['sensor.gg085jj_battery_autonomy'].state) + " km"];
+                }
+              ]]]
+            template:
+              - base
+              - car_zoe
+              - icon_renault
+
+          - type: custom:button-card
+            entity: script.1662903361475
+            name: "Dodo"
+            template:
+              - base
+              - icon_zzz
+
+          # - type: custom:restriction-card
+          #   restrictions:
+          #     pin:
+          #       code: !secret alarm_pin_code
+          #   locked_icon: none
+          #   card:
+          #     type: custom:button-card
+          #     entity: input_boolean.enable_alarm
+          #     name: Alarme
+          #     tap_action:
+          #       action: call-service
+          #       service: script.toggle_alarme
+          #     hold_action:
+          #       action: none
+          #     template:
+          #       - base
+          #       - icon_home
+
+          - type: custom:button-card
+            variables:
+              hugo_picture: >
+                [[[
+                  return `${states['person.hugo'].attributes.entity_picture}`;
+                ]]]
+              andrea_picture: >
+                [[[
+                  return `${states['person.andrea'].attributes.entity_picture}`;
+                ]]]
+              lily_picture: >
+                [[[
+                  return `${states['person.lily_rose'].attributes.entity_picture}`;
+                ]]]
+              gabriel_picture: >
+                [[[
+                  return `${states['person.gabriel'].attributes.entity_picture}`;
+                ]]]
+            template:
+              - myperson
+
+      #################################################
+      #                                               #
+      #                    FOOTER                     #
+      #                                               #
+      #################################################
+
+      - type: custom:button-card
+        view_layout:
+          grid-area: footer
+        template: footer

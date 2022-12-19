@@ -1,0 +1,290 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Updates
+    style: >
+      --popup-max-width: calc(385px + 385px + 385px);
+      --ha-card-border-radius: 0;
+    # card-mod:
+    #   style:
+    #     layout-card:
+    #       $grid-layout$:
+    #         hui-entities-card:
+    #           $: |
+    #             .card-content {
+    #               padding: 1.5em 1em 2.3em 1em;
+    #             }
+    #             ha-card {
+    #               animation: border 1s forwards;
+    #               border-radius: 0;
+    #             }
+    #             @keyframes border {
+    #               0%, 100% {
+    #                 border-right: 1px solid rgba(0, 0, 0, 0.3);
+    #               }
+    #             }
+    #             /* phone */
+    #             @media screen and (max-width: 800px) {
+    #               ha-card {
+    #                 animation: none;
+    #               }
+    #             }
+    #           $hui-horizontal-stack-card$: |
+    #             #root {
+    #               justify-content: space-evenly;
+    #               margin-top: 1.9em;
+    #               margin-left: 0.8em;
+    #             }
+    #         hui-vertical-stack-card:
+    #           $hui-entities-card$: |
+    #             .card-content {
+    #               padding: 1.5em 1.5em 2.3em 1.5em;
+    #             }
+    #             ha-card {
+    #               animation: border 1s forwards;
+    #               border-radius: 0;
+    #             }
+    #             @keyframes border {
+    #               0%, 100% {
+    #                 border-right: 1px solid rgba(0, 0, 0, 0.3);
+    #               }
+    #             }
+    #             /* phone */
+    #             @media screen and (max-width: 800px) {
+    #               ha-card {
+    #                 animation: none;
+    #               }
+    #             }
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            # card divider border
+            .: |
+              #root {
+                  margin: -24px 0 !important;
+              }
+            hui-entities-card:
+              $: |
+                .card-content {
+                  padding: var(--popup-content-padding);
+                  padding-bottom: 0.8em;
+                }
+                ha-card {
+                  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                  border-radius: 0;
+                  transition: none;
+                }
+                /* portrait */
+                @media screen and (max-width: 1200px) {
+                  ha-card {
+                    border-right: none;
+                    border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+                  }
+                }
+              $hui-horizontal-stack-card:
+                # horizontal bottom buttons
+                $: |
+                  #root {
+                    justify-content: space-evenly;
+                    margin-top: 1.7em;
+                    max-width: 82vw; /* iphonex */
+                  }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: repeat(3, 1fr)
+        grid-template-rows: 1fr
+        grid-template-areas: |
+          "ha plugins devices"
+        mediaquery:
+          #phone
+          "(max-width: 800px)":
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(3, 1fr)
+            grid-template-areas: |
+              "ha"
+              "plugins"
+              "devices"
+      cards:
+
+        - type: entities
+          view_layout:
+            grid-area: ha
+          title: Home Assistant
+          show_header_toggle: false
+          card_mod:
+            class: header
+            style: |
+              ha-card {
+                margin: 0px !important;
+              }
+          entities:
+            - entity: update.home_assistant_core_update
+              name: Core
+              icon: mdi:database
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.home_assistant_core_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: update.home_assistant_supervisor_update
+              name: Supervisor
+              icon: mdi:account-supervisor-circle
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.home_assistant_supervisor_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: update.home_assistant_operating_system_update
+              name: OS
+              icon: mdi:home-assistant
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.home_assistant_operating_system_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+
+        - type: entities
+          view_layout:
+            grid-area: plugins
+          title: Plugins
+          show_header_toggle: false
+          card_mod:
+            class: header
+            style: |
+              ha-card {
+                margin: 0px !important;
+              }
+          entities:
+            - entity: update.file_editor_update
+              name: File Editor
+              icon: mdi:file-edit
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.file_editor_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: update.let_s_encrypt_update
+              name: Let's Encrypt
+              icon: mdi:lock-check
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.let_s_encrypt_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: update.nginx_home_assistant_ssl_proxy_update
+              name: Nginx
+              icon: mdi:arrow-decision
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.nginx_home_assistant_ssl_proxy_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: update.jellyfin_nas_update
+              name: Jellyfin
+              icon: mdi:multimedia
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.jellyfin_nas_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: update.onedrive_backup_update
+              name: OneDrive Backup
+              icon: mdi:cloud-upload
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.onedrive_backup_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: update.samba_share_update
+              name: Samba Share
+              icon: mdi:folder-network
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.samba_share_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: update.terminal_ssh_update
+              name: Terminal SSH
+              icon: mdi:ssh
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.terminal_ssh_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: sensor.hacs
+              name: HACS
+              icon: hacs:hacs
+              style: >
+                :host {
+                  color: 
+                  {% if !is_state('sensor.hacs', '0') %}
+                    #2d7bad
+                  {% endif %}
+                }
+
+        - type: entities
+          view_layout:
+            grid-area: devices
+          title: Devices
+          show_header_toggle: false
+          card_mod:
+            class: header
+            style: |
+              ha-card {
+                margin: 0px !important;
+              }
+          entities:
+            - entity: binary_sensor.linksys_update
+              name: Linksys
+              icon: mdi:access-point-network
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('binary_sensor.linksys_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: binary_sensor.shelly_update
+              name: Shelly
+              icon: mdi:meter-electric
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('binary_sensor.shelly_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: update.diskstation_dsm_update
+              name: Synology
+              icon: mdi:server-network
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('binary_sensor.diskstation_dsm_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }

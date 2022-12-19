@@ -1,0 +1,24 @@
+input_boolean:
+  mode_piscine:
+    name: Mode Automatique
+    icon: mdi:refresh-auto
+  saison_piscine:
+    name: Eté
+    icon: mdi:white-balance-sunny
+  cycle1_piscine:
+    name: Cycle 1
+    icon: mdi:refresh
+  cycle2_piscine:
+    name: Cycle 2
+    icon: mdi:refresh
+  arrosage_hier:
+    name: Arrosage Hier
+    icon: mdi:water-sync
+  enable_telegram_notifs:
+    name: Notifs Telegram
+    icon: mdi:message-alert
+  enable_googlehome_notifs:
+    name: Notifs Google Home
+    icon: mdi:google-assistant
+  enable_alarm:
+    name: Alarme

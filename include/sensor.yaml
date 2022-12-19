@@ -1,0 +1,75 @@
+sensor:
+  - platform: average
+    unique_id: 'avghometemp'
+    name: 'Température moyenne'
+    entities:
+      - sensor.temperature_salon
+      - sensor.temperature_gabriel
+      - sensor.temperature_chbas
+      - sensor.temperature_lily
+      - sensor.thermostat_current_temp
+      
+  - platform: average
+    unique_id: 'avghomehum'
+    name: 'Humidité moyenne'
+    entities:
+      - sensor.humidity_salon
+      - sensor.humidity_gabriel
+      - sensor.humidity_chbas
+      - sensor.humidity_lily
+
+  - platform: command_line
+    name: "Ookla Data"
+    command: "/config/shell_commands/speedtest.bin -f json --accept-license --accept-gdpr"
+    scan_interval: 300
+    command_timeout: 30
+    value_template: >-
+        {% set ping = value_json.ping.latency|string %}
+        {% set dn = value_json.download.bandwidth|string %}
+        {% set up = value_json.upload.bandwidth|string %}
+        {{ ping + "," + dn + "," + up }}    
+
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: processor_temperature
+      - type: memory_use_percent
+      - type: load_5m
+      - type: load_1m
+      - type: processor_use
+
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+
+  - platform: statistics
+    name: "Pluiviométrie Last 24h"
+    entity_id: sensor.biot_daily_precipitation
+    state_characteristic: total
+    max_age:
+      hours: 24
+
+  - platform: gazpar
+    username: !secret grdf_user
+    password: !secret grdf_pwd
+    pce_identifier: !secret grdf_pce
+    tmpdir: /tmp
+    scan_interval: 01:00:00
+
+  - platform: template
+    sensors:
+      s_cert_exiry_d:
+        friendly_name: 'Cert Expiry'
+        value_template: >
+          {{ ((as_timestamp(states('sensor.cert_expiry_timestamp_external')) - as_timestamp(states.sensor.date.last_updated)) / 86400) | int }}
+        unit_of_measurement: 'days'
+
+  - platform: rest
+    name: Gandi IP
+    resource: !secret gandi_url
+    method: GET
+    headers:
+      authorization: !secret gandi_authorization
+    value_template: "{{ value_json.rrset_values[0] }}"

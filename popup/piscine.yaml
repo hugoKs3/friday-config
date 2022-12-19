@@ -1,0 +1,135 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Piscine
+    style: >
+      --popup-max-width: calc(400px + 400px);
+      --ha-card-border-radius: 0;
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            # card divider border
+            .: |
+              #root {
+                  margin: -24px 0 !important;
+              }
+            hui-entities-card:
+              $: |
+                .card-content {
+                  padding: var(--popup-content-padding);
+                  padding-bottom: 0.8em;
+                }
+                ha-card {
+                  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                  border-radius: 0;
+                  transition: none;
+                }
+                /* portrait */
+                @media screen and (max-width: 1200px) {
+                  ha-card {
+                    border-right: none;
+                    border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+                  }
+                }
+              $hui-horizontal-stack-card:
+                # horizontal bottom buttons
+                $: |
+                  #root {
+                    justify-content: space-evenly;
+                    margin-top: 1.7em;
+                    max-width: 82vw; /* iphonex */
+                  }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: repeat(2, 1fr)
+        grid-template-rows: 1fr
+        grid-template-areas: |
+          "part1 part2"
+        mediaquery:
+          #phone
+          "(max-width: 800px)":
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(2, 1fr)
+            grid-template-areas: |
+              "part1"
+              "part2"
+      cards:
+        - type: vertical-stack
+          view_layout:
+            grid-area: part1
+          cards:
+            - type: entities
+              state_color: true
+              show_header_toggle: false
+              card_mod:
+                class: content
+              entities:
+
+                - entity: input_boolean.mode_piscine
+
+                - entity: input_boolean.saison_piscine
+                  
+                - type: divider
+
+                - entity: switch.pompe
+                  icon: mdi:pump
+
+                - entity: switch.electrolyseur
+                  icon: mdi:ph
+                  
+                - type: divider
+
+                - type: custom:mini-graph-card
+                  entities:
+                    - color: '#385581'
+                      entity: sensor.spot_temp_temperature
+                      name: Température Eau
+                  align_state: left
+                  line_width: 4
+                  height: 200
+                  group: false
+                  points_per_hour: 2
+                  hour24: true
+                  hours_to_show: 24
+                  show:
+                    {fill: fade, icon: true, name: true, state: true,
+                    name_adaptive_color: true, labels: true, legend: false, average: true, extrema: true, points: false}
+                  tap_action:
+                    action: none
+
+        - type: vertical-stack
+          view_layout:
+            grid-area: part2
+          cards:
+            - type: entities
+              state_color: true
+              show_header_toggle: false
+              card_mod:
+                class: content
+              entities:
+
+                - entity: input_boolean.cycle1_piscine
+
+                - entity: input_select.cycle1_piscine_start
+
+                - entity: input_select.cycle1_piscine_end
+                  
+                - type: divider
+
+                - entity: input_boolean.cycle2_piscine
+
+                - entity: input_select.cycle2_piscine_start
+
+                - entity: input_select.cycle2_piscine_end
+
+                - type: divider
+
+                - entity: switch.vanne
+                  name: Remplissage
+                  icon: mdi:water-pump
+
+                - entity: input_number.temps_remplissage_piscine             

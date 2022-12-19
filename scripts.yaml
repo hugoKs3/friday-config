@@ -1,0 +1,152 @@
+'1662903361475':
+  alias: Dodo
+  icon: mdi:sleep
+  sequence:
+  - service: media_player.turn_off
+    data: {}
+    target:
+      entity_id: media_player.lg_tv
+  - if:
+    - condition: state
+      entity_id: media_player.livebox
+      state: playing
+    then:
+    - service: media_player.turn_off
+      data: {}
+      target:
+        entity_id: media_player.livebox
+  - service: switch.turn_off
+    data: {}
+    target:
+      area_id:
+      - outdoor
+      - living_room
+  - service: light.turn_off
+    data: {}
+    target:
+      area_id:
+      - outdoor
+      - living_room
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.tv_set
+  mode: single
+wake_up_tablet:
+  alias: Wake-Up Tablet
+  sequence:
+  - service: notify.mobile_app_a10h
+    data:
+      message: command_screen_on
+  mode: single
+notif_google_home:
+  alias: Notif Google Home
+  mode: single
+  icon: mdi:google-assistant
+  sequence:
+  - condition: or
+    conditions:
+    - condition: template
+      value_template: '{{ bypass if bypass is defined else false }}'
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.enable_googlehome_notifs
+        state: 'on'
+      - condition: time
+        before: '22:00:00'
+        after: 08:00:00
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        - sat
+        - sun
+  - service: tts.google_say
+    data:
+      entity_id: media_player.salon_speaker
+      message: '{{ message }}'
+      language: fr
+notif_telegram:
+  alias: Notif Telegram
+  mode: single
+  icon: mdi:message-alert
+  sequence:
+  - condition: state
+    entity_id: input_boolean.enable_telegram_notifs
+    state: 'on'
+  - service: notify.telegram_hugo
+    data:
+      message: '{{ message }}'
+toggle_alarme:
+  alias: Toggle Alarme
+  sequence:
+  - if:
+    - condition: state
+      entity_id: input_boolean.enable_alarm
+      state: 'off'
+    then:
+    - service: automation.turn_off
+      data: {}
+      target:
+        entity_id:
+        - automation.crepuscule
+        - automation.notification_poubelle
+        - automation.notification_seche_linge
+        - automation.reveil_tablette
+        - automation.veilleuse_gabriel
+    - service: input_boolean.turn_off
+      data: {}
+      target:
+        entity_id: input_boolean.enable_googlehome_notifs
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id: input_boolean.enable_alarm
+    else:
+    - service: automation.turn_on
+      data: {}
+      target:
+        entity_id:
+        - automation.crepuscule
+        - automation.notification_poubelle
+        - automation.notification_seche_linge
+        - automation.reveil_tablette
+        - automation.veilleuse_gabriel
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id: input_boolean.enable_googlehome_notifs
+    - service: input_boolean.turn_off
+      data: {}
+      target:
+        entity_id: input_boolean.enable_alarm
+  mode: single
+  icon: mdi:shield-home
+je_suis_rentre:
+  alias: Je Suis Rentre
+  sequence:
+  - type: turn_on
+    device_id: 1114f731a3510a0be3fe81a179badaa6
+    entity_id: switch.portail
+    domain: switch
+  - if:
+    - condition: sun
+      before: sunrise
+      after: sunset
+    then:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id:
+        - switch.pilier
+        - switch.jardin_est
+        - switch.guirlande
+  mode: single

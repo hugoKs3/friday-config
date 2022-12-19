@@ -1,0 +1,368 @@
+template:
+
+  #################################################
+  #                                               #
+  #                    SELECT                     #
+  #                                               #
+  #################################################
+
+  - select:
+      - name: conditional_media
+        state: >
+          {% set recently_added = 'Recently Downloaded' %}
+          {% set paused_timeout_minutes = 15 %}
+          {% set media_players = [
+            states.media_player.livebox,
+            states.media_player.salon,
+            states.media_player.salon_speaker,
+            states.media_player.salon_tv ] %}
+
+          {% macro media(state) %}
+          {% set state = media_players | selectattr('state','eq',state) | list %}
+          {% set last_changed = recently_added if state | length == 0 else state | map(attribute='last_changed') | list | max %}
+            {{ state | selectattr('last_changed','eq', last_changed) | map(attribute='name') | list | join }}
+          {% endmacro %}
+
+          {% set playing = media_players | selectattr('state','eq','playing') | list %}
+          {% set timeout_playing = False if playing | length == 0 else
+            (as_timestamp(now()) - as_timestamp(playing | map(attribute='last_changed') | list | max)) < paused_timeout_minutes * 60 %}
+
+          {% set paused = media_players | selectattr('state','eq','paused') | list %}
+          {% set timeout_paused = False if paused | length == 0 else
+            (as_timestamp(now()) - as_timestamp(paused | map(attribute='last_changed') | list | max)) < paused_timeout_minutes * 60 %}
+
+          {% if playing %}
+            {{ media('playing') if timeout_playing else media('paused') if timeout_paused else media('playing') }}
+          {% elif paused %}
+            {{ media('paused') if timeout_paused else recently_added }}
+          {% else %}
+            {{ recently_added }}
+          {% endif %}
+        options: >
+          {% set recently_added = ['Recently Downloaded'] %}
+          {% set media_players = [
+            states.media_player.livebox,
+            states.media_player.salon,
+            states.media_player.salon_speaker,
+            states.media_player.salon_tv ] %}
+          {{ recently_added + media_players | map(attribute='name') | list }}
+        select_option:
+          service: select.select_option
+          target:
+            entity_id: select.conditional_media
+          data:
+            option: >
+              {{ option }}
+
+  #################################################
+  #                                               #
+  #                    SENSOR                     #
+  #                                               #
+  #################################################
+
+  - sensor:
+      - unique_id: sidebar
+        state: template
+        attributes:
+          time: >
+            {% set hours = now().strftime('%H') %}
+            {% set minutes = now().strftime('%M') %}
+            <span class="time">
+              {{ hours }}<span class="time-colon">:</span>{{ minutes }}
+            </span>
+          date: |
+            <font color='#6a7377'>
+            {%- if strptime(states('sensor.date'), '%Y-%m-%d').day != null %}
+            {%- set days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] %}
+            {%- set months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+            'Julliet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'] %}
+              {{- days[now().weekday()] }}<br>
+              {{- strptime(states('sensor.date'), '%Y-%m-%d').day }} {{ months[now().month-1] }}
+            {%- endif -%}
+            </font>
+          greet: |
+            <b>
+            {%- set time = now().hour %}
+            {%- if time <= 1 -%} Bonne nuit 
+            {%- elif time <= 3 -%} Bonne nuit
+            {%- elif time <= 5 -%} Bonne nuit
+            {%- elif time <= 7 -%} Bonjour
+            {%- elif time <= 9 -%} Bonjour
+            {%- elif time <= 10 -%} Bonjour
+            {%- elif time <= 13 -%} Bonne journée
+            {%- elif time <= 15 -%} Bonne journée
+            {%- elif time <= 17 -%} Bonne journée
+            {%- elif time <= 19 -%} Bonne soirée
+            {%- elif time <= 22 -%} Bonne soirée
+            {%- elif time <= 23 -%} Bonne soirée
+            {%- else %} Bonne soirée
+            {%- endif -%}
+            </b>
+          weather: |
+            {% set temperature = state_attr('weather.biot', 'temperature') %}
+            {% set precip = states('sensor.biot_rain_chance') | round %}
+            {% set snow = states('sensor.biot_snow_chance') | round %}
+            {% set weather_state = states('weather.biot')
+              | replace('rainy', 'Pluvieux')
+              | replace('partlycloudy', 'Partiellement nuageux')
+              | replace('cloudy', 'Nuageux')
+              | replace('clear-night', 'Nuit claire')
+              | replace('fog', 'Brumeux')
+              | replace('hail', 'Grêleux')
+              | replace('lightning-rainy', 'Orageux')
+              | replace('lightning', 'Orageux')
+              | replace('pourring', 'Pluie intense')
+              | replace('snowy-rainy', 'Neigeux')
+              | replace('snowy', 'Neigeux')
+              | replace('sunny', 'Ensoleillé')
+              | replace('windy-variant', 'Variablement venteux')
+              | replace('windy', 'Venteux')
+              | replace('exceptional', 'Exceptionel') %}
+            {% if not state_attr('weather.biot', 'temperature') == 'unknow' %}
+              {% if temperature | float <= 0.0 %}
+                {{ weather_state }}, il fait {{ temperature }}° avec {{ snow }}% de risque de neige.
+              {% elif temperature | float > 0.0 %}
+                {{ weather_state }}, il fait {{ temperature }}° avec {{ precip }}% de risque de pluie.
+              {% endif %}
+            {% else %}
+              Pas d'information métérologique...
+            {% endif %}
+          friday: |
+            <center><img src="/local/friday2.png" width="80%"/></center>
+            
+
+      - unique_id: weather_temperature
+        unit_of_measurement: '°C'
+        state: >
+          {{ state_attr('weather.biot', 'temperature') }}
+
+      - unique_id: weather_humidity
+        unit_of_measurement: '%'
+        state: >
+          {{ state_attr('weather.biot', 'humidity') }}
+
+      - name: "Thermostat Current Temp"
+        unit_of_measurement: "°C"
+        state: "{{ state_attr('climate.general', 'current_temperature') }}"
+
+      - name: "Ookla Ping"
+        state: >-
+          {% set x = states('sensor.ookla_data').split(',')[0] | float(0) %}
+          {% if x > 0 %}
+            {{ x|round(2) }}
+          {% else %}
+            {{ states('sensor.ookla_ping') }}
+          {% endif %}
+        icon: mdi:gauge
+        unit_of_measurement: ms
+        state_class: measurement
+
+      - name: "Ookla Download"
+        state: >-
+          {% set x = states('sensor.ookla_data').split(',')[1] | float(0) %}
+          {% if x > 0 %}
+            {{ (x / 1024 / 1024 * 8)|round(2) }}
+          {% else %}
+            {{ states('sensor.ookla_download') }}
+          {% endif %}
+        icon: mdi:gauge
+        unit_of_measurement: Mbps
+        state_class: measurement
+
+      - name: "Ookla Upload"
+        state: >-
+          {% set x = states('sensor.ookla_data').split(',')[2] | float(0) %}
+          {% if x > 0 %}
+            {{ (x / 1024 / 1024 * 8)|round(2) }}
+          {% else %}
+            {{ states('sensor.ookla_upload') }}
+          {% endif %}
+        icon: mdi:gauge
+        unit_of_measurement: Mbps
+        state_class: measurement
+
+      - name: "Zoe Burn Rate"
+        unit_of_measurement: "km"
+        state: "{{ ((states.sensor.gg085jj_mileage.state | int) - ((37500/1127) * (strptime((states('sensor.date')), '%Y-%m-%d') - strptime('2022-05-23', '%Y-%m-%d')).days))|round }}"
+      
+      - name: "Megane Burn Rate"
+        unit_of_measurement: "km"
+        state: "{{ ((states.sensor.gj468rk_mileage.state | int) - ((37500/1127) * (strptime((states('sensor.date')), '%Y-%m-%d') - strptime('2022-10-06', '%Y-%m-%d')).days))|round }}"
+
+      - name: gas_volume
+        unit_of_measurement: 'm³'
+        state: >
+          {{ state_attr('sensor.gazpar', 'daily')[0]['end_index_m3'] | float(0) }}
+        icon: mdi:fire
+        device_class: gas
+        state_class: total_increasing
+
+      - name: gas_energy
+        unit_of_measurement: 'kWh'      
+        state: >   
+          {{ states('sensor.gazpar') | float(0) }}
+        icon: mdi:fire
+        device_class: energy
+        state_class: total_increasing
+
+      - name: "Gandi Synchro"
+        state: >-
+          {% if is_state('binary_sensor.gandi_up_to_date', 'on') %}
+            {{"OK"}}
+          {% else %}
+            {{"KO"}}
+          {% endif %}
+        icon: mdi:wan
+
+  #################################################
+  #                                               #
+  #                    BINARY                     #
+  #                    SENSOR                     #
+  #################################################
+
+  - binary_sensor:
+      - name: "Any Update"
+        state: "
+          {{
+            is_state('binary_sensor.shelly_update', 'on')
+            or
+            is_state('update.home_assistant_core_update', 'on')
+            or
+            is_state('update.home_assistant_supervisor_update', 'on')
+            or
+            is_state('update.home_assistant_operating_system_update', 'on')
+            or
+            states('sensor.hacs') != '0'
+            or
+            is_state('update.diskstation_dsm_update', 'on')
+            or
+            is_state('update.file_editor_update', 'on')
+            or
+            is_state('update.let_s_encrypt_update', 'on')
+            or
+            is_state('update.nginx_home_assistant_ssl_proxy_update', 'on')
+            or
+            is_state('update.jellyfin_nas_update', 'on')
+            or
+            is_state('update.onedrive_backup_update', 'on')
+            or
+            is_state('update.samba_share_update', 'on')
+            or
+            is_state('update.terminal_ssh_update', 'on')
+            or
+            is_state('update.linksys_update', 'on')
+          }}"
+
+      - name: "Shelly Update"
+        state: "
+          {{
+            is_state('update.cheminee_firmware_update', 'on')
+            or
+            is_state('update.electrolyseur_firmware_update', 'on')
+            or
+            is_state('update.jardin_est_firmware_update', 'on')
+            or
+            is_state('update.goutte_firmware_update', 'on')
+            or
+            is_state('update.guirlande_firmware_update', 'on')
+            or
+            is_state('update.jardin_nord_firmware_update', 'on')
+            or
+            is_state('update.pilier_firmware_update', 'on')
+            or
+            is_state('update.plafonnier_firmware_update', 'on')
+            or
+            is_state('update.pompe_firmware_update', 'on')
+            or
+            is_state('update.portail_firmware_update', 'on')
+            or
+            is_state('update.salon_firmware_update', 'on')
+            or
+            is_state('update.spot_temp_firmware_update', 'on')
+            or
+            is_state('update.sprinkler_firmware_update', 'on')
+            or
+            is_state('update.tv_set_firmware_update', 'on')
+            or
+            is_state('update.vanne_firmware_update', 'on')
+          }}"
+
+      - name: "Linksys Update"
+        state: "
+          {{
+            is_state('update.buanderie_update', 'on')
+            or
+            is_state('update.chambre_lily_update', 'on')
+            or
+            is_state('update.salon_update', 'on')
+          }}"
+
+      - name: "Cycle Piscne"
+        state: "
+          {{
+            (is_state('input_boolean.cycle1_piscine', 'on') and (states.sensor.time.state > states.input_select.cycle1_piscine_start.state) and (states.sensor.time.state < states.input_select.cycle1_piscine_end.state))
+            or
+            (is_state('input_boolean.cycle2_piscine', 'on') and (states.sensor.time.state > states.input_select.cycle2_piscine_start.state) and (states.sensor.time.state < states.input_select.cycle2_piscine_end.state))
+          }}"
+
+      - name: "Arrosage ce soir"
+        icon: mdi:chevron-right-box-outline
+        state: "
+          {{
+            (is_state('input_select.arrosage_mode', 'Auto-Full') or (is_state('input_select.arrosage_mode', 'Auto-Demi') and is_state('binary_sensor.arrosage_hier', 'off')))
+            and
+            (states('sensor.pluiviometrie_last_24h') | int) < 30
+          }}"
+
+      - name: "Arrosage Hier"
+        icon: mdi:chevron-left-box-outline
+        state: "
+          {{
+            is_state('input_boolean.arrosage_hier', 'on')
+          }}"
+
+      - name: "Seche-Linge en Marche"
+        state: "
+          {{
+            (states('sensor.seche_linge_power') | int) > 2
+          }}"
+
+      - name: "Cartouche Imprimante Low"
+        state: "
+          {{
+            (states('sensor.dcp_375cw_cyan_ink_remaining') | int) <= 5
+            or
+            (states('sensor.dcp_375cw_magenta_ink_remaining') | int) <= 5
+            or 
+            (states('sensor.dcp_375cw_yellow_ink_remaining') | int) <= 5
+            or
+            (states('sensor.dcp_375cw_black_ink_remaining') | int) <= 5
+          }}"
+
+      - name: "Battery Low"
+        state: "
+          {{
+            (states('sensor.battery_chbas') | int) <= 3
+            or
+            (states('sensor.battery_door') | int) <= 3
+            or 
+            (states('sensor.battery_gabriel') | int) <= 3
+            or
+            (states('sensor.battery_lily') | int) <= 3
+            or
+            (states('sensor.battery_outdoor') | int) <= 3
+            or
+            (states('sensor.battery_presencebas') | int) <= 3
+            or
+            (states('sensor.battery_presencehaut') | int) <= 3
+            or
+            (states('sensor.battery_salon') | int) <= 3
+            or
+            (states('sensor.battery_sdbbas') | int) <= 3
+          }}"
+
+      - name: "Gandi Up-to-date"
+        state: "
+          {{
+            state_attr('binary_sensor.wan_status', 'wan_ipaddress') == states('sensor.gandi_ip')
+          }}"

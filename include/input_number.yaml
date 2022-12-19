@@ -1,0 +1,23 @@
+input_number:
+  temps_remplissage_piscine:
+    name: Temps
+    icon: mdi:timer-outline
+    min: 15
+    max: 60
+    step: 15
+  elapsed_remplissage_piscine:
+    name: Elapsed
+    min: 0
+    max: 3600
+    step: 1
+  temps_arrosage:
+    name: Temps
+    icon: mdi:timer-outline
+    min: 0
+    max: 20
+    step: 1
+  elapsed_arrosage:
+    name: Elapsed
+    min: 0
+    max: 1200
+    step: 1

@@ -1,0 +1,93 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Arrosage
+    style: >
+      --popup-max-width: calc(600px);
+      --ha-card-border-radius: 0;
+    card-mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            hui-entities-card:
+              $: |
+                .card-content {
+                  padding: 1.5em 1em 2.3em 1em;
+                }
+                ha-card {
+                  animation: border 1s forwards;
+                  border-radius: 0;
+                }
+                @keyframes border {
+                  0%, 100% {
+                    border-right: 1px solid rgba(0, 0, 0, 0.3);
+                  }
+                }
+                /* phone */
+                @media screen and (max-width: 800px) {
+                  ha-card {
+                    animation: none;
+                  }
+                }
+              $hui-horizontal-stack-card$: |
+                #root {
+                  justify-content: space-evenly;
+                  margin-top: 1.9em;
+                  margin-left: 0.8em;
+                }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: repeat(1, 1fr)
+        grid-template-rows: 1fr
+        grid-template-areas: |
+          "part1"
+        mediaquery:
+          #phone
+          "(max-width: 800px)":
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(1, 1fr)
+            grid-template-areas: |
+              "part1"
+      cards:
+        - type: vertical-stack
+          view_layout:
+            grid-area: part1
+          cards:
+            - type: entities
+              state_color: true
+              show_header_toggle: false
+              card_mod:
+                class: content
+              entities:
+
+                - entity: input_select.arrosage_mode
+                  icon: mdi:refresh-auto
+
+                - entity: input_select.arrosage_type
+                  icon: mdi:ab-testing
+                  
+                - type: divider
+
+                - entity: switch.sprinkler
+                  name: Sprinkler
+                  icon: mdi:sprinkler
+
+                - entity: switch.goutte
+                  name: Goutte-à-goutte
+                  icon: mdi:water
+                  
+                - type: divider
+
+                - entity: sensor.pluiviometrie_last_24h
+                  name: Pluie dernières 24h
+                  icon: mdi:weather-pouring
+
+                - entity: binary_sensor.arrosage_hier
+
+                - entity: binary_sensor.arrosage_ce_soir
+
+
+         

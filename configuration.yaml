@@ -1,0 +1,167 @@
+homeassistant:
+  packages: !include_dir_named include
+  allowlist_external_dirs: [/config/]
+
+lovelace:
+  mode: yaml #use ui-lovelace.yaml
+  resources: #hacs
+    - url: /hacsfiles/button-card/button-card.js
+      type: module
+    - url: /hacsfiles/lovelace-card-mod/card-mod.js
+      type: module
+    - url: /hacsfiles/lovelace-layout-card/layout-card.js
+      type: module
+    - url: /hacsfiles/swipe-card/swipe-card.js
+      type: module
+    - url: /hacsfiles/light-popup-card/light-popup-card.js
+      type: module
+    - url: /hacsfiles/bar-card/bar-card.js
+      type: module
+    - url: /hacsfiles/apexcharts-card/apexcharts-card.js
+      type: module
+    - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
+      type: module
+    - url: /hacsfiles/light-entity-card/light-entity-card.js
+      type: module
+    - url: /hacsfiles/stack-in-card/stack-in-card.js
+      type: module
+    - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+      type: module 
+    - url: /local/custom_icons.js?v=25052001
+      type: module
+    - url: /hacsfiles/lovelace-hui-element/hui-element.js
+      type: module
+    - url: /hacsfiles/lovelace-badge-card/badge-card.js
+      type: module
+    - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
+      type: module
+    - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+      type: module
+    - url: /hacsfiles/restriction-card/restriction-card.js
+      type: module
+    - url: /hacsfiles/lovelace-gazpar-card/gazpar-card.js
+      type: module
+    - url: /local/font.css
+      type: css
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+    cache: true
+    time_memory: 57600
+    language: 'fr'
+    base_url: !secret tts_base_url
+    service_name: google_say
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - !secret http_proxy_1
+    - !secret http_proxy_2
+    - !secret http_proxy_3
+    - !secret http_proxy_4
+    - !secret http_proxy_5
+    - !secret http_proxy_6
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+media_player:
+  - platform: liveboxtvuhd
+    name: Livebox
+    host: !secret ip_livebox_tv
+    port: !secret port_livebox_tv
+    scan_interval: 30
+    country: france
+  - platform: lg_netcast
+    host: !secret ip_tv
+    access_token: !secret lg_pairing_key
+    name: LG TV
+
+telegram_bot:
+  - platform: polling
+    api_key: !secret telegram_token
+    allowed_chat_ids:
+      - !secret id_telegram_hugo
+      - !secret id_telegram_andrea
+
+notify:
+  - name: Telegram Andrea
+    platform: telegram
+    chat_id: !secret id_telegram_andrea
+
+  - name: Telegram Hugo
+    platform: telegram
+    chat_id: !secret id_telegram_hugo
+
+utility_meter:
+  total_gas_volume:
+    source: sensor.gas_volume
+  daily_gas_volume:
+    source: sensor.gas_volume    
+    cycle: daily
+  weekly_gas_volume:
+    source: sensor.gas_volume    
+    cycle: weekly 
+  monthly_gas_volume:
+    source: sensor.gas_volume    
+    cycle: monthly
+  yearly_gas_volume:
+    source: sensor.gas_volume    
+    cycle: yearly
+  
+  total_gas_energy:
+    source: sensor.gas_energy
+  daily_gas_energy:
+    source: sensor.gas_energy    
+    cycle: daily
+  weekly_gas_energy:
+    source: sensor.gas_energy    
+    cycle: weekly 
+  monthly_gas_energy:
+    source: sensor.gas_energy    
+    cycle: monthly
+  yearly_gas_energy:
+    source: sensor.gas_energy    
+    cycle: yearly 
+
+device_tracker:
+  - platform: ping_arp
+    count: 5
+    scan_interval: 60
+    iface: eth0
+    hosts:
+      hugo_mob: !secret ip_hugo_mob
+      andrea_mob: !secret ip_andrea_mob
+      lily_mob: !secret ip_lily_mob
+      gabriel_mob: !secret ip_gabriel_mob
+
+rest_command:
+  update_gandi:
+    url: !secret gandi_url
+    method: put
+    content_type: application/json
+    headers:
+      authorization: !secret gandi_authorization
+    payload: '{"rrset_values":["{{ state_attr("binary_sensor.wan_status", "wan_ipaddress") }}"],"rrset_ttl":300}'
+
+google_assistant:
+  project_id: friday-658fd
+  report_state: false
+  expose_by_default: false
+  entity_config:
+    switch.portail:
+      name: Portail
+
+switch:
+  - platform: group
+    name: Guest Wifi
+    # icon: mdi:wifi-lock-open
+    entities:
+      - switch.mesh_guest_wi_fi
+      - switch.mesh_guest_wi_fi_2
+      - switch.mesh_guest_wi_fi_3

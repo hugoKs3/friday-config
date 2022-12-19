@@ -1,0 +1,42 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Thermomètre Bains Haut
+    content:
+      type: vertical-stack
+      cards:
+        - type: entities
+          card_mod:
+            class: content
+          entities:
+            - entity: sensor.humidity_sdbhaut
+              name: Humidité
+              secondary_info: last-changed
+            - entity: sensor.pressure_sdbhaut
+              name: Pression
+              secondary_info: last-changed
+            - entity: sensor.battery_sdbhaut
+              name: Batterie
+              secondary_info: last-changed
+        - type: custom:mini-graph-card
+          entities:
+            - color: red
+              entity: sensor.temperature_sdbhaut
+              name: Température
+            - color: '#385581'
+              entity: sensor.humidity_sdbhaut
+              name: Humidité
+              y_axis: secondary
+          align_state: left
+          line_width: 4
+          height: 200
+          group: false
+          points_per_hour: 2
+          hour24: true
+          hours_to_show: 24
+          show:
+            {fill: fade, icon: false, name: false, state: true,
+            name_adaptive_color: true, labels: true, legend: true, average: true, extrema: true, points: false, labels_secondary: true}
+          tap_action:
+            action: none

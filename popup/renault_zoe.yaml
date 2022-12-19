@@ -1,0 +1,121 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Renault Zoe
+    style: >
+      --popup-max-width: calc(400px + 400px);
+      --ha-card-border-radius: 0;
+    card-mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            hui-entities-card:
+              $: |
+                .card-content {
+                  padding: 1.5em 1em 2.3em 1em;
+                }
+                ha-card {
+                  animation: border 1s forwards;
+                  border-radius: 0;
+                }
+                @keyframes border {
+                  0%, 100% {
+                    border-right: 1px solid rgba(0, 0, 0, 0.3);
+                  }
+                }
+                /* phone */
+                @media screen and (max-width: 800px) {
+                  ha-card {
+                    animation: none;
+                  }
+                }
+              $hui-horizontal-stack-card$: |
+                #root {
+                  justify-content: space-evenly;
+                  margin-top: 1.9em;
+                  margin-left: 0.8em;
+                }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: repeat(2, 1fr)
+        grid-template-rows: 1fr
+        grid-template-areas: |
+          "part1 part2"
+        mediaquery:
+          #phone
+          "(max-width: 800px)":
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(2, 1fr)
+            grid-template-areas: |
+              "part1"
+              "part2"
+      cards:
+        - type: vertical-stack
+          view_layout:
+            grid-area: part1
+          cards:
+            - type: entities
+              state_color: true
+              show_header_toggle: false
+              card_mod:
+                class: content
+              entities:
+
+                - entity: binary_sensor.gg085jj_plugged_in
+                  name: Branchée
+
+                - entity: binary_sensor.gg085jj_charging
+                  name: Charge en cours
+                  icon: mdi:battery-charging-40
+                  
+                - type: divider
+
+                - entity: sensor.gg085jj_battery_level
+                  name: Niveau batterie
+
+                - entity: sensor.gg085jj_battery_autonomy
+                  name: Autonomie
+
+                - type: divider
+
+                - entity: sensor.zoe_burn_rate
+                  name: Burn Rate
+                  icon: mdi:fire
+                  style: |
+                    :host {
+                      {% if (states('sensor.zoe_burn_rate')|int) > 0 %}
+                        --paper-item-icon-color: red;
+                        color: red;
+                      {% endif %}
+                    }
+                  
+                - type: divider
+
+            - type: custom:mini-graph-card
+              entities:
+                - color: '#327662'
+                  entity: sensor.gg085jj_mileage
+                  name: Kilométrage
+              align_state: left
+              line_width: 4
+              height: 200
+              group: false
+              hour24: true
+              hours_to_show: 240
+              aggregate_func: diff
+              group_by: date
+              show_points: true
+              show:
+                {fill: fade, icon: true, name: true, state: true,
+                name_adaptive_color: true, labels: true, legend: true, average: false, extrema: false, points: hover, graph: bar}
+              tap_action:
+                action: none
+
+        - type: map
+          aspect_ratio: 4:3
+          default_zoom: 16
+          entities:
+            - device_tracker.gg085jj_location

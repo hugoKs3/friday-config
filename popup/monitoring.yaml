@@ -1,0 +1,763 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Monitoring
+    # style:
+    #   .: |
+    #     :host .content {
+    #       width: calc(385px + 385px + 385px);
+    #       max-width: 90vw;
+    #     }
+    style: >
+      --popup-max-width: calc(400px + 400px + 400px);
+      --ha-card-border-radius: 0;
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            # card divider border
+            .: |
+              #root {
+                  margin: -24px 0 !important;
+              }
+            hui-entities-card:
+              $: |
+                .card-content {
+                  padding: var(--popup-content-padding);
+                  padding-bottom: 0.8em;
+                }
+                ha-card {
+                  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                  border-radius: 0;
+                  transition: none;
+                }
+                /* portrait */
+                @media screen and (max-width: 1200px) {
+                  ha-card {
+                    border-right: none;
+                    border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+                  }
+                }
+              $hui-horizontal-stack-card:
+                # horizontal bottom buttons
+                $: |
+                  #root {
+                    justify-content: space-evenly;
+                    margin-top: 1.7em;
+                    max-width: 82vw; /* iphonex */
+                  }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: repeat(3, 1fr)
+        grid-template-rows: 1fr
+        grid-template-areas: |
+          "network battery internet"
+        mediaquery:
+          #phone
+          "(max-width: 800px)":
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(3, 1fr)
+            grid-template-areas: |
+              "network"
+              "battery"
+              "internet"
+      cards:
+
+        #################################################
+        #                                               #
+        #                NETWORK                        #
+        #                                               #
+        #################################################
+
+        - type: entities
+          view_layout:
+            grid-area: network
+          title: Réseau
+          show_header_toggle: false
+          card_mod:
+            class: header
+            # style: |
+            #   ha-card {
+            #     margin: 0px !important;
+            #   }
+          entities:
+            - type: custom:badge-card
+              badges:
+                - entity: binary_sensor.ap_buanderie
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.ap_buanderie', 'on') %} green {% else %} red {%endif %};
+                    } 
+                - entity: binary_sensor.ap_exterieur
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.ap_exterieur', 'on') %} green {% else %} red {%endif %};
+                    } 
+                - entity: binary_sensor.ap_garage
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.ap_garage', 'on') %} green {% else %} red {%endif %};
+                    }  
+                - entity: binary_sensor.ap_lily
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.ap_lily', 'on') %} green {% else %} red {%endif %};
+                    }                 
+                - entity: binary_sensor.ap_salon
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.ap_salon', 'on') %} green {% else %} red {%endif %};
+                    }  
+                - entity: binary_sensor.camera_nord
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.camera_nord', 'on') %} green {% else %} red {%endif %};
+                    }
+                - entity: binary_sensor.camera_sud
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.camera_sud', 'on') %} green {% else %} red {%endif %};
+                    }
+                - entity: binary_sensor.chromecast
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.chromecast', 'on') %} green {% else %} red {%endif %};
+                    }
+                - entity: binary_sensor.gateway_xiaomi
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.gateway_xiaomi', 'on') %} green {% else %} red {%endif %};
+                    }
+                - entity: binary_sensor.google_home
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.google_home', 'on') %} green {% else %} red {%endif %};
+                    } 
+                - entity: binary_sensor.imprimante
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.imprimante', 'on') %} green {% else %} red {%endif %};
+                    }  
+                - entity: binary_sensor.livebox_tv
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.livebox_tv', 'on') %} green {% else %} red {%endif %};
+                    } 
+                # - entity: binary_sensor.rpi_3
+                #   style: >
+                #     :host {
+                #       --label-badge-blue: {% if is_state('binary_sensor.rpi_3', 'on') %} green {% else %} red {%endif %};
+                #     }     
+                - entity: binary_sensor.rpi_4
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.rpi_4', 'on') %} green {% else %} red {%endif %};
+                    }              
+                - entity: binary_sensor.shelly_cheminee
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_cheminee', 'on') %} green {% else %} red {%endif %};
+                    }  
+                - entity: binary_sensor.shelly_drip
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_drip', 'on') %} green {% else %} red {%endif %};
+                    } 
+                - entity: binary_sensor.shelly_electrolyseur
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_electrolyseur', 'on') %} green {% else %} red {%endif %};
+                    }  
+                - entity: binary_sensor.shelly_guirlande
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_guirlande', 'on') %} green {% else %} red {%endif %};
+                    }   
+                - entity: binary_sensor.shelly_jardin_nord
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_jardin_nord', 'on') %} green {% else %} red {%endif %};
+                    }     
+                - entity: binary_sensor.shelly_jardin_sud
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_jardin_sud', 'on') %} green {% else %} red {%endif %};
+                    }
+                - entity: binary_sensor.shelly_pilier
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_pilier', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.shelly_plafonnier
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_plafonnier', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.shelly_pompe
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_pompe', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.shelly_portail
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_portail', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.shelly_salon
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_salon', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.shelly_seche_linge
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_seche_linge', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.shelly_spot
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_spot', 'on') %} green {% else %} red {%endif %};
+                    } 
+                - entity: binary_sensor.shelly_sprinkler
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_sprinkler', 'on') %} green {% else %} red {%endif %};
+                    }  
+                - entity: binary_sensor.shelly_tv_set
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_tv_set', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.shelly_vanne
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.shelly_vanne', 'on') %} green {% else %} red {%endif %};
+                    }  
+                - entity: binary_sensor.sonos
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.sonos', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.synology
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.synology', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.tablette_murale
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.tablette_murale', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.thermostat
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.thermostat', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.yeelight_gabriel
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.yeelight_gabriel', 'on') %} green {% else %} red {%endif %};
+                    }    
+                - entity: binary_sensor.yeelight_lily
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.yeelight_lily', 'on') %} green {% else %} red {%endif %};
+                    }  
+
+        #################################################
+        #                                               #
+        #                      BATTERY                  #
+        #                                               #
+        #################################################
+
+        - type: entities
+          view_layout:
+            grid-area: battery
+          title: Batteries
+          show_header_toggle: false
+          card_mod:
+            class: header
+            # style:
+            #   .: |
+            #     ha-card {
+            #       margin: 0px !important;
+            #       animation: border 1s forwards;
+            #       border-radius: 0;
+            #     }
+            #     .card-content {
+            #       padding: 1.5em 2.7em 2.3em 2em;
+            #     }
+            #     @keyframes border {
+            #       0%, 100% {
+            #         border-right: 1px solid rgba(0, 0, 0, 0.3);
+            #       }
+            #     }
+            #     /* phone */
+            #     @media screen and (max-width: 800px) {
+            #       ha-card {
+            #         animation: none;
+            #       }
+            #     }
+            #   mini-graph-card:
+            #     $: |
+            #       ha-card {
+            #         padding: 0px !important;
+            #       }
+            #   hui-horizontal-stack-card:
+            #     $:
+            #       .: |
+            #         #root {
+            #           margin-top: 1em;
+            #           margin-right: 1.5em;
+            #         }
+            #         #root > * {
+            #           flex: none !important;
+            #         }
+            #       hui-entities-card:
+            #         $:
+            #           .: |
+            #             #states {
+            #               padding: 0;
+            #             }
+            #           hui-sensor-entity-row:
+            #             $hui-generic-entity-row$: |
+            #               .info {
+            #                 margin: 0 8px 0 8px !important;
+            #               }
+          entities:
+
+            - type: custom:bar-card
+              width: 55%
+              height: 20px
+              decimal: 0
+              unit_of_measurement: '%'
+              positions: &bar_card_positions
+                icon: outside
+                indicator: 'off'
+                name: outside
+              severity: &bar_card_severity
+                - color: '#6d2525'
+                  from: 0
+                  to: 5
+                - color: '#ff7a00'
+                  from: 6
+                  to: 14
+                - color: '#e9e913'
+                  from: 15
+                  to: 49
+                - color: '#39b329'
+                  from: 50
+                  to: 100
+              entity_row: true
+              entities:
+                - entity: sensor.battery_sdbbas
+                  name: Bains Bas
+                  icon: mdi:battery
+                - entity: sensor.battery_sdbhaut
+                  name: Bains Haut
+                  icon: mdi:battery
+                - entity: sensor.battery_chbas
+                  name: Chambre Bas
+                  icon: mdi:battery
+                - entity: sensor.battery_gabriel
+                  name: Chambre Gabriel
+                  icon: mdi:battery
+                - entity: sensor.battery_lily
+                  name: Chambre Lily
+                  icon: mdi:battery
+                - entity: sensor.battery_outdoor
+                  name: Extérieur
+                  icon: mdi:battery
+                - entity: sensor.battery_door
+                  name: Porte Entrée
+                  icon: mdi:battery
+                - entity: sensor.battery_presencebas
+                  name: Présence Bas
+                  icon: mdi:battery
+                - entity: sensor.battery_presencehaut
+                  name: Présence Haut
+                  icon: mdi:battery
+                - entity: sensor.battery_salon
+                  name: Salon
+                  icon: mdi:battery
+                - entity: sensor.thermostat_battery_percent
+                  name: Thermostat
+                  icon: mdi:battery
+                - entity: sensor.ups_battery_charge
+                  name: UPS
+                  icon: mdi:battery
+
+        #################################################
+        #                                               #
+        #                    TEMPS/INTERNET             #
+        #                                               #
+        #################################################
+
+        - type: vertical-stack
+          view_layout:
+            grid-area: internet
+          cards:
+            - type: entities
+              title: Températures
+              show_header_toggle: false
+              card_mod:
+                class: header
+                style:
+                  .: |
+                    ha-card {
+                      margin: 0px !important;
+                      animation: border 1s forwards;
+                      border-radius: 0;
+                    }
+                    .card-content {
+                      padding: var(--popup-content-padding);
+                      padding-bottom: 0.8em;
+                    }
+                    @keyframes border {
+                      0%, 100% {
+                        border-right: 1px solid rgba(0, 0, 0, 0.3);
+                      }
+                    }
+                    /* phone */
+                    @media screen and (max-width: 800px) {
+                      ha-card {
+                        animation: none;
+                      }
+                    }
+                  mini-graph-card:
+                    $: |
+                      ha-card {
+                        padding: 0px !important;
+                      }
+                  hui-horizontal-stack-card:
+                    $:
+                      .: |
+                        #root {
+                          margin-top: 1em;
+                          margin-right: 1.5em;
+                        }
+                        #root > * {
+                          flex: none !important;
+                        }
+                      hui-entities-card:
+                        $:
+                          .: |
+                            #states {
+                              padding: 0;
+                            }
+                          hui-sensor-entity-row:
+                            $hui-generic-entity-row$: |
+                              .info {
+                                margin: 0 8px 0 8px !important;
+                              }
+
+              entities:
+                - type: custom:badge-card
+                  badges:
+                    - entity: sensor.cheminee_device_temperature
+                      name: 'Cheminee'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.cheminee_device_temperature') %}
+                          {% if is_number(state) and state | float < 50 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 50 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 60)  or is_state('binary_sensor.cheminee_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        }
+                    - entity: sensor.electrolyseur_device_temperature
+                      name: 'Electrolyseur'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.electrolyseur_device_temperature') %}
+                          {% if is_number(state) and state | float < 70 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 70 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.electrolyseur_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        } 
+                    - entity: sensor.guirlande_device_temperature
+                      name: 'Guirlande'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.guirlande_device_temperature') %}
+                          {% if is_number(state) and state | float < 65 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 65 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.guirlande_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        } 
+                    - entity: sensor.jardin_nord_device_temperature
+                      name: 'Jardin Nord'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.jardin_nord_device_temperature') %}
+                          {% if is_number(state) and state | float < 75 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 75 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.jardin_nord_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        } 
+                    - entity: sensor.jardin_est_device_temperature
+                      name: 'Jardin Est'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.jardin_est_device_temperature') %}
+                          {% if is_number(state) and state | float < 65 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 65 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.jardin_est_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        } 
+                    - entity: sensor.pilier_device_temperature
+                      name: 'Pilier'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.pilier_device_temperature') %}
+                          {% if is_number(state) and state | float < 65 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 65 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.pilier_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        } 
+                    - entity: sensor.pompe_device_temperature
+                      name: 'Pompe'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.pompe_device_temperature') %}
+                          {% if is_number(state) and state | float < 70 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 70 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.pompe_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        }  
+                    - entity: sensor.processor_temperature
+                      name: 'RPI 4'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.processor_temperature') %}
+                          {% if is_number(state) and state | float < 70 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 70 %}
+                            orange
+                          {% endif %}
+                          {% if is_number(state) and state | float > 80 %}
+                            red
+                          {% endif %}
+                        }   
+                    - entity: sensor.salon_device_temperature
+                      name: 'Salon'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.salon_device_temperature') %}
+                          {% if is_number(state) and state | float < 70 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 70 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.salon_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        } 
+                    - entity: sensor.seche_linge_device_temperature
+                      name: 'Sèche-Linge'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.seche_linge_device_temperature') %}
+                          {% if is_number(state) and state | float < 65 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 65 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.seche_linge_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        } 
+                    - entity: sensor.spot_temp_device_temperature
+                      name: 'Spot'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.spot_temp_device_temperature') %}
+                          {% if is_number(state) and state | float < 70 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 70 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.spot_temp_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        } 
+                    - entity: sensor.tv_set_device_temperature
+                      name: 'TV Set'
+                      style: >
+                        :host {
+                          --label-badge-red: 
+                          {% set state = states('sensor.tv_set_device_temperature') %}
+                          {% if is_number(state) and state | float < 50 %}
+                            blue
+                          {% endif %}
+                          {% if is_number(state) and state | float > 50 %}
+                            orange
+                          {% endif %}
+                          {% if (is_number(state) and state | float > 60)  or is_state('binary_sensor.tv_set_overheating', 'on') %}
+                            red
+                          {% endif %}
+                        } 
+
+            - type: entities
+              title: Internet
+              show_header_toggle: false
+              card_mod:
+                class: header
+                style:
+                  .: |
+                    ha-card {
+                      margin: 0px !important;
+                      animation: border 1s forwards;
+                      border-radius: 0;
+                    }
+                    .card-content {
+                      padding: 1.5em 2.7em 2.3em 2em;
+                    }
+                    @keyframes border {
+                      0%, 100% {
+                        border-right: 1px solid rgba(0, 0, 0, 0.3);
+                      }
+                    }
+                    /* phone */
+                    @media screen and (max-width: 800px) {
+                      ha-card {
+                        animation: none;
+                      }
+                    }
+                  mini-graph-card:
+                    $: |
+                      ha-card {
+                        padding: 0px !important;
+                      }
+                  hui-horizontal-stack-card:
+                    $:
+                      .: |
+                        #root {
+                          margin-top: 1em;
+                          margin-right: 1.5em;
+                        }
+                        #root > * {
+                          flex: none !important;
+                        }
+                      hui-entities-card:
+                        $:
+                          .: |
+                            #states {
+                              padding: 0;
+                            }
+                          hui-sensor-entity-row:
+                            $hui-generic-entity-row$: |
+                              .info {
+                                margin: 0 8px 0 8px !important;
+                              }
+              entities:
+                - entity: binary_sensor.wan_status
+                  style: >
+                    :host {
+                      color: 
+                      {% if is_state('binary_sensor.wan_status', 'off') %}
+                        red
+                      {% endif %}
+                    }
+                - entity: sensor.gandi_synchro
+                  style: >
+                    :host {
+                      color: 
+                      {% if is_state('binary_sensor.gandi_up_to_date', 'off') %}
+                        red
+                      {% endif %}
+                    }
+
+                - button.livebox_restart
+
+            - type: custom:mini-graph-card
+              style:
+                .: |
+                  ha-card {
+                    margin: 0px !important;
+                    animation: border 1s forwards;
+                    border-radius: 0;
+                  }
+                  @keyframes border {
+                    0%, 100% {
+                      border-right: 1px solid rgba(0, 0, 0, 0.3);
+                    }
+                  }
+                  /* phone */
+                  @media screen and (max-width: 800px) {
+                    ha-card {
+                      animation: none;
+                    }
+                  }
+              entities:
+                - color: '#3DFF33'
+                  entity: sensor.ookla_download
+                  name: Download
+                - color: '#339DFF'
+                  entity: sensor.ookla_upload
+                  name: Upload
+              align_state: left
+              line_width: 2
+              height: 100
+              group: false
+              points_per_hour: 6
+              hour24: true
+              hours_to_show: 12
+              show:
+                {fill: fade, icon: false, name: false, state: false,
+                name_adaptive_color: true, labels: true, legend: true, average: false, extrema: false, points: false, labels_secondary: true}
+              tap_action:
+                action: none
+

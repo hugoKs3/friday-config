@@ -1,0 +1,597 @@
+- id: '1660577511317'
+  alias: Polling Renault
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /20
+  condition: []
+  action:
+  - service: homeassistant.update_entity
+    data: {}
+    target:
+      entity_id:
+      - sensor.gj468rk_battery_autonomy
+      - sensor.gj468rk_battery_available_energy
+      - sensor.gj468rk_battery_level
+      - binary_sensor.gj468rk_charging
+      - sensor.gj468rk_charging_remaining_time
+      - device_tracker.gj468rk_location
+      - sensor.gj468rk_mileage
+      - sensor.gg085jj_battery_autonomy
+      - sensor.gg085jj_battery_level
+      - binary_sensor.gg085jj_charging
+      - sensor.gg085jj_battery_available_energy
+      - sensor.gg085jj_charging_remaining_time
+      - device_tracker.gg085jj_location
+      - sensor.gg085jj_mileage
+      - binary_sensor.gg085jj_plugged_in
+  mode: single
+- id: '1662839324434'
+  alias: Remplissage Piscine
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.vanne
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: input_number.set_value
+    data_template:
+      value: '{{ (states(''input_number.temps_remplissage_piscine'') | int) * 60 }}'
+      entity_id: input_number.elapsed_remplissage_piscine
+  - service: automation.turn_on
+    data: {}
+    target:
+      entity_id: automation.decompte_remplissage_piscine
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.mode_piscine
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.electrolyseur
+  - delay:
+      minutes: '{{ states(''input_number.temps_remplissage_piscine'') | int }}'
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.vanne
+  - service: script.notif_google_home
+    data:
+      message: Le remplissage de la piscine est terminé
+  - delay:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.mode_piscine
+  - service: automation.turn_off
+    data: {}
+    target:
+      entity_id: automation.decompte_remplissage_piscine
+  mode: single
+- id: '1662898775387'
+  alias: Crepuscule ON
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id:
+      - switch.cheminee
+      - switch.salon
+      - switch.guirlande
+      - switch.pilier
+      - switch.jardin_est
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.plafonnier
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.guirlande
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.jardin_est
+      - switch.pilier
+  mode: single
+- id: '1662899844224'
+  alias: Veilleuse Gabriel
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:30:00'
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      rgb_color:
+      - 0
+      - 134
+      - 255
+      brightness_pct: 24
+    target:
+      entity_id: light.yeelight_gabriel
+  mode: single
+- id: '1663429217444'
+  alias: Piscine
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /10
+  - platform: state
+    entity_id:
+    - input_boolean.mode_piscine
+  - platform: state
+    entity_id:
+    - binary_sensor.cycle_piscne
+  condition:
+  - condition: state
+    entity_id: input_boolean.mode_piscine
+    state: 'on'
+  action:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.cycle_piscne
+      state: 'on'
+    then:
+    - if:
+      - condition: state
+        entity_id: switch.pompe
+        state: 'off'
+      then:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.pompe
+    - if:
+      - condition: state
+        entity_id: input_boolean.saison_piscine
+        state: 'on'
+      then:
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 15
+          milliseconds: 0
+      - if:
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: switch.electrolyseur
+            state: 'off'
+          - condition: state
+            entity_id: switch.pompe
+            state: 'on'
+          - condition: state
+            entity_id: input_boolean.mode_piscine
+            state: 'on'
+        then:
+        - service: switch.turn_on
+          data: {}
+          target:
+            entity_id: switch.electrolyseur
+    else:
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id:
+        - switch.pompe
+        - switch.electrolyseur
+  mode: single
+- id: '1663517344914'
+  alias: Reveil Tablette
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.presence_haut
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: script.turn_on
+    data: {}
+    target:
+      entity_id: script.wake_up_tablet
+  mode: single
+- id: '1663519278701'
+  alias: Notification Poubelle
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.poubelle_verte
+        state: '0'
+      sequence:
+      - service: script.notif_google_home
+        data:
+          message: Il faut sortir la poubelle verte
+    - conditions:
+      - condition: state
+        entity_id: sensor.poubelle_jaune
+        state: '0'
+      sequence:
+      - service: script.notif_google_home
+        data:
+          message: Il faut sortir la poubelle jaune
+    - conditions:
+      - condition: state
+        entity_id: sensor.poubelle_vegetaux
+        state: '0'
+      sequence:
+      - service: script.notif_google_home
+        data:
+          message: Il faut sortir la poubelle végétaux
+  mode: single
+- id: '1663520952657'
+  alias: Notification Charge Zoe
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.gg085jj_charge_state
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: sensor.gg085jj_charge_state
+      state: not_in_charge
+    then:
+    - service: script.notif_telegram
+      data:
+        message: 'La charge de la Zoe est terminée : {{states.sensor.gg085jj_battery_level.state}}%'
+    else:
+    - service: script.notif_telegram
+      data:
+        message: 'La charge de la Zoe est commencé : {{states.sensor.gg085jj_battery_level.state}}%'
+  mode: single
+- id: '1663953216583'
+  alias: Decompte Remplissage Piscine
+  description: ''
+  trigger:
+  - platform: time_pattern
+    seconds: /1
+  condition: []
+  action:
+  - service: input_number.decrement
+    data: {}
+    target:
+      entity_id: input_number.elapsed_remplissage_piscine
+  mode: single
+- id: '1664035079801'
+  alias: Arrosage
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:00:00'
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.arrosage_ce_soir
+      state: 'on'
+    then:
+    - if:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: input_select.arrosage_type
+          state: Tout
+        - condition: state
+          entity_id: input_select.arrosage_type
+          state: Sprinkler
+      then:
+      - service: input_number.set_value
+        data:
+          value: 3
+        target:
+          entity_id: input_number.temps_arrosage
+      - service: automation.turn_on
+        data: {}
+        target:
+          entity_id: automation.decompte_arrosage
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.sprinkler
+      - delay:
+          hours: 0
+          minutes: 3
+          seconds: 0
+          milliseconds: 0
+      - service: switch.turn_off
+        data: {}
+        target:
+          entity_id: switch.sprinkler
+      - service: automation.turn_off
+        data: {}
+        target:
+          entity_id: automation.decompte_arrosage
+    - if:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: input_select.arrosage_type
+          state: Tout
+        - condition: state
+          entity_id: input_select.arrosage_type
+          state: Goutte-à-goutte
+      then:
+      - service: input_number.set_value
+        data:
+          value: 20
+        target:
+          entity_id: input_number.temps_arrosage
+      - service: automation.turn_on
+        data: {}
+        target:
+          entity_id: automation.decompte_arrosage
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.goutte
+      - delay:
+          hours: 0
+          minutes: 20
+          seconds: 0
+          milliseconds: 0
+      - service: switch.turn_off
+        data: {}
+        target:
+          entity_id: switch.goutte
+      - service: automation.turn_off
+        data: {}
+        target:
+          entity_id: automation.decompte_arrosage
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id: input_boolean.arrosage_hier
+    else:
+    - service: input_boolean.turn_off
+      data: {}
+      target:
+        entity_id: input_boolean.arrosage_hier
+  mode: single
+- id: '1664036043639'
+  alias: Decompte Arrosage
+  description: ''
+  trigger:
+  - platform: time_pattern
+    seconds: /1
+  condition: []
+  action:
+  - service: input_number.decrement
+    data: {}
+    target:
+      entity_id: input_number.elapsed_arrosage
+  mode: single
+- id: '1664304010323'
+  alias: Notification Seche-Linge
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.seche_linge_en_marche
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.seche_linge_en_marche
+      state: 'on'
+    then:
+    - service: script.notif_google_home
+      data:
+        message: Le sèche-linge a démarré
+    else:
+    - service: script.notif_google_home
+      data:
+        message: Le sèche-linge a terminé
+  mode: single
+- id: '1664402305968'
+  alias: Renew SSL Certificate
+  description: ''
+  trigger:
+  - platform: time
+    at: 03:00:05
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.s_cert_exiry_d
+    below: 30
+  action:
+  - service: hassio.addon_restart
+    data:
+      addon: core_letsencrypt
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - service: hassio.addon_restart
+    data:
+      addon: core_nginx_proxy
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: homeassistant.restart
+    data: {}
+  mode: single
+- id: '1664560056333'
+  alias: Alerte Intrusion
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.door_window_sensor_158d00024e4b12
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.enable_alarm
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  action:
+  - service: script.notif_google_home
+    data:
+      bypass: true
+      message: Vous avez 30 secondes pour désactiver l'alarme
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - if:
+    - condition: state
+      entity_id: input_boolean.enable_alarm
+      state: 'on'
+    then:
+    - service: script.notif_google_home
+      data:
+        bypass: true
+        message: Vous avez 20 secondes pour désactiver l'alarme
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 10
+        milliseconds: 0
+    - if:
+      - condition: state
+        entity_id: input_boolean.enable_alarm
+        state: 'on'
+      then:
+      - service: script.notif_google_home
+        data:
+          bypass: true
+          message: Vous avez 10 secondes pour désactiver l'alarme
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 10
+          milliseconds: 0
+      - if:
+        - condition: state
+          entity_id: input_boolean.enable_alarm
+          state: 'on'
+        then:
+        - service: light.turn_on
+          data: {}
+          target:
+            area_id:
+            - outdoor
+            - living_room
+        - service: switch.turn_on
+          data: {}
+          target:
+            area_id:
+            - salon
+            - living_room
+        - service: script.notif_telegram
+          data:
+            message: ALERTE INTRUSION !
+        - repeat:
+            count: '3'
+            sequence:
+            - service: script.notif_google_home
+              data:
+                bypass: true
+                message: Attention ! Alerte intrusion ! Les services de sécurité ont
+                  été prévenus
+            - delay:
+                hours: 0
+                minutes: 0
+                seconds: 10
+                milliseconds: 0
+        - repeat:
+            count: '3'
+            sequence:
+            - service: button.press
+              data: {}
+              target:
+                entity_id: button.ring_your_phone
+            - delay:
+                hours: 0
+                minutes: 0
+                seconds: 10
+                milliseconds: 0
+  mode: single
+- id: '1664570844806'
+  alias: Update Gandi DNS
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.wan_status
+    attribute: wan_ipaddress
+  condition: []
+  action:
+  - service: rest_command.update_gandi
+    data: {}
+  - service: script.notif_telegram
+    data:
+      message: Gandi DNS record updated
+  mode: single
+- id: '1665480949706'
+  alias: Crepuscule OFF 1
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: +01:00:00
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.guirlande
+  mode: single
+- id: '1665481009768'
+  alias: Crepuscule OFF 2
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: +02:00:00
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.jardin_est
+      - switch.pilier
+  mode: single

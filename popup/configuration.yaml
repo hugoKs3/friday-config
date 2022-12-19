@@ -1,0 +1,171 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Configuration
+    style: >
+      --popup-max-width: calc(385px + 385px + 385px);
+      --ha-card-border-radius: 0;
+    # card-mod:
+    #   style:
+    #     layout-card:
+    #       $grid-layout$:
+    #         hui-entities-card:
+    #           $: |
+    #             .card-content {
+    #               padding: 1.5em 1em 2.3em 1em;
+    #             }
+    #             ha-card {
+    #               animation: border 1s forwards;
+    #               border-radius: 0;
+    #             }
+    #             @keyframes border {
+    #               0%, 100% {
+    #                 border-right: 1px solid rgba(0, 0, 0, 0.3);
+    #               }
+    #             }
+    #             /* phone */
+    #             @media screen and (max-width: 800px) {
+    #               ha-card {
+    #                 animation: none;
+    #               }
+    #             }
+    #           $hui-horizontal-stack-card$: |
+    #             #root {
+    #               justify-content: space-evenly;
+    #               margin-top: 1.9em;
+    #               margin-left: 0.8em;
+    #             }
+    #         hui-vertical-stack-card:
+    #           $hui-entities-card$: |
+    #             .card-content {
+    #               padding: 1.5em 1.5em 2.3em 1.5em;
+    #             }
+    #             ha-card {
+    #               animation: border 1s forwards;
+    #               border-radius: 0;
+    #             }
+    #             @keyframes border {
+    #               0%, 100% {
+    #                 border-right: 1px solid rgba(0, 0, 0, 0.3);
+    #               }
+    #             }
+    #             /* phone */
+    #             @media screen and (max-width: 800px) {
+    #               ha-card {
+    #                 animation: none;
+    #               }
+    #             }
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            # card divider border
+            .: |
+              #root {
+                  margin: -24px 0 !important;
+              }
+            hui-entities-card:
+              $: |
+                .card-content {
+                  padding: var(--popup-content-padding);
+                  padding-bottom: 0.8em;
+                }
+                ha-card {
+                  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                  border-radius: 0;
+                  transition: none;
+                }
+                /* portrait */
+                @media screen and (max-width: 1200px) {
+                  ha-card {
+                    border-right: none;
+                    border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+                  }
+                }
+              $hui-horizontal-stack-card:
+                # horizontal bottom buttons
+                $: |
+                  #root {
+                    justify-content: space-evenly;
+                    margin-top: 1.7em;
+                    max-width: 82vw; /* iphonex */
+                  }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        grid-template-columns: repeat(3, 1fr)
+        grid-template-rows: 1fr
+        grid-template-areas: |
+          "auto options internals"
+        mediaquery:
+          #phone
+          "(max-width: 800px)":
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(3, 1fr)
+            grid-template-areas: |
+              "auto"
+              "options"
+              "internals"
+      cards:
+
+        - type: entities
+          view_layout:
+            grid-area: auto
+          title: Automations
+          show_header_toggle: false
+          card_mod:
+            class: header
+            style: |
+              ha-card {
+                margin: 0px !important;
+              }
+          entities:
+            - entity: automation.alerte_intrusion
+            - entity: automation.arrosage
+            - entity: automation.crepuscule
+            - entity: automation.crepuscule_off_1
+            - entity: automation.crepuscule_off_2
+            - entity: automation.veilleuse_gabriel
+            - entity: automation.piscine
+            - entity: automation.remplissage_piscine
+            - entity: automation.notification_charge_zoe
+            - entity: automation.notification_poubelle
+            - entity: automation.notification_seche_linge
+
+        - type: entities
+          view_layout:
+            grid-area: options
+          title: Options
+          show_header_toggle: false
+          card_mod:
+            class: header
+            style: |
+              ha-card {
+                margin: 0px !important;
+              }
+          entities:
+            - entity: input_boolean.enable_googlehome_notifs
+            - entity: input_boolean.enable_telegram_notifs
+            - entity: switch.guest_wifi
+              icon: mdi:wifi-lock-open
+
+        - type: entities
+          view_layout:
+            grid-area: internals
+          title: Internals
+          show_header_toggle: false
+          card_mod:
+            class: header
+            style: |
+              ha-card {
+                margin: 0px !important;
+              }
+          entities:
+            - entity: automation.polling_renault
+            - entity: automation.renew_ssl_certificate
+            - entity: automation.update_gandi_dns
+            - entity: automation.reveil_tablette
+            - entity: automation.decompte_arrosage
+            - entity: automation.decompte_remplissage_piscine
