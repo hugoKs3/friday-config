@@ -2,6 +2,9 @@ homeassistant:
   packages: !include_dir_named include
   allowlist_external_dirs: [/config/]
 
+logger:
+  default: debug
+
 lovelace:
   mode: yaml #use ui-lovelace.yaml
   resources: #hacs

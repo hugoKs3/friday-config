@@ -2,4 +2,4 @@
 
 My Home Assistant configuration largely inspired from https://github.com/matt8707/hass-config   
 
-![dashboard](https://raw.githubusercontent.com/hugoKs3/friday-config/master/www/img/F_R_I_D_A_Y_.png)
+![dashboard](https://raw.githubusercontent.com/hugoKs3/friday-config/master/www/F_R_I_D_A_Y_.png)
