@@ -3,7 +3,7 @@ homeassistant:
   allowlist_external_dirs: [/config/]
 
 logger:
-  default: debug
+  default: warning
 
 lovelace:
   mode: yaml #use ui-lovelace.yaml
