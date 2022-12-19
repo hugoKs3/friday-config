@@ -149,6 +149,9 @@ rest_command:
       authorization: !secret gandi_authorization
     payload: '{"rrset_values":["{{ state_attr("binary_sensor.wan_status", "wan_ipaddress") }}"],"rrset_ttl":300}'
 
+shell_command:
+  ha_gitpush: bash /config/shell_commands/ha_gitpush.sh
+
 google_assistant:
   project_id: friday-658fd
   report_state: false

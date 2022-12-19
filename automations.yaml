@@ -603,8 +603,6 @@
     at: '23:23:23'
   condition: []
   action:
-  - service: hassio.addon_stdin
-    data:
-      addon: core_ssh
-      input: /config/shell_commands/ha_gitpush.sh
+  - service: shell_command.ha_gitpush
+    data: {}
   mode: single
