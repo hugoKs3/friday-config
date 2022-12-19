@@ -595,3 +595,16 @@
       - switch.jardin_est
       - switch.pilier
   mode: single
+- id: '1671473882028'
+  alias: Push Config to GitHub
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:23:23'
+  condition: []
+  action:
+  - service: hassio.addon_stdin
+    data:
+      addon: core_ssh
+      input: /config/shell_commands/ha_gitpush.sh
+  mode: single
