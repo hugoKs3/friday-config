@@ -178,10 +178,10 @@ views:
             cards:
 
               - type: custom:button-card
-                entity: light.plafonnier
+                entity: light.yeelight_plafonnier
                 name: Plafonnier
                 template:
-                  - light_dimmer
+                  - light_rgb
                   - icon_hue
     
               - type: custom:button-card

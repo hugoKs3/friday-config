@@ -57,8 +57,8 @@ binary_sensor:
     name: "Shelly Pilier"
     scan_interval: 30   
   - platform: ping
-    host: !secret ip_shelly_plafonnier
-    name: "Shelly Plafonnier"
+    host: !secret ip_yeelight_plafonnier
+    name: "Yeelight Plafonnier"
     scan_interval: 30   
   - platform: ping
     host: !secret ip_shelly_pompe
@@ -171,7 +171,7 @@ binary_sensor:
       - binary_sensor.shelly_guirlande
       - binary_sensor.shelly_jardin_nord
       - binary_sensor.shelly_pilier
-      - binary_sensor.shelly_plafonnier
+      - binary_sensor.yeelight_plafonnier
       - binary_sensor.shelly_pompe
       - binary_sensor.shelly_portail
       - binary_sensor.shelly_salon

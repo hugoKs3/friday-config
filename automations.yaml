@@ -97,27 +97,8 @@
   - service: light.turn_on
     data: {}
     target:
-      entity_id: light.plafonnier
-  - delay:
-      hours: 1
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
-  - service: switch.turn_off
-    data: {}
-    target:
-      entity_id: switch.guirlande
-  - delay:
-      hours: 1
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
-  - service: switch.turn_off
-    data: {}
-    target:
       entity_id:
-      - switch.jardin_est
-      - switch.pilier
+      - light.yeelight_plafonnier
   mode: single
 - id: '1662899844224'
   alias: Veilleuse Gabriel

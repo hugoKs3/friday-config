@@ -191,11 +191,11 @@ browser_mod:
                     :host {
                       --label-badge-blue: {% if is_state('binary_sensor.shelly_pilier', 'on') %} green {% else %} red {%endif %};
                     }    
-                - entity: binary_sensor.shelly_plafonnier
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_plafonnier', 'on') %} green {% else %} red {%endif %};
-                    }    
+                # - entity: binary_sensor.shelly_plafonnier
+                #   style: >
+                #     :host {
+                #       --label-badge-blue: {% if is_state('binary_sensor.shelly_plafonnier', 'on') %} green {% else %} red {%endif %};
+                #     }    
                 - entity: binary_sensor.shelly_pompe
                   style: >
                     :host {
@@ -265,6 +265,11 @@ browser_mod:
                   style: >
                     :host {
                       --label-badge-blue: {% if is_state('binary_sensor.yeelight_lily', 'on') %} green {% else %} red {%endif %};
+                    }  
+                - entity: binary_sensor.yeelight_plafonnier
+                  style: >
+                    :host {
+                      --label-badge-blue: {% if is_state('binary_sensor.yeelight_plafonnier', 'on') %} green {% else %} red {%endif %};
                     }  
 
         #################################################
