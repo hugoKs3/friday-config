@@ -802,26 +802,33 @@ views:
           #       - base
           #       - icon_home
 
-          - type: custom:button-card
-            variables:
-              hugo_picture: >
-                [[[
-                  return `${states['person.hugo'].attributes.entity_picture}`;
-                ]]]
-              andrea_picture: >
-                [[[
-                  return `${states['person.andrea'].attributes.entity_picture}`;
-                ]]]
-              lily_picture: >
-                [[[
-                  return `${states['person.lily_rose'].attributes.entity_picture}`;
-                ]]]
-              gabriel_picture: >
-                [[[
-                  return `${states['person.gabriel'].attributes.entity_picture}`;
-                ]]]
-            template:
-              - myperson
+          - type: custom:restriction-card
+            restrictions:
+              pin:
+                code: !secret alarm_pin_code
+            locked_icon: none
+            card:
+              type: custom:button-card
+              tap_action: !include popup/renault_zoe.yaml
+              variables:
+                hugo_picture: >
+                  [[[
+                    return `${states['person.hugo'].attributes.entity_picture}`;
+                  ]]]
+                andrea_picture: >
+                  [[[
+                    return `${states['person.andrea'].attributes.entity_picture}`;
+                  ]]]
+                lily_picture: >
+                  [[[
+                    return `${states['person.lily_rose'].attributes.entity_picture}`;
+                  ]]]
+                gabriel_picture: >
+                  [[[
+                    return `${states['person.gabriel'].attributes.entity_picture}`;
+                  ]]]
+              template:
+                - myperson
 
       #################################################
       #                                               #
