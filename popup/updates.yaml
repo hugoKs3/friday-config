@@ -241,7 +241,7 @@ browser_mod:
               style: >
                 :host {
                   color: 
-                  {% if !is_state('sensor.hacs', '0') %}
+                  {% if not is_state('sensor.hacs', '0') %}
                     #2d7bad
                   {% endif %}
                 }
