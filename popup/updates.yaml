@@ -175,6 +175,16 @@ browser_mod:
                     #2d7bad
                   {% endif %}
                 }
+            - entity: update.ftp_update
+              name: FTP Server
+              icon: mdi:file-send
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.ftp_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
             - entity: update.let_s_encrypt_update
               name: Let's Encrypt
               icon: mdi:lock-check
@@ -202,6 +212,16 @@ browser_mod:
                 :host {
                   color: 
                   {% if is_state('update.jellyfin_nas_update', 'on') %}
+                    #2d7bad
+                  {% endif %}
+                }
+            - entity: update.network_ups_tools_update
+              name: NUT Server
+              icon: mdi:battery-heart
+              style: >
+                :host {
+                  color: 
+                  {% if is_state('update.network_ups_tools_update', 'on') %}
                     #2d7bad
                   {% endif %}
                 }

@@ -391,7 +391,7 @@ browser_mod:
                 - entity: sensor.thermostat_battery_percent
                   name: Thermostat
                   icon: mdi:battery
-                - entity: sensor.ups_battery_charge
+                - entity: sensor.myups_battery_charge
                   name: UPS
                   icon: mdi:battery
 

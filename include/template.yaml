@@ -251,6 +251,10 @@ template:
             is_state('update.terminal_ssh_update', 'on')
             or
             is_state('update.linksys_update', 'on')
+            or
+            is_state('update.network_ups_tools_update', 'on')
+            or
+            is_state('update.ftp_update', 'on')
           }}"
 
       - name: "Shelly Update"
