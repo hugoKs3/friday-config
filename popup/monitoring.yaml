@@ -241,11 +241,11 @@ browser_mod:
                     :host {
                       --label-badge-blue: {% if is_state('binary_sensor.sonos', 'on') %} green {% else %} red {%endif %};
                     }    
-                - entity: binary_sensor.synology
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.synology', 'on') %} green {% else %} red {%endif %};
-                    }    
+                # - entity: binary_sensor.synology
+                #   style: >
+                #     :host {
+                #       --label-badge-blue: {% if is_state('binary_sensor.synology', 'on') %} green {% else %} red {%endif %};
+                #     }    
                 - entity: binary_sensor.tablette_murale
                   style: >
                     :host {

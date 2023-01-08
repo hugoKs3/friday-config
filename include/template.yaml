@@ -234,8 +234,6 @@ template:
             or
             states('sensor.hacs') != '0'
             or
-            is_state('update.diskstation_dsm_update', 'on')
-            or
             is_state('update.file_editor_update', 'on')
             or
             is_state('update.let_s_encrypt_update', 'on')

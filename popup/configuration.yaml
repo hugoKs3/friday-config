@@ -170,3 +170,5 @@ browser_mod:
             - entity: automation.decompte_arrosage
             - entity: automation.decompte_remplissage_piscine
             - entity: automation.push_config_to_github
+            - entity: automation.screenshot_cam_sud
+            - entity: automation.clean_cam_screenshots

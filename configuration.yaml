@@ -151,6 +151,9 @@ rest_command:
 
 shell_command:
   ha_gitpush: /bin/bash /config/shell_commands/ha_gitpush.sh
+  copy_latest_cam_north: /bin/bash /config/shell_commands/copy_cam_north.sh
+  copy_latest_cam_south: /bin/bash /config/shell_commands/copy_cam_south.sh
+  clean_cams: /bin/bash /config/shell_commands/clean_cams.sh
 
 google_assistant:
   project_id: friday-658fd

@@ -587,3 +587,27 @@
   - service: shell_command.ha_gitpush
     data: {}
   mode: single
+- id: '1673192794387'
+  alias: Screenshot Cam
+  description: ''
+  trigger:
+  - platform: time_pattern
+    seconds: /2
+  condition: []
+  action:
+  - service: shell_command.copy_latest_cam_south
+    data: {}
+  - service: shell_command.copy_latest_cam_north
+    data: {}
+  mode: single
+- id: '1673192910247'
+  alias: Clean Cam Screenshots
+  description: ''
+  trigger:
+  - platform: time_pattern
+    seconds: /30
+  condition: []
+  action:
+  - service: shell_command.clean_cams
+    data: {}
+  mode: single

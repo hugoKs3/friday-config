@@ -298,13 +298,13 @@ browser_mod:
                     #2d7bad
                   {% endif %}
                 }
-            - entity: update.diskstation_dsm_update
-              name: Synology
-              icon: mdi:server-network
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('binary_sensor.diskstation_dsm_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+            # - entity: update.diskstation_dsm_update
+            #   name: Synology
+            #   icon: mdi:server-network
+            #   style: >
+            #     :host {
+            #       color: 
+            #       {% if is_state('binary_sensor.diskstation_dsm_update', 'on') %}
+            #         #2d7bad
+            #       {% endif %}
+            #     }
