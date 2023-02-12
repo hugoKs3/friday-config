@@ -171,3 +171,4 @@ switch:
       - switch.mesh_guest_wi_fi
       - switch.mesh_guest_wi_fi_2
       - switch.mesh_guest_wi_fi_3
+      - switch.guest_wifi_switch
