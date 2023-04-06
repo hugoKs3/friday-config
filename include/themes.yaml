@@ -88,8 +88,9 @@ frontend:
       card-mod-view-yaml: |
         .: |
           hui-view {
-            background: none !important;
-            min-height: 100vh;
+            background: url('/local/background.png');
+            background-size: cover;
+            min-height: 120vh;
           }
 
         #################################################
