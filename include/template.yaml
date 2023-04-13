@@ -332,13 +332,9 @@ template:
       - name: "Cartouche Imprimante Low"
         state: "
           {{
-            (states('sensor.dcp_375cw_cyan_ink_remaining') | int) <= 5
+            (states('sensor.canon_ts5100_series_black') | int) <= 5
             or
-            (states('sensor.dcp_375cw_magenta_ink_remaining') | int) <= 5
-            or 
-            (states('sensor.dcp_375cw_yellow_ink_remaining') | int) <= 5
-            or
-            (states('sensor.dcp_375cw_black_ink_remaining') | int) <= 5
+            (states('sensor.canon_ts5100_series_color') | int) <= 5
           }}"
 
       - name: "Battery Low"

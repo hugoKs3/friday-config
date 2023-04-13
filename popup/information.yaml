@@ -612,19 +612,11 @@ browser_mod:
               entity_row: true
               entities:
 
-                - entity: sensor.dcp_375cw_black_ink_remaining
+                - entity: sensor.canon_ts5100_series_black
                   name: Black
                   color: black
                   icon: mdi:water-percent
-                - entity: sensor.dcp_375cw_cyan_ink_remaining
-                  name: Cyan
+                - entity: sensor.canon_ts5100_series_color
+                  name: Couleur
                   color: cyan
-                  icon: mdi:water-percent
-                - entity: sensor.dcp_375cw_magenta_ink_remaining
-                  name: Magenta
-                  color: magenta
-                  icon: mdi:water-percent
-                - entity: sensor.dcp_375cw_yellow_ink_remaining
-                  name: Yellow
-                  color: yellow
                   icon: mdi:water-percent
