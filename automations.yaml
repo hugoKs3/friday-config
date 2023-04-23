@@ -274,7 +274,7 @@
   description: ''
   trigger:
   - platform: time
-    at: '23:00:00'
+    at: '22:30:00'
   condition: []
   action:
   - if:
