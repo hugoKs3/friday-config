@@ -575,6 +575,12 @@
       entity_id:
       - switch.jardin_est
       - switch.pilier
+      - switch.cheminee
+      - switch.salon
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.yeelight_plafonnier
   mode: single
 - id: '1671473882028'
   alias: Push Config to GitHub
