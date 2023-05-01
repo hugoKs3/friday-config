@@ -127,7 +127,9 @@ browser_mod:
             - entity: automation.crepuscule
             - entity: automation.crepuscule_off_1
             - entity: automation.crepuscule_off_2
+            - entity: automation.crepuscule_off_all
             - entity: automation.veilleuse_gabriel
+            - entity: automation.veilleuse_gabriel_off
             - entity: automation.piscine
             - entity: automation.remplissage_piscine
             - entity: automation.notification_charge_zoe

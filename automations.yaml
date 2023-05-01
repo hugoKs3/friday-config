@@ -101,7 +101,7 @@
       - light.yeelight_plafonnier
   mode: single
 - id: '1662899844224'
-  alias: Veilleuse Gabriel
+  alias: Veilleuse Gabriel ON
   description: ''
   trigger:
   - platform: time
@@ -575,12 +575,6 @@
       entity_id:
       - switch.jardin_est
       - switch.pilier
-      - switch.cheminee
-      - switch.salon
-  - service: light.turn_off
-    data: {}
-    target:
-      entity_id: light.yeelight_plafonnier
   mode: single
 - id: '1671473882028'
   alias: Push Config to GitHub
@@ -616,4 +610,40 @@
   action:
   - service: shell_command.clean_cams
     data: {}
+  mode: single
+- id: '1682928756541'
+  alias: Veilleuse Gabriel OFF
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:30:00
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.yeelight_gabriel
+  mode: single
+- id: '1682929018692'
+  alias: Crepuscule OFF ALL
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.cheminee
+      - switch.pilier
+      - switch.guirlande
+      - switch.jardin_est
+      - switch.salon
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.yeelight_plafonnier
   mode: single
