@@ -81,7 +81,7 @@ browser_mod:
                   
                 - type: divider
 
-                - entity: sensor.pluiviometrie_last_24h
+                - entity: sensor.test_pluie
                   name: Pluie dernières 24h
                   icon: mdi:weather-pouring
 

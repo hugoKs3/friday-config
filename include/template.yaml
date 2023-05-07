@@ -313,7 +313,7 @@ template:
           {{
             (is_state('input_select.arrosage_mode', 'Auto-Full') or (is_state('input_select.arrosage_mode', 'Auto-Demi') and is_state('binary_sensor.arrosage_hier', 'off')))
             and
-            (states('sensor.pluiviometrie_last_24h') | int) < 1
+            (states('sensor.test_pluie') | float) < 1
           }}"
 
       - name: "Arrosage Hier"

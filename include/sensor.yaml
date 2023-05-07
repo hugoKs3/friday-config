@@ -65,6 +65,11 @@ sensor:
         value_template: >
           {{ ((as_timestamp(states('sensor.cert_expiry_timestamp_external')) - as_timestamp(states.sensor.date.last_updated)) / 86400) | int }}
         unit_of_measurement: 'days'
+      test_pluie:
+        friendly_name: 'Test Pluie'
+        value_template: >
+          {{ states("sensor.pluiviometrie_last_24h") | float(0) }}
+        unit_of_measurement: 'mm'
 
   - platform: rest
     name: Gandi IP
