@@ -569,7 +569,7 @@ views:
               locked_icon: none
               card:
                 type: custom:button-card
-                entity: switch.pompe
+                entity: switch.pompe_switch_0
                 name: Piscine
                 hold_action: !include popup/piscine.yaml
                 tap_action: !include popup/piscine.yaml

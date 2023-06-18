@@ -75,7 +75,8 @@ browser_mod:
                   
                 - type: divider
 
-                - entity: switch.pompe
+                - entity: switch.pompe_switch_0
+                  name: Pompe
                   icon: mdi:pump
 
                 - entity: switch.electrolyseur

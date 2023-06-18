@@ -558,19 +558,19 @@ browser_mod:
                             red
                           {% endif %}
                         } 
-                    - entity: sensor.pompe_device_temperature
+                    - entity: sensor.pompe_switch_0_device_temperature
                       name: 'Pompe'
                       style: >
                         :host {
                           --label-badge-red: 
-                          {% set state = states('sensor.pompe_device_temperature') %}
+                          {% set state = states('sensor.pompe_switch_0_device_temperature') %}
                           {% if is_number(state) and state | float < 70 %}
                             blue
                           {% endif %}
                           {% if is_number(state) and state | float > 70 %}
                             orange
                           {% endif %}
-                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.pompe_overheating', 'on') %}
+                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.pompe_switch_0_overheating', 'on') %}
                             red
                           {% endif %}
                         }  

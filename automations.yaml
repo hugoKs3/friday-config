@@ -142,13 +142,13 @@
     then:
     - if:
       - condition: state
-        entity_id: switch.pompe
+        entity_id: switch.pompe_switch_0
         state: 'off'
       then:
       - service: switch.turn_on
         data: {}
         target:
-          entity_id: switch.pompe
+          entity_id: switch.pompe_switch_0
     - if:
       - condition: state
         entity_id: input_boolean.saison_piscine
@@ -166,7 +166,7 @@
             entity_id: switch.electrolyseur
             state: 'off'
           - condition: state
-            entity_id: switch.pompe
+            entity_id: switch.pompe_switch_0
             state: 'on'
           - condition: state
             entity_id: input_boolean.mode_piscine
@@ -181,7 +181,7 @@
       data: {}
       target:
         entity_id:
-        - switch.pompe
+        - switch.pompe_switch_0
         - switch.electrolyseur
   mode: single
 - id: '1663517344914'
