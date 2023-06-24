@@ -165,6 +165,18 @@ google_assistant:
     switch.portail:
       name: Portail
 
+command_line:
+  - sensor: 
+      name: "Ookla Data"
+      command: "/config/shell_commands/speedtest.bin -f json --accept-license --accept-gdpr"
+      scan_interval: 300
+      command_timeout: 30
+      value_template: >-
+          {% set ping = value_json.ping.latency|string %}
+          {% set dn = value_json.download.bandwidth|string %}
+          {% set up = value_json.upload.bandwidth|string %}
+          {{ ping + "," + dn + "," + up }}  
+
 switch:
   - platform: group
     name: Guest Wifi
