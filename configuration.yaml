@@ -1,6 +1,8 @@
 homeassistant:
   packages: !include_dir_named include
   allowlist_external_dirs: [/config/]
+  internal_url: http://192.168.1.186:8123
+  external_url: https://biot.questroy.com:18123
 
 lovelace:
   mode: yaml #use ui-lovelace.yaml
@@ -55,7 +57,7 @@ tts:
     cache: true
     time_memory: 57600
     language: 'fr'
-    base_url: !secret tts_base_url
+    #base_url: !secret tts_base_url
     service_name: google_say
 
 http:
@@ -67,6 +69,7 @@ http:
     - !secret http_proxy_4
     - !secret http_proxy_5
     - !secret http_proxy_6
+    - !secret http_proxy_7
 
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -165,17 +168,7 @@ google_assistant:
     switch.portail:
       name: Portail
 
-command_line:
-  - sensor: 
-      name: "Ookla Data"
-      command: "/config/shell_commands/speedtest.bin -f json --accept-license --accept-gdpr"
-      scan_interval: 300
-      command_timeout: 30
-      value_template: >-
-          {% set ping = value_json.ping.latency|string %}
-          {% set dn = value_json.download.bandwidth|string %}
-          {% set up = value_json.upload.bandwidth|string %}
-          {{ ping + "," + dn + "," + up }}  
+command_line: !include command_line.yaml
 
 switch:
   - platform: group
