@@ -170,6 +170,10 @@ google_assistant:
 
 command_line: !include command_line.yaml
 
+frontend:
+  themes: !include_dir_merge_named themes
+
+
 switch:
   - platform: group
     name: Guest Wifi
