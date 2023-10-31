@@ -1,10 +1,16 @@
-- sensor: 
-    name: "Ookla Data"
-    command: "/config/shell_commands/speedtest.bin -f json --accept-license --accept-gdpr"
+ - sensor: 
+    name: "SpeedTest CLI Data"
+    unique_id: speedtest_cli_data
+    command: "/config/3rdparty/speedtest/speedtest --format=json --accept-license --accept-gdpr"
+    #Toutes les 4 heures, 60 * 60 * 4 = 14400  3600 = 1 heure
     scan_interval: 300
-    command_timeout: 30
+    command_timeout: 60
     value_template: >-
-        {% set ping = value_json.ping.latency|string %}
-        {% set dn = value_json.download.bandwidth|string %}
-        {% set up = value_json.upload.bandwidth|string %}
-        {{ ping + "," + dn + "," + up }}    
+        {{ 
+            { 
+            "ping": value_json.ping.latency, 
+            "download": value_json.download.bandwidth, 
+            "upload": value_json.upload.bandwidth 
+            }
+            | to_json 
+        }}

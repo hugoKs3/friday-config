@@ -87,11 +87,7 @@ binary_sensor:
   - platform: ping
     host: !secret ip_shelly_vanne
     name: "Shelly Vanne"
-    scan_interval: 30   
-  # - platform: ping
-  #   host: !secret ip_synology
-  #   name: "Synology"
-  #   scan_interval: 30   
+    scan_interval: 30    
   - platform: ping
     host: !secret ip_tablette_murale
     name: "Tablette Murale"
@@ -144,14 +140,6 @@ binary_sensor:
     host: !secret ip_livebox_tv
     name: "Livebox TV"
     scan_interval: 30
-  - platform: ping
-    host: !secret ip_laptop_lily
-    name: "Laptop Lily"
-    scan_interval: 30
-  - platform: ping
-    host: !secret ip_laptop_gabriel
-    name: "Laptop Gabriel"
-    scan_interval: 30
 
   - platform: group
     name: "Network pings"
@@ -179,7 +167,6 @@ binary_sensor:
       - binary_sensor.shelly_spot
       - binary_sensor.shelly_tv_set
       - binary_sensor.shelly_vanne
-      # - binary_sensor.synology
       - binary_sensor.tablette_murale
       - binary_sensor.thermostat
       - binary_sensor.yeelight_gabriel

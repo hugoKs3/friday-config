@@ -388,7 +388,7 @@ browser_mod:
                 - entity: sensor.battery_salon
                   name: Salon
                   icon: mdi:battery
-                - entity: sensor.thermostat_battery_percent
+                - entity: sensor.thermostat_battery_percent_2
                   name: Thermostat
                   icon: mdi:battery
                 - entity: sensor.myups_battery_charge
@@ -748,10 +748,10 @@ browser_mod:
                   }
               entities:
                 - color: '#3DFF33'
-                  entity: sensor.ookla_download
+                  entity: sensor.speedtest_cli_download
                   name: Download
                 - color: '#339DFF'
-                  entity: sensor.ookla_upload
+                  entity: sensor.speedtest_cli_upload
                   name: Upload
               align_state: left
               line_width: 2

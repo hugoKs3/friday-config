@@ -1,22 +1,4 @@
 sensor:
-  - platform: average
-    unique_id: 'avghometemp'
-    name: 'Température moyenne'
-    entities:
-      - sensor.temperature_salon
-      - sensor.temperature_gabriel
-      - sensor.temperature_chbas
-      - sensor.temperature_lily
-      - sensor.thermostat_current_temp
-      
-  - platform: average
-    unique_id: 'avghomehum'
-    name: 'Humidité moyenne'
-    entities:
-      - sensor.humidity_salon
-      - sensor.humidity_gabriel
-      - sensor.humidity_chbas
-      - sensor.humidity_lily
 
   - platform: systemmonitor
     resources:

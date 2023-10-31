@@ -16,7 +16,7 @@ browser_mod:
       cards:
 
         - type: thermostat
-          entity: climate.general
+          entity: climate.general_2
 
         - type: entities
           card_mod:
@@ -62,7 +62,7 @@ browser_mod:
               crosshairs:
                 show: false
           series:
-            - entity: climate.general
+            - entity: climate.general_2
               attribute: current_temperature
               name: Temp
               color: '#385581'

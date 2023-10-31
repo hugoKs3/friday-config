@@ -463,9 +463,9 @@
         if (guestWifiStatus == "on") {
           status = `<font color="#5daeea">on</font>`;
         }
-        return `<ha-icon icon="mdi:home-thermometer-outline"></ha-icon> <b>  ${Math.round(states['sensor.temperature_moyenne'].state)}</b>°C / <b>  ${Math.round(states['sensor.humidite_moyenne'].state)}</b>%${spacer}
+        return `<ha-icon icon="mdi:home-thermometer-outline"></ha-icon> <b>  ${states['sensor.home_temperature'].state}</b>°C / <b>  ${states['sensor.home_humidity'].state}</b>%${spacer}
                 <ha-icon icon="mdi:car-side"></ha-icon> <b> ${states['sensor.waze_travel_time'].state} </b> ${states['sensor.waze_travel_time'].attributes.unit_of_measurement}${spacer}
-                <ha-icon icon="mdi:speedometer"></ha-icon> <b> ${states['sensor.ookla_download'].state} </b> ${states['sensor.ookla_download'].attributes.unit_of_measurement} / <b> ${states['sensor.ookla_upload'].state} </b> ${states['sensor.ookla_upload'].attributes.unit_of_measurement}${spacer}
+                <ha-icon icon="mdi:speedometer"></ha-icon> <b> ${states['sensor.speedtest_cli_download'].state} </b> ${states['sensor.speedtest_cli_download'].attributes.unit_of_measurement} / <b> ${states['sensor.speedtest_cli_upload'].state} </b> ${states['sensor.speedtest_cli_upload'].attributes.unit_of_measurement}${spacer}
                 <ha-icon icon="mdi:wifi-lock-open"></ha-icon> Guest Wifi <b> ${status} </b> 
         `;
       ]]]
@@ -751,6 +751,39 @@
 
   #################################################
   #                                               #
+  #                    TEMPO                      #
+  #                                               #
+  #################################################
+
+  tempo:
+    template:
+      - circle
+    custom_fields:
+      circle: >
+        [[[
+          let input = variables.circle_input_hc == null ? ' ' : (variables.circle_input_hc === 'off' ? 'HP' : 'HC'),
+            stroke_color = '#b2b2b2',
+            fill_color_1 = variables.circle_input_today === 'Bleu' ? 'rgb(35, 78 ,106)' : (variables.circle_input_today === 'Blanc' ? 'rgba(255, 255, 255, 0.8)' : (variables.circle_input_today === 'Rouge' ? 'rgb(196, 74 ,99)' : 'none')),
+            fill_color_2 = variables.circle_input_tomorrow === 'Bleu' ? 'rgb(35, 78 ,106)' : (variables.circle_input_tomorrow === 'Blanc' ? 'rgba(255, 255, 255, 0.8)' : (variables.circle_input_tomorrow === 'Rouge' ? 'rgb(196, 74 ,99)' : 'none')),
+            txt_color = variables.circle_input_today === 'Blanc' ? 'rgba(0, 0, 0, 0.6)' : '#8d8e90';
+          return `
+
+            <svg viewBox="0 0 50 50">
+              <defs>
+                <linearGradient id="half" gradientTransform="rotate(90)">
+                  <stop offset="75%"  stop-color="${fill_color_1}" />
+                  <stop offset="25%" stop-color="${fill_color_2}" />
+                </linearGradient>
+              </defs>
+              <circle cx="25" cy="25" r="20.5" stroke="${stroke_color}" stroke-width="1.5" fill="url('#half')" />
+              <text x="50%" y="54%" fill="${txt_color}" font-size="14" text-anchor="middle" alignment-baseline="middle" dominant-baseline="middle">${input}</text>
+            </svg>
+          `;
+        ]]] 
+
+
+  #################################################
+  #                                               #
   #                    POOL/ARROSAGE              #
   #                                               #
   #################################################
@@ -944,7 +977,7 @@
         - justify-self: start
         - line-height: 115%
       card:
-        - border-radius: var(--custom-button-card-border-radius)
+        - border-radius: calc(var(--custom-button-card-border-radius) / 2)
         #https://github.com/matt8707/hass-config/issues/118
         - border-width: 0
         - -webkit-tap-highlight-color: rgba(0,0,0,0)
@@ -1144,28 +1177,15 @@
   #                                               #
   #################################################
 
-  garbage:
-    state:
-      - operator: template
-        value: >
-          [[[ return variables.binstate; ]]]
-        styles:
-          card: [background-color: "rgba(255, 255, 255, 0.8)"]
-          name: [color: "rgba(0, 0, 0, 0.6)"]
-          state: [color: "rgba(0, 0, 0, 0.6)"]
-    tap_action:
-      action: >
-        [[[
-          return variables.bintype !== ""
-            ? 'call-service'
-            : 'none';
-        ]]]
-      service: garbage_collection.collect_garbage
-      service_data:
-        entity_id: >
-          [[[
-            return variables.bintype;
-          ]]]
+  # garbage:
+  #   state:
+  #     - operator: template
+  #       value: >
+  #         [[[ return variables.binstate; ]]]
+  #       styles:
+  #         card: [background-color: "rgba(255, 255, 255, 0.8)"]
+  #         name: [color: "rgba(0, 0, 0, 0.6)"]
+  #         state: [color: "rgba(0, 0, 0, 0.6)"]
 
   #################################################
   #                                               #
@@ -1422,78 +1442,68 @@
       - base
       - circle
       - loader
-    variables:
-      circle_input: >
-        [[[ return entity === undefined || Math.round(entity.attributes.brightness / 2.54); ]]]
     hold_action:
       action: fire-dom-event
       browser_mod:
         service: browser_mod.popup
         data:
           title: >
-            [[[ return entity === undefined || entity.attributes.friendly_name; ]]]
+            [[[
+              return !entity || entity.attributes.friendly_name;
+            ]]]
+          card_mod:
+            style:
+              #popup header
+              .:
           content:
-            type: custom:light-popup-card
-            entity: >
-              [[[ return variables.entity_id; ]]]
-            icon: none
-            fullscreen: false
-            brightnessWidth: 130px
-            brightnessHeight: 360px
-            borderRadius: 1.7em
-            sliderColor: '#c7c7c7'
-            sliderTrackColor: rgba(25, 25, 25, 0.9)
-            displayType: slider
-            actionSize: 4.5em
-            actionsInARow: 2
-            actions:
-              - action: call-service
-                service: light.turn_on
-                color: '#d8d9e1'
-                service_data:
-                  entity_id: >
-                    [[[ return variables.entity_id; ]]]
-                  color_temp: 153
-              - action: call-service
-                service: light.turn_on
-                color: '#d5b08d'
-                service_data:
-                  entity_id: >
-                    [[[ return variables.entity_id; ]]]
-                  color_temp: 326
-              - action: call-service
-                service: light.turn_on
-                color: '#0088ff'
-                service_data:
-                  entity_id: >
-                    [[[ return variables.entity_id; ]]]
-                  brightness_pct: 24
-              - action: fire-dom-event
-                image: >-
-                  data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
-                  50 50"%3E%3Cstyle%3Esvg%7Bbackground:radial-gradient(circle,rgba(255,255,
-                  255,1) 0%25,rgba(255,255,255,0) 80%25),conic-gradient(%237827e6,%23e622e7,
-                  %23e40588,%23e41919,%23e5691e,%23e8e22e,%237de629,%2334e828,%2333e75c,
-                  %2334e8e0,%23207de5,%231227e5,%237827e6)%7D%3C/style%3E%3C/svg%3E
-                browser_mod:
-                  service: browser_mod.popup
-                  data:
-                    title: >
-                      [[[ return entity === undefined || entity.attributes.friendly_name; ]]]
-                    content:
-                      type: custom:light-entity-card
-                      entity: >
-                        [[[ return variables.entity_id; ]]]
-                      brightness: true
-                      color_temp: true
-                      white_value: true
-                      full_width_sliders: false
-                      hide_header: true
-                      show_slider_percent: true
-                      smooth_color_wheel: true
-                      persist_features: true
-                      consolidate_entities: true
-                  
+            type: entities
+            card_mod:
+              style: |
+                #states {
+                  padding-top: 0.5em;
+                }
+            entities: >
+              [[[
+                if (entity) {
+                    let lights = [],
+                        id = Boolean(entity.attributes.entity_id)
+                            ? [entity.entity_id].concat(entity.attributes.entity_id)
+                            : [entity.entity_id];
+
+                    for (let i = 0; i < id.length; i++) {
+                        lights.push({
+                            "type": "custom:mushroom-light-card",
+                            "entity": id[i],
+                            "fill_container": true,
+                            "primary_info": "name",
+                            "secondary_info": "state",
+                            "icon_type": "icon",
+                            "show_brightness_control": true,
+                            "use_light_color": true,
+                            "show_color_temp_control": true,
+                            "show_color_control": true,
+                            "collapsible_controls": false
+                        });
+                    }
+                    return lights;
+                }
+              ]]]
+    variables:
+      circle_input: >
+        [[[
+          if (entity) {
+              // if light group get brightness from child to remove bounce
+              let child = entity.attributes.entity_id,
+                  brightness = child && states[child[0]].attributes.brightness
+                      ? Math.round(states[child[0]].attributes.brightness / 2.54)
+                      : Math.round(entity.attributes.brightness / 2.54);
+              return brightness === 0 && entity.state !== 'off'
+                  ? 1
+                  : brightness
+          }
+        ]]]
+      circle_input_unit: '%'
+
   light:
     template:
       - base
@@ -1651,7 +1661,7 @@
   #################################################
 
   conditional_media:
-    aspect_ratio: 1000/996
+    # aspect_ratio: 1000/996
     template:
       - base
       - icon_play_pause
@@ -1739,7 +1749,7 @@
         - overflow: visible
       card:
         - padding: 5.75% 5.25% 0 5.75%
-        - border-radius: calc(var(--custom-button-card-border-radius) / 2)
+        - border-radius: var(--custom-button-card-border-radius)
         - background: rgba(115, 115, 115, 0.2) center center/cover no-repeat
         - background-image: &media_background_image >
             [[[
@@ -1751,19 +1761,19 @@
             ]]]
         - color: >
             [[[
-              return entity === undefined
-                ? 'rgba(255, 255, 255, 0.3)'
-                : '#efefef';
+              return variables.state_on
+                ? 'rgba(0, 0, 0, 0.6)'
+                : 'rgba(255, 255, 255, 0.3)';
             ]]]
-        - text-shadow: >
-            [[[
-              return entity === undefined
-                ? 'none'
-                : '1px 1px 5px rgba(18, 22, 23, 0.9)';
-            ]]]
+        # - text-shadow: >
+        #     [[[
+        #       return entity === undefined
+        #         ? 'none'
+        #         : '1px 1px 5px rgba(18, 22, 23, 0.9)';
+        #     ]]]
       custom_fields:
         icon:
-          - width: 30%
+          - width: 50%
           - fill: >
               [[[
                 return entity && variables.media_on
@@ -1845,6 +1855,20 @@
           <path d="M2,15C3.67,14.25 5.33,13.5 7,13.17V5A3,3 0 0,1 10,2C11.31,2 12.42,2.83 12.83,4H10A1,1 0 0,0 9,5V6H14V5A3,3 0 0,1 17,2C18.31,2 19.42,2.83 19.83,4H17A1,1 0 0,0 16,5V14.94C18,14.62 20,13 22,13V15C19.78,15 17.56,17 15.33,17C13.11,17 10.89,15 8.67,15C6.44,15 4.22,16 2,17V15M14,8H9V10H14V8M14,12H9V13C10.67,13.16 12.33,14.31 14,14.79V12M2,19C4.22,18 6.44,17 8.67,17C10.89,17 13.11,19 15.33,19C17.56,19 19.78,17 22,17V19C19.78,19 17.56,21 15.33,21C13.11,21 10.89,19 8.67,19C6.44,19 4.22,20 2,21V19Z"/>
         </svg>
 
+  icon_tempo:
+    styles:
+      custom_fields:
+        icon:
+          - width: 160%
+          - margin-left: -5%
+          - fill: >
+              [[[ return '#9da0a2'; ]]]
+    custom_fields:
+      icon: >
+        <svg viewBox="0 0 50 50">
+          <path d="M11 15H6L13 1V9H18L11 23V15Z" />
+        </svg>
+
   icon_sprinkler:
     styles:
       custom_fields:
@@ -1920,7 +1944,7 @@
     styles:
       custom_fields:
         icon:
-          - width: 70%
+          - width: 150%
     custom_fields:
       icon: >
         <svg viewBox="0 0 50 50">
@@ -1942,7 +1966,7 @@
     styles:
       custom_fields:
         icon:
-          - width: 70%
+          - width: 150%
     custom_fields:
       icon: >
         <svg viewBox="0 0 50 50">
@@ -2983,7 +3007,7 @@
     custom_fields:
       graph:
         card:
-          type: "custom:mini-graph-card"
+          type: custom:mini-graph-card
           height: 800
           upper_bound: 38
           lower_bound: 18
@@ -2999,6 +3023,7 @@
             state: false
             legend: false
             labels: false
+
           #https://github.com/matt8707/hass-config/issues/118
           card_mod:
             style: |
