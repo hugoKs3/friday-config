@@ -13,7 +13,7 @@
       - extra_styles
     variables:
       state_on: >
-        [[[ return ['on', 'home', 'cool', 'fan_only', 'playing'].indexOf(entity === undefined || entity.state) !== -1; ]]]
+        [[[ return ['on', 'home', 'cool', 'heating', 'fan_only', 'playing'].indexOf(entity === undefined || entity.state || entity.attributes.hvac_action) !== -1; ]]]
       state: >
         [[[ return entity === undefined || entity.state; ]]]
       entity_id: >
@@ -79,19 +79,19 @@
         - padding: 11.5% 10.5% 10.5% 11.5%
         - --mdc-ripple-color: >
             [[[
-              return variables.state_on
+              return variables.state_on || variables.operation_mode === 'heating'
                 ? 'rgb(0, 0, 0)'
                 : 'rgba(255, 255, 255, 0.3)';
             ]]]
         - color: >
             [[[
-              return variables.state_on
+              return variables.state_on || variables.operation_mode === 'heating'
                 ? 'rgba(0, 0, 0, 0.6)'
                 : 'rgba(255, 255, 255, 0.3)';
             ]]]
         - background-color: >
             [[[
-              return variables.state_on
+              return variables.state_on || variables.operation_mode === 'heating'
                 ? 'rgba(255, 255, 255, 0.8)'
                 : 'rgba(115, 115, 115, 0.2)';
             ]]]
@@ -182,7 +182,7 @@
   extra_styles:
     extra_styles: >
       [[[
-        if (entity) {
+        if (entity && variables.state_on) {
           let hs = entity.attributes.hs_color === undefined,
             h = hs || entity.attributes.hs_color[0],
             s = hs || entity.attributes.hs_color[1],
@@ -2556,7 +2556,7 @@
           - width: 78%
           - margin-left: -10%
           - fill: >
-              [[[ return variables.state === 'cool' || variables.state === 'fan_only' ? '#5daeea' : '#9da0a2'; ]]]
+              [[[ return variables.state === 'cool' || variables.state === 'fan_only' || variables.operation_mode === 'heating' ? '#5daeea' : '#9da0a2'; ]]]
     custom_fields:
       icon: >
         <svg viewBox="0 0 50 50">
@@ -3011,7 +3011,7 @@
           height: 800
           upper_bound: 38
           lower_bound: 18
-          line_width: 12
+          line_width: 5
           align_state: left
           group: false
           points_per_hour: 2
@@ -3036,7 +3036,7 @@
       state:
         - z-index: 1
       custom_fields:
-        graph: [bottom: 0%, left: 0%, width: 100%, position: absolute, z-index: -1]
+        graph: [bottom: 0%, left: 0%, width: 100%, position: absolute, z-index: 0]
         icon:
           - width: 100%
           - fill: "#9da0a2"

@@ -175,13 +175,13 @@ browser_mod:
                     #2d7bad
                   {% endif %}
                 }
-            - entity: update.ftp_update
+            - entity: update.hugoks3_ftp_update
               name: FTP Server
               icon: mdi:file-send
               style: >
                 :host {
                   color: 
-                  {% if is_state('update.ftp_update', 'on') %}
+                  {% if is_state('update.hugoks3_ftp_update', 'on') %}
                     #2d7bad
                   {% endif %}
                 }

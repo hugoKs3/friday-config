@@ -80,26 +80,26 @@ template:
               {{- strptime(states('sensor.date'), '%Y-%m-%d').day }} {{ months[now().month-1] }}
             {%- endif -%}
             </font>
-          greet: |
-            <b>
-            {%- set time = now().hour %}
-            {%- if time <= 1 -%} Bonne nuit 
-            {%- elif time <= 3 -%} Bonne nuit
-            {%- elif time <= 5 -%} Bonne nuit
-            {%- elif time <= 7 -%} Bonjour
-            {%- elif time <= 9 -%} Bonjour
-            {%- elif time <= 10 -%} Bonjour
-            {%- elif time <= 13 -%} Bonne journée
-            {%- elif time <= 15 -%} Bonne journée
-            {%- elif time <= 17 -%} Bonne journée
-            {%- elif time <= 19 -%} Bonne soirée
-            {%- elif time <= 22 -%} Bonne soirée
-            {%- elif time <= 23 -%} Bonne soirée
-            {%- else %} Bonne soirée
-            {%- endif -%}
-            <br/>
-            <br/>
-            </b>
+          # greet: |
+          #   <b>
+          #   {%- set time = now().hour %}
+          #   {%- if time <= 1 -%} Bonne nuit 
+          #   {%- elif time <= 3 -%} Bonne nuit
+          #   {%- elif time <= 5 -%} Bonne nuit
+          #   {%- elif time <= 7 -%} Bonjour
+          #   {%- elif time <= 9 -%} Bonjour
+          #   {%- elif time <= 10 -%} Bonjour
+          #   {%- elif time <= 13 -%} Bonne journée
+          #   {%- elif time <= 15 -%} Bonne journée
+          #   {%- elif time <= 17 -%} Bonne journée
+          #   {%- elif time <= 19 -%} Bonne soirée
+          #   {%- elif time <= 22 -%} Bonne soirée
+          #   {%- elif time <= 23 -%} Bonne soirée
+          #   {%- else %} Bonne soirée
+          #   {%- endif -%}
+          #   <br/>
+          #   <br/>
+          #   </b>
 
           # weather: |
           #   {% set temperature = state_attr('weather.biot', 'temperature') %}
@@ -147,6 +147,18 @@ template:
       - name: "Thermostat Current Temp"
         unit_of_measurement: "°C"
         state: "{{ state_attr('climate.general_2', 'current_temperature') }}"
+
+      - name: "Jours ROUGE restants"
+        state: "{{ states.sensor.rte_tempo_cycle_jours_restants_rouge.state }}j / {{ (states.sensor.rte_tempo_cycle_jours_restants_rouge.state | int) + (states.sensor.rte_tempo_cycle_jours_deja_places_rouge.state | int) }}j"
+        icon: mdi:circle
+
+      - name: "Jours BLEU restants"
+        state: "{{ states.sensor.rte_tempo_cycle_jours_restants_bleu.state }}j / {{ (states.sensor.rte_tempo_cycle_jours_restants_bleu.state | int) + (states.sensor.rte_tempo_cycle_jours_deja_places_bleu.state | int) }}j"
+        icon: mdi:circle
+
+      - name: "Jours BLANC restants"
+        state: "{{ states.sensor.rte_tempo_cycle_jours_restants_blanc.state }}j / {{ (states.sensor.rte_tempo_cycle_jours_restants_blanc.state | int) + (states.sensor.rte_tempo_cycle_jours_deja_places_blanc.state | int) }}j"
+        icon: mdi:circle
 
       - name: 'SpeedTest CLI Ping'
         unique_id: speedtest_cli_ping
@@ -238,7 +250,7 @@ template:
             or
             is_state('update.network_ups_tools_update', 'on')
             or
-            is_state('update.ftp_update', 'on')
+            is_state('update.hugoks3_ftp_update', 'on')
           }}"
 
       - name: "Shelly Update"
@@ -318,9 +330,9 @@ template:
       - name: "Cartouche Imprimante Low"
         state: "
           {{
-            (states('sensor.canon_ts5100_series_black') | int) <= 5
+            (states('sensor.niveau_encre_couleur_preserved') | int) <= 5
             or
-            (states('sensor.canon_ts5100_series_color') | int) <= 5
+            (states('sensor.niveau_encre_noire_preserved') | int) <= 5
           }}"
 
       - name: "Battery Low"

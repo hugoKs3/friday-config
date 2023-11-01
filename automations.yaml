@@ -77,7 +77,7 @@
       entity_id: automation.decompte_remplissage_piscine
   mode: single
 - id: '1662898775387'
-  alias: Crepuscule ON
+  alias: Crepuscule ON Exterieur
   description: ''
   trigger:
   - platform: sun
@@ -89,16 +89,9 @@
     data: {}
     target:
       entity_id:
-      - switch.cheminee
-      - switch.salon
       - switch.guirlande
       - switch.pilier
       - switch.jardin_est
-  - service: light.turn_on
-    data: {}
-    target:
-      entity_id:
-      - light.yeelight_plafonnier
   mode: single
 - id: '1662899844224'
   alias: Veilleuse Gabriel ON
@@ -206,33 +199,15 @@
   trigger:
   - platform: time
     at: '20:00:00'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: calendar.poubelles
+    state: 'on'
   action:
-  - choose:
-    - conditions:
-      - condition: state
-        entity_id: sensor.poubelle_verte
-        state: '0'
-      sequence:
-      - service: script.notif_google_home
-        data:
-          message: Il faut sortir la poubelle verte
-    - conditions:
-      - condition: state
-        entity_id: sensor.poubelle_jaune
-        state: '0'
-      sequence:
-      - service: script.notif_google_home
-        data:
-          message: Il faut sortir la poubelle jaune
-    - conditions:
-      - condition: state
-        entity_id: sensor.poubelle_vegetaux
-        state: '0'
-      sequence:
-      - service: script.notif_google_home
-        data:
-          message: Il faut sortir la poubelle végétaux
+  - service: script.notif_google_home
+    data:
+      message: Il faut sortir la poubelle {{ state_attr('calendar.poubelles', 'message')
+        }}
   mode: single
 - id: '1663520952657'
   alias: Notification Charge Zoe
@@ -646,4 +621,79 @@
     data: {}
     target:
       entity_id: light.yeelight_plafonnier
+  mode: single
+- id: '1698836134725'
+  alias: Notification Tempo
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:15:00'
+  condition: []
+  action:
+  - service: script.notif_google_home
+    data:
+      message: Information Tempo. Demain, journée {{ states.sensor.rte_tempo_prochaine_couleur.state
+        }}
+  mode: single
+- id: '1698837169057'
+  alias: Tempo
+  description: ''
+  trigger:
+  - platform: time
+    at: sensor.rte_tempo_prochaine_couleur_changement
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+  - if:
+    - condition: state
+      entity_id: sensor.rte_tempo_couleur_actuelle
+      state: Rouge
+    then:
+    - service: automation.turn_off
+      data:
+        stop_actions: true
+      target:
+        entity_id:
+        - automation.piscine
+        - automation.crepuscule
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id: switch.seche_linge
+    else:
+    - service: automation.turn_on
+      data: {}
+      target:
+        entity_id:
+        - automation.piscine
+        - automation.crepuscule
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id: switch.seche_linge
+  mode: single
+- id: '1698842284018'
+  alias: Crepuscule ON Interieur
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id:
+      - switch.cheminee
+      - switch.salon
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.yeelight_plafonnier
   mode: single

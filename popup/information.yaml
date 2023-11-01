@@ -612,11 +612,11 @@ browser_mod:
               entity_row: true
               entities:
 
-                - entity: sensor.canon_ts5100_series_black
+                - entity: sensor.niveau_encre_noire_preserved
                   name: Black
                   color: black
                   icon: mdi:water-percent
-                - entity: sensor.canon_ts5100_series_color
+                - entity: sensor.niveau_encre_couleur_preserved
                   name: Couleur
-                  color: cyan
+                  color: magenta
                   icon: mdi:water-percent
