@@ -122,6 +122,8 @@ browser_mod:
                 margin: 0px !important;
               }
           entities:
+            - entity: automation.activation_alarme
+            - entity: automation.desactivation_alarme
             - entity: automation.alerte_intrusion
             - entity: automation.arrosage
             - entity: automation.crepuscule
@@ -133,9 +135,11 @@ browser_mod:
             - entity: automation.veilleuse_gabriel_off
             - entity: automation.piscine
             - entity: automation.remplissage_piscine
+            - entity: automation.tempo
             - entity: automation.notification_charge_zoe
             - entity: automation.notification_poubelle
             - entity: automation.notification_seche_linge
+            - entity: automation.notification_tempo
 
         - type: entities
           view_layout:
@@ -151,8 +155,6 @@ browser_mod:
           entities:
             - entity: input_boolean.enable_googlehome_notifs
             - entity: input_boolean.enable_telegram_notifs
-            - entity: switch.guest_wifi
-              icon: mdi:wifi-lock-open
 
         - type: entities
           view_layout:

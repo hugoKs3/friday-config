@@ -85,51 +85,6 @@ notif_telegram:
   - service: notify.telegram_hugo
     data:
       message: '{{ message }}'
-toggle_alarme:
-  alias: Toggle Alarme
-  sequence:
-  - if:
-    - condition: state
-      entity_id: input_boolean.enable_alarm
-      state: 'off'
-    then:
-    - service: automation.turn_off
-      data: {}
-      target:
-        entity_id:
-        - automation.crepuscule
-        - automation.notification_poubelle
-        - automation.notification_seche_linge
-        - automation.reveil_tablette
-        - automation.veilleuse_gabriel
-    - service: input_boolean.turn_off
-      data: {}
-      target:
-        entity_id: input_boolean.enable_googlehome_notifs
-    - service: input_boolean.turn_on
-      data: {}
-      target:
-        entity_id: input_boolean.enable_alarm
-    else:
-    - service: automation.turn_on
-      data: {}
-      target:
-        entity_id:
-        - automation.crepuscule
-        - automation.notification_poubelle
-        - automation.notification_seche_linge
-        - automation.reveil_tablette
-        - automation.veilleuse_gabriel
-    - service: input_boolean.turn_on
-      data: {}
-      target:
-        entity_id: input_boolean.enable_googlehome_notifs
-    - service: input_boolean.turn_off
-      data: {}
-      target:
-        entity_id: input_boolean.enable_alarm
-  mode: single
-  icon: mdi:shield-home
 je_suis_rentre:
   alias: Je Suis Rentre
   sequence:

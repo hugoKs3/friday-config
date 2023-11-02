@@ -413,15 +413,30 @@
     - binary_sensor.door_window_sensor_158d00024e4b12
     from: 'off'
     to: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.presence_haut
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.presence_bas
+    from: 'off'
+    to: 'on'
   condition:
   - condition: state
     entity_id: input_boolean.enable_alarm
     state: 'on'
     for:
       hours: 0
-      minutes: 1
-      seconds: 0
+      minutes: 0
+      seconds: 30
   action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
   - service: script.notif_google_home
     data:
       bypass: true
@@ -517,9 +532,6 @@
   action:
   - service: rest_command.update_gandi
     data: {}
-  - service: script.notif_telegram
-    data:
-      message: Gandi DNS record updated
   mode: single
 - id: '1665480949706'
   alias: Crepuscule OFF 1
@@ -696,4 +708,50 @@
     target:
       entity_id:
       - light.yeelight_plafonnier
+  mode: single
+- id: '1698956706914'
+  alias: Activation Alarme
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.somebody_home
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: binary_sensor.door_window_sensor_158d00024e4b12
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.enable_alarm
+  - service: script.notif_telegram
+    data:
+      message: Alarme activée automatiquement
+  mode: single
+- id: '1698957606433'
+  alias: Desactivation Alarme
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.somebody_home
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.enable_alarm
   mode: single

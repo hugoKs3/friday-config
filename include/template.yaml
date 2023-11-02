@@ -362,3 +362,15 @@ template:
           {{
             state_attr('binary_sensor.wan_status', 'wan_ipaddress') == states('sensor.gandi_ip')
           }}"
+
+      - name: "Somebody Home"
+        state: "
+          {{
+            is_state('person.hugo', 'home')
+            or
+            is_state('person.andrea', 'home')
+            or
+            is_state('person.lily_rose', 'home')
+            or
+            is_state('person.gabriel', 'home')
+          }}"

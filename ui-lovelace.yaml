@@ -136,7 +136,7 @@ views:
             entity: weather.biot
             #title: Home
             sun_entity: sun.sun
-            #temperature_sensor: sensor.outdoor_temp
+            temperature_sensor: sensor.temperature_outdoor
             weather_icon_type: line
             animated_icon: false
             forecast_rows: 5
@@ -192,8 +192,9 @@ views:
                     }
 
               - type: button
-                icon: custom:mychart
-                tap_action: !include popup/consommations.yaml
+                icon: custom:shield
+                tap_action:
+                  action: none
                 hold_action:
                   action: none
                 #https://github.com/matt8707/hass-config/issues/118
@@ -729,7 +730,7 @@ views:
         cards:
 
           - type: custom:button-card
-            entity: sensor.gj468rk_charging
+            entity: binary_sensor.gj468rk_charging
             tap_action: !include popup/renault_megane.yaml
             name: Megane
             state_display: >

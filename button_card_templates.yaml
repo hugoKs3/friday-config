@@ -458,15 +458,9 @@
     state_display: >
       [[[
         let spacer = '‍ ‍ ‍ ‍ ‍ ‍<font color="#2f3436">|</font> ‍ ‍ ‍ ‍ ';
-        var guestWifiStatus = states["switch.guest_wifi"].state;
-        let status = `off`;
-        if (guestWifiStatus == "on") {
-          status = `<font color="#5daeea">on</font>`;
-        }
         return `<ha-icon icon="mdi:home-thermometer-outline"></ha-icon> <b>  ${states['sensor.home_temperature'].state}</b>°C / <b>  ${states['sensor.home_humidity'].state}</b>%${spacer}
                 <ha-icon icon="mdi:car-side"></ha-icon> <b> ${states['sensor.waze_travel_time'].state} </b> ${states['sensor.waze_travel_time'].attributes.unit_of_measurement}${spacer}
-                <ha-icon icon="mdi:speedometer"></ha-icon> <b> ${states['sensor.speedtest_cli_download'].state} </b> ${states['sensor.speedtest_cli_download'].attributes.unit_of_measurement} / <b> ${states['sensor.speedtest_cli_upload'].state} </b> ${states['sensor.speedtest_cli_upload'].attributes.unit_of_measurement}${spacer}
-                <ha-icon icon="mdi:wifi-lock-open"></ha-icon> Guest Wifi <b> ${status} </b> 
+                <ha-icon icon="mdi:speedometer"></ha-icon> <b> ${states['sensor.speedtest_cli_download'].state} </b> ${states['sensor.speedtest_cli_download'].attributes.unit_of_measurement} / <b> ${states['sensor.speedtest_cli_upload'].state} </b> ${states['sensor.speedtest_cli_upload'].attributes.unit_of_measurement}
         `;
       ]]]
     styles:
