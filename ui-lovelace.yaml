@@ -418,22 +418,29 @@ views:
             cards:
               - type: custom:button-card
                 entity: climate.general_2
-                name: Thermostat
+                name: >
+                  [[[
+                    if (entity) {
+                      return entity.state.charAt(0).toUpperCase() + entity.state.slice(1);
+                    }
+                  ]]]
+                state_display: >
+                  [[[
+                    if (entity) {
+                      return entity.attributes.preset_mode;
+                    }
+                  ]]]                  
                 hold_action: !include popup/thermostat.yaml
                 tap_action:  
                   action: more-info
                 template:
                   - base
-                  - icon_climate
+                  - icon_climate2
                   - climate
                 variables:
                   circle_input: >
                     [[[
-                      if (entity) {
-                        return entity.attributes.hvac_action !== 'idle' ?
-                          entity.attributes.temperature :
-                          entity.attributes.current_temperature;
-                      }
+                      return entity.attributes.temperature;
                     ]]]
                   operation_mode: >
                     [[[
@@ -441,6 +448,20 @@ views:
                         return entity.attributes.hvac_action;
                       }
                     ]]]  
+
+              - type: custom:button-card
+                entity: sensor.thermostat_current_temp
+                name: Couloir
+                tap_action: !include popup/temperature_couloir.yaml
+                custom_fields:
+                  graph:
+                    card:
+                      entities:
+                        - entity: sensor.thermostat_current_temp
+                          color: '#FFBA33'
+                template:
+                  - thermometre
+                  - icon_temp
 
               - type: custom:button-card
                 entity: sensor.temperature_salon
