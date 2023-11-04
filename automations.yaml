@@ -647,8 +647,7 @@
   action:
   - service: script.notif_google_home
     data:
-      message: Information Tempo. Demain, journée {{ states.sensor.rte_tempo_prochaine_couleur.state
-        }}
+      message: Information Tempo. Demain, journée {{ states.sensor.rte_tempo_prochaine_couleur.state }}
   mode: single
 - id: '1698837169057'
   alias: Tempo

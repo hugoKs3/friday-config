@@ -105,3 +105,10 @@ je_suis_rentre:
         - switch.jardin_est
         - switch.guirlande
   mode: single
+informations_tempo:
+  alias: Informations Tempo
+  sequence:
+  - service: script.notif_google_home
+    data:
+      message: Information Tempo. Aujourd'hui, journée {{ states.sensor.rte_tempo_couleur_actuelle.state }}. Demain, journée {{ states.sensor.rte_tempo_prochaine_couleur.state }}
+  mode: single

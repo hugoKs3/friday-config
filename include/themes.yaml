@@ -355,7 +355,7 @@ frontend:
 
           #conditional color
           "$hui-button-card:nth-of-type(4)$": |
-            {% if states('sensor.myups_status_data') != 'OL' or states('sensor.s_cert_exiry_d') | int < 30 or states('binary_sensor.cartouche_imprimante_low') == 'on' %}
+            {% if states('sensor.myups_status_data') != 'OL' or states('sensor.s_cert_exiry_d') | int < 30 or states('binary_sensor.cartouche_imprimante_low') == 'on' or states('sensor.localhost_media_ext_used_percent') | int > 85 %}
 
               ha-card, ha-state-icon, ha-icon {
                 color: rgb(196, 74 ,99) !important;

@@ -168,11 +168,16 @@ shell_command:
 
 google_assistant:
   project_id: friday-658fd
-  report_state: false
+  report_state: true
   expose_by_default: false
+  service_account:
+    private_key: !secret google_private_key
+    client_email: !secret google_client_email
   entity_config:
     switch.portail:
       name: Portail
+    script.informations_tempo:
+      name: Informations Tempo
 
 command_line: !include command_line.yaml
 

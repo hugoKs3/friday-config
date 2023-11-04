@@ -4,6 +4,8 @@ sensor:
     resources:
       - type: disk_use_percent
         arg: /
+      - type: disk_use_percent
+        arg: /media/ext
       - type: processor_temperature
       - type: memory_use_percent
       - type: load_5m
