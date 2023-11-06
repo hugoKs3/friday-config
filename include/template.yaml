@@ -187,22 +187,6 @@ template:
         unit_of_measurement: "km"
         state: "{{ ((states.sensor.gj468rk_mileage.state | int) - ((37500/1127) * (strptime((states('sensor.date')), '%Y-%m-%d') - strptime('2022-10-06', '%Y-%m-%d')).days))|round }}"
 
-      - name: gas_volume
-        unit_of_measurement: 'm³'
-        state: >
-          {{ state_attr('sensor.gazpar', 'daily')[0]['end_index_m3'] | float(0) }}
-        icon: mdi:fire
-        device_class: gas
-        state_class: total_increasing
-
-      - name: gas_energy
-        unit_of_measurement: 'kWh'      
-        state: >   
-          {{ states('sensor.gazpar') | float(0) }}
-        icon: mdi:fire
-        device_class: energy
-        state_class: total_increasing
-
       - name: "Gandi Synchro"
         state: >-
           {% if is_state('binary_sensor.gandi_up_to_date', 'on') %}

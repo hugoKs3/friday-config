@@ -2,6 +2,7 @@ button_card_templates: !include button_card_templates.yaml
 
 views:
   - type: custom:grid-layout
+    title: Main
     path: 0
     layout:
       #default
@@ -191,18 +192,27 @@ views:
                       border-width: 0;
                     }
 
-              - type: button
-                icon: custom:shield
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-                #https://github.com/matt8707/hass-config/issues/118
-                card_mod:
-                  style: |
-                    ha-card {
-                      border-width: 0;
-                    }
+              - type: custom:restriction-card
+                duration: 10
+                restrictions:
+                  pin:
+                    code: !secret alarm_pin_code
+                card: 
+                  type: button
+                  icon: custom:shield
+                  tap_action:
+                    action: call-service
+                    service: input_boolean.turn_off
+                    data:
+                      entity_id: input_boolean.enable_alarm
+                  hold_action:
+                    action: none
+                  #https://github.com/matt8707/hass-config/issues/118
+                  card_mod:
+                    style: |
+                      ha-card {
+                        border-width: 0;
+                      }
 
               - type: button
                 icon: custom:check-network
@@ -855,3 +865,29 @@ views:
         view_layout:
           grid-area: footer
         template: footer
+
+  - title: alarm
+    path: 1
+    cards: 
+      - type: custom:restriction-card
+        duration: 10
+        restrictions:
+          pin:
+            code: !secret alarm_pin_code
+        card: 
+          type: button
+          icon: custom:shield
+          tap_action:
+            action: call-service
+            service: input_boolean.turn_off
+            data:
+              entity_id: input_boolean.enable_alarm
+          hold_action:
+            action: none
+          #https://github.com/matt8707/hass-config/issues/118
+          card_mod:
+            style: |
+              ha-card {
+                border-width: 0;
+              }
+

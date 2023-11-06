@@ -209,6 +209,42 @@ frontend:
         #             SIDEBAR BOTTOM ICONS              #
         #                                               #
         #################################################
+        "hui-masonry-view$restriction-card$hui-button-card$": |
+          {% if is_state('input_boolean.enable_alarm', 'on') %}
+
+            ha-card, ha-state-icon, ha-icon {
+              color: rgb(40, 106, 35) !important;
+              opacity: 1 !important;
+              animation: update 1.5s ease-out infinite;
+            }
+
+            ha-card:hover {
+              filter: brightness(130%);
+              animation-play-state: paused;
+            }
+
+          {% endif %}
+
+            @keyframes update {
+              0% {
+                transform: scale(1);
+              }
+              40% {
+                transform: scale(1.08);
+              }
+              50% {
+                transform: scale(0.98);
+              }
+              55% {
+                transform: scale(1.02);
+              }
+              60% {
+                transform: scale(0.98);
+              }
+              100% {
+                transform: scale(1);
+              }
+            }
 
         "grid-layout$hui-vertical-stack-card$hui-grid-card":
           .: |
@@ -278,7 +314,7 @@ frontend:
               }
 
           #conditional color
-          "$hui-button-card:nth-of-type(2)$": |
+          "$restriction-card$hui-button-card$": |
             {% if is_state('input_boolean.enable_alarm', 'on') %}
 
               ha-card, ha-state-icon, ha-icon {
@@ -316,7 +352,7 @@ frontend:
               }
 
           #conditional color
-          "$hui-button-card:nth-of-type(3)$": |
+          "$hui-button-card:nth-of-type(2)$": |
             {% if is_state('binary_sensor.network_pings', 'off') or is_state('binary_sensor.battery_low', 'on') or is_state('binary_sensor.wan_status', 'off') or is_state('binary_sensor.gandi_up_to_date', 'off')%}
 
               ha-card, ha-state-icon, ha-icon {
@@ -354,7 +390,7 @@ frontend:
               }
 
           #conditional color
-          "$hui-button-card:nth-of-type(4)$": |
+          "$hui-button-card:nth-of-type(3)$": |
             {% if states('sensor.myups_status_data') != 'OL' or states('sensor.s_cert_exiry_d') | int < 30 or states('binary_sensor.cartouche_imprimante_low') == 'on' or states('sensor.localhost_media_ext_used_percent') | int > 85 %}
 
               ha-card, ha-state-icon, ha-icon {
