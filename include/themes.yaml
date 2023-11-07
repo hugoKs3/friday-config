@@ -213,7 +213,11 @@ frontend:
           {% if is_state('input_boolean.enable_alarm', 'on') %}
 
             ha-card, ha-state-icon, ha-icon {
-              color: rgb(40, 106, 35) !important;
+              {% if is_state('input_boolean.intrusion_detected', 'on') %}
+                color: rgb(196, 74 ,99) !important;
+              {% else %}
+                color: rgb(40, 106, 35) !important;
+              {% endif %}
               opacity: 1 !important;
               animation: update 1.5s ease-out infinite;
             }
@@ -318,7 +322,11 @@ frontend:
             {% if is_state('input_boolean.enable_alarm', 'on') %}
 
               ha-card, ha-state-icon, ha-icon {
-                color: rgb(40, 106, 35) !important;
+                {% if is_state('input_boolean.intrusion_detected', 'on') %}
+                  color: rgb(196, 74 ,99) !important;
+                {% else %}
+                  color: rgb(40, 106, 35) !important;
+                {% endif %}
                 opacity: 1 !important;
                 animation: update 1.5s ease-out infinite;
               }

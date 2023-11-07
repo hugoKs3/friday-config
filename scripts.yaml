@@ -112,3 +112,17 @@ informations_tempo:
     data:
       message: Information Tempo. Aujourd'hui, journée {{ states.sensor.rte_tempo_couleur_actuelle.state }}. Demain, journée {{ states.sensor.rte_tempo_prochaine_couleur.state }}
   mode: single
+keypad_input:
+  alias: Keypad Input
+  sequence:
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.keypad_input
+        value: >
+          {% set current_value = states('input_text.keypad_input') %}
+          {% if current_value != 'None' and current_value != 'unknown' %}
+            {{ current_value ~ number | string }}
+          {% else %}
+            {{ number | string }}
+          {% endif %}
+  mode: single

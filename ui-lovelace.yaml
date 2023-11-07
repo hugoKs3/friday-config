@@ -194,6 +194,7 @@ views:
 
               - type: custom:restriction-card
                 duration: 10
+                locked_icon: none
                 restrictions:
                   pin:
                     code: !secret alarm_pin_code
@@ -202,9 +203,11 @@ views:
                   icon: custom:shield
                   tap_action:
                     action: call-service
-                    service: input_boolean.turn_off
+                    service: automation.trigger
                     data:
-                      entity_id: input_boolean.enable_alarm
+                      skip_condition: true
+                    target:
+                      entity_id: automation.desactivation_alarme
                   hold_action:
                     action: none
                   #https://github.com/matt8707/hass-config/issues/118
@@ -871,6 +874,7 @@ views:
     cards: 
       - type: custom:restriction-card
         duration: 10
+        locked_icon: none
         restrictions:
           pin:
             code: !secret alarm_pin_code
@@ -879,9 +883,11 @@ views:
           icon: custom:shield
           tap_action:
             action: call-service
-            service: input_boolean.turn_off
+            service: automation.trigger
             data:
-              entity_id: input_boolean.enable_alarm
+              skip_condition: true
+            target:
+              entity_id: automation.desactivation_alarme
           hold_action:
             action: none
           #https://github.com/matt8707/hass-config/issues/118

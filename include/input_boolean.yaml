@@ -22,3 +22,6 @@ input_boolean:
     icon: mdi:google-assistant
   enable_alarm:
     name: Alarme
+  intrusion_detected:
+    name: Intrusion
+    icon: mdi:shield-alert-outline

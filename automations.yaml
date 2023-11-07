@@ -435,16 +435,7 @@
   - delay:
       hours: 0
       minutes: 0
-      seconds: 10
-      milliseconds: 0
-  - service: script.notif_google_home
-    data:
-      bypass: true
-      message: Vous avez 30 secondes pour désactiver l'alarme
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 10
+      seconds: 20
       milliseconds: 0
   - if:
     - condition: state
@@ -454,7 +445,7 @@
     - service: script.notif_google_home
       data:
         bypass: true
-        message: Vous avez 20 secondes pour désactiver l'alarme
+        message: Vous avez 30 secondes pour désactiver l'alarme
     - delay:
         hours: 0
         minutes: 0
@@ -468,7 +459,7 @@
       - service: script.notif_google_home
         data:
           bypass: true
-          message: Vous avez 10 secondes pour désactiver l'alarme
+          message: Vous avez 20 secondes pour désactiver l'alarme
       - delay:
           hours: 0
           minutes: 0
@@ -479,49 +470,67 @@
           entity_id: input_boolean.enable_alarm
           state: 'on'
         then:
-        - service: light.turn_on
-          data: {}
-          target:
-            entity_id: light.yeelight_plafonnier
-        - service: switch.turn_on
-          data: {}
-          target:
-            entity_id:
-            - switch.cabane
-            - switch.cheminee
-            - switch.guirlande
-            - switch.jardin_est
-            - switch.pilier
-            - switch.poulailler
-            - switch.salon
-        - service: script.notif_telegram
+        - service: script.notif_google_home
           data:
-            message: ALERTE INTRUSION !
-        - repeat:
-            count: '3'
-            sequence:
-            - service: script.notif_google_home
-              data:
-                bypass: true
-                message: Attention ! Alerte intrusion ! Les services de sécurité ont
-                  été prévenus
-            - delay:
-                hours: 0
-                minutes: 0
-                seconds: 10
-                milliseconds: 0
-        - repeat:
-            count: '3'
-            sequence:
-            - service: button.press
-              data: {}
-              target:
-                entity_id: button.ring_your_phone
-            - delay:
-                hours: 0
-                minutes: 0
-                seconds: 10
-                milliseconds: 0
+            bypass: true
+            message: Vous avez 10 secondes pour désactiver l'alarme
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 10
+            milliseconds: 0
+        - if:
+          - condition: state
+            entity_id: input_boolean.enable_alarm
+            state: 'on'
+          then:
+          - service: input_boolean.turn_on
+            data: {}
+            target:
+              entity_id: input_boolean.intrusion_detected
+          - service: light.turn_on
+            data: {}
+            target:
+              entity_id: light.yeelight_plafonnier
+          - service: switch.turn_on
+            data: {}
+            target:
+              entity_id:
+              - switch.cabane
+              - switch.cheminee
+              - switch.guirlande
+              - switch.jardin_est
+              - switch.pilier
+              - switch.poulailler
+              - switch.salon
+          - service: script.notif_telegram
+            data:
+              message: ALERTE INTRUSION !
+          - repeat:
+              count: '3'
+              sequence:
+              - service: script.notif_google_home
+                data:
+                  bypass: true
+                  message: Attention ! Alerte intrusion ! Les services de sécurité
+                    ont été prévenus
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 10
+                  milliseconds: 0
+          - repeat:
+              count: '3'
+              sequence:
+              - service: button.press
+                data: {}
+                target:
+                  entity_id: button.ring_your_phone
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 10
+                  milliseconds: 0
   mode: single
 - id: '1664570844806'
   alias: Update Gandi DNS
@@ -647,7 +656,8 @@
   action:
   - service: script.notif_google_home
     data:
-      message: Information Tempo. Demain, journée {{ states.sensor.rte_tempo_prochaine_couleur.state }}
+      message: Information Tempo. Demain, journée {{ states.sensor.rte_tempo_prochaine_couleur.state
+        }}
   mode: single
 - id: '1698837169057'
   alias: Tempo
@@ -736,6 +746,11 @@
   - service: script.notif_telegram
     data:
       message: Alarme activée automatiquement
+  - service: browser_mod.navigate
+    data:
+      path: /lovelace/1
+    target:
+      entity_id: media_player.0328af0c_cc17ac79
   mode: single
 - id: '1698957606433'
   alias: Desactivation Alarme
@@ -755,5 +770,12 @@
   - service: input_boolean.turn_off
     data: {}
     target:
-      entity_id: input_boolean.enable_alarm
+      entity_id:
+      - input_boolean.enable_alarm
+      - input_boolean.intrusion_detected
+  - service: browser_mod.navigate
+    data:
+      path: /lovelace/0
+    target:
+      entity_id: media_player.0328af0c_cc17ac79
   mode: single
