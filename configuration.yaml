@@ -114,7 +114,9 @@ device_tracker:
     iface: end0
     hosts:
       hugo_mob: !secret ip_hugo_mob
+      hugo_mob_ext: !secret ip_hugo_mob_ext
       andrea_mob: !secret ip_andrea_mob
+      andrea_mob_ext: !secret ip_andrea_mob_ext
       lily_mob: !secret ip_lily_mob
       gabriel_mob: !secret ip_gabriel_mob
 
