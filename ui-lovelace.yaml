@@ -192,30 +192,42 @@ views:
                       border-width: 0;
                     }
 
-              - type: custom:restriction-card
-                duration: 10
-                locked_icon: none
-                restrictions:
-                  pin:
-                    code: !secret alarm_pin_code
-                card: 
-                  type: button
-                  icon: custom:shield
-                  tap_action:
-                    action: call-service
-                    service: automation.trigger
-                    data:
-                      skip_condition: true
-                    target:
-                      entity_id: automation.desactivation_alarme
-                  hold_action:
-                    action: none
-                  #https://github.com/matt8707/hass-config/issues/118
-                  card_mod:
-                    style: |
-                      ha-card {
-                        border-width: 0;
-                      }
+              # - type: custom:restriction-card
+              #   duration: 10
+              #   locked_icon: none
+              #   restrictions:
+              #     pin:
+              #       code: !secret alarm_pin_code
+              #   card: 
+              #     type: button
+              #     icon: custom:shield
+              #     tap_action:
+              #       action: call-service
+              #       service: automation.trigger
+              #       data:
+              #         skip_condition: true
+              #       target:
+              #         entity_id: automation.desactivation_alarme
+              #     hold_action:
+              #       action: none
+              #     #https://github.com/matt8707/hass-config/issues/118
+              #     card_mod:
+              #       style: |
+              #         ha-card {
+              #           border-width: 0;
+              #         }
+
+              - type: button
+                icon: custom:shield
+                tap_action: !include popup/keypad.yaml
+                hold_action:  
+                  action: none
+                #https://github.com/matt8707/hass-config/issues/118
+                card_mod:
+                  style: |
+                    ha-card {
+                      border-width: 0;
+                    }
 
               - type: button
                 icon: custom:check-network

@@ -196,6 +196,12 @@ template:
           {% endif %}
         icon: mdi:wan
 
+      - name: Keypad Input Masked
+        unique_id: keypad_input_masked
+        state: >
+          {% set input_length = states('input_text.keypad_input')|length %}
+          {{ '*' * input_length }}
+
   #################################################
   #                                               #
   #                    BINARY                     #

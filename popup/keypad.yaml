@@ -1,0 +1,240 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Keypad
+    style: >
+      --popup-max-width: calc(600px);
+      --ha-card-border-radius: 0;
+    card_mod:
+      style: |
+        :host {
+          --grid-card-gap: 0px;
+        }
+    content:
+      type: vertical-stack
+      cards:
+        - type: entity
+          entity: sensor.keypad_input_masked
+          icon: mdi:none
+          name: " "
+          show_name: false
+          style: |
+            ha-card { 
+              --ha-card-background: none;
+              border: none;
+              text-align: center;
+            }
+        - type: grid
+          style: |
+            #root {
+              grid-gap: 0px !important;
+            }
+          columns: 3
+          square: false
+          cards:
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: script.keypad_input
+                service_data:
+                  number: '1'
+              icon: mdi:numeric-1-circle
+              color: '#bdbdbd'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: script.keypad_input
+                service_data:
+                  number: '2'
+              icon: mdi:numeric-2-circle
+              color: '#bdbdbd'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: script.keypad_input
+                service_data:
+                  number: '3'
+              icon: mdi:numeric-3-circle
+              color: '#bdbdbd'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: script.keypad_input
+                service_data:
+                  number: '4'
+              icon: mdi:numeric-4-circle
+              color: '#bdbdbd'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: script.keypad_input
+                service_data:
+                  number: '5'
+              icon: mdi:numeric-5-circle
+              color: '#bdbdbd'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: script.keypad_input
+                service_data:
+                  number: '6'
+              icon: mdi:numeric-6-circle
+              color: '#bdbdbd'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: script.keypad_input
+                service_data:
+                  number: '7'
+              icon: mdi:numeric-7-circle
+              color: '#bdbdbd'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: script.keypad_input
+                service_data:
+                  number: '8'
+              icon: mdi:numeric-8-circle
+              color: '#bdbdbd'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: script.keypad_input
+                service_data:
+                  number: '9'
+              icon: mdi:numeric-9-circle
+              color: '#bdbdbd'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: input_text.set_value
+                service_data:
+                  entity_id: input_text.keypad_input
+                  value: ''
+              icon: mdi:alpha-x-circle-outline
+              color: 'rgb(196, 74 ,99)'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: call-service
+                service: script.keypad_input
+                service_data:
+                  number: '0'
+              icon: mdi:numeric-0-circle
+              color: '#bdbdbd'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+            - type: custom:button-card
+              show_name: false
+              show_icon: true
+              aspect_ratio: 1/.75
+              tap_action:
+                action: none
+              icon: mdi:check-circle-outline
+              color: 'rgb(40, 106, 35)'
+              size: 100%
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - '--mdc-ripple-press-opacity': 0
+
+
+         
