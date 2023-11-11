@@ -39,11 +39,7 @@ lovelace:
       type: module
     - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
       type: module
-    - url: /hacsfiles/restriction-card/restriction-card.js
-      type: module
     - url: /hacsfiles/lovelace-mushroom/mushroom.js
-      type: module
-    - url: https://cdn.jsdelivr.net/gh/bramkragten/weather-card/dist/weather-card.min.js
       type: module
     - url: /hacsfiles/clock-weather-card/clock-weather-card.js
       type: module
@@ -118,7 +114,9 @@ device_tracker:
       andrea_mob: !secret ip_andrea_mob
       andrea_mob_ext: !secret ip_andrea_mob_ext
       lily_mob: !secret ip_lily_mob
+      lily_mob_ext: !secret ip_lily_mob_ext
       gabriel_mob: !secret ip_gabriel_mob
+      gabriel_mob_ext: !secret ip_gabriel_mob_ext
 
 rest_command:
   update_gandi:

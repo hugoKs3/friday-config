@@ -424,13 +424,18 @@
     from: 'off'
     to: 'on'
   condition:
-  - condition: state
-    entity_id: input_boolean.enable_alarm
-    state: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 30
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.enable_alarm
+      state: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 30
+    - condition: state
+      entity_id: binary_sensor.somebody_home
+      state: 'off'
   action:
   - delay:
       hours: 0
@@ -773,6 +778,11 @@
       entity_id:
       - input_boolean.enable_alarm
       - input_boolean.intrusion_detected
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
   - service: browser_mod.navigate
     data:
       path: /lovelace/0

@@ -108,34 +108,9 @@ views:
                       opacity: 0.2;
                     {% endif %}
                   }
-          # - type: horizontal-stack
-          #   cards:
-          #     - type: weather-forecast
-          #       entity: weather.biot
-          #       card_mod:
-          #         style: |
-          #           ha-card {
-          #             margin-top: 20px;
-          #             border: 0px;
-          #           }
-
-          # - type: custom:weather-card
-          #   entity: weather.biot
-          #   current: false
-          #   details: false
-          #   forecast: true
-          #   hourly_forecast: false
-          #   number_of_forecasts: 3
-          #   card_mod:
-          #     style: |
-          #       ha-card {
-          #         margin-top: 70px !important;
-          #         border: 0px;
-          #       }
 
           - type: custom:clock-weather-card
             entity: weather.biot
-            #title: Home
             sun_entity: sun.sun
             temperature_sensor: sensor.temperature_outdoor
             weather_icon_type: line
@@ -166,17 +141,6 @@ views:
                   justify-content: right !important;
                 }
 
-          # - type: picture
-          #   image: /local/friday2.png 
-          #   card_mod:
-          #     style: |
-          #       ha-card {
-          #         margin: 20%;
-          #       }
-          #   tap_action:
-          #     action: call-service
-          #     service: script.1662903361475
-
           - type: grid
             cards:
 
@@ -191,31 +155,6 @@ views:
                     ha-card {
                       border-width: 0;
                     }
-
-              # - type: custom:restriction-card
-              #   duration: 10
-              #   locked_icon: none
-              #   restrictions:
-              #     pin:
-              #       code: !secret alarm_pin_code
-              #   card: 
-              #     type: button
-              #     icon: custom:shield
-              #     tap_action:
-              #       action: call-service
-              #       service: automation.trigger
-              #       data:
-              #         skip_condition: true
-              #       target:
-              #         entity_id: automation.desactivation_alarme
-              #     hold_action:
-              #       action: none
-              #     #https://github.com/matt8707/hass-config/issues/118
-              #     card_mod:
-              #       style: |
-              #         ha-card {
-              #           border-width: 0;
-              #         }
 
               - type: button
                 icon: custom:shield
@@ -616,32 +555,16 @@ views:
             cards:
             
               - type: custom:button-card
-                # camera_view: live
                 entity: camera.cam_sud
                 name: Sud
                 template:
                   - camera
 
               - type: custom:button-card
-                # camera_view: live
                 entity: camera.cam_nord
                 name: Nord
                 template:
                   - camera
-
-              # - type: custom:button-card
-              #   entity: media_player.livebox
-              #   name: TV
-              #   template:
-              #     - conditional_media
-              #     - icon_tv2
-
-              # - type: custom:button-card
-              #   entity: media_player.salon
-              #   name: Sonos
-              #   template:
-              #     - conditional_media
-              #     - icon_sonos
 
       #################################################
       #                                               #
@@ -849,27 +772,6 @@ views:
                   return states['binary_sensor.rte_tempo_heures_creuses'].state;
                 ]]]
 
-          # - type: custom:button-card
-          #   variables:
-          #     hugo_picture: >
-          #       [[[
-          #         return `${states['person.hugo'].attributes.entity_picture}`;
-          #       ]]]
-          #     andrea_picture: >
-          #       [[[
-          #         return `${states['person.andrea'].attributes.entity_picture}`;
-          #       ]]]
-          #     lily_picture: >
-          #       [[[
-          #         return `${states['person.lily_rose'].attributes.entity_picture}`;
-          #       ]]]
-          #     gabriel_picture: >
-          #       [[[
-          #         return `${states['person.gabriel'].attributes.entity_picture}`;
-          #       ]]]
-          #   template:
-          #     - myperson
-
       #################################################
       #                                               #
       #                    FOOTER                     #
@@ -884,28 +786,16 @@ views:
   - title: alarm
     path: 1
     cards: 
-      - type: custom:restriction-card
-        duration: 10
-        locked_icon: none
-        restrictions:
-          pin:
-            code: !secret alarm_pin_code
-        card: 
-          type: button
-          icon: custom:shield
-          tap_action:
-            action: call-service
-            service: automation.trigger
-            data:
-              skip_condition: true
-            target:
-              entity_id: automation.desactivation_alarme
-          hold_action:
-            action: none
-          #https://github.com/matt8707/hass-config/issues/118
-          card_mod:
-            style: |
-              ha-card {
-                border-width: 0;
-              }
+
+      - type: button
+        icon: custom:shield
+        tap_action: !include popup/keypad.yaml
+        hold_action:  
+          action: none
+        #https://github.com/matt8707/hass-config/issues/118
+        card_mod:
+          style: |
+            ha-card {
+              border-width: 0;
+            }
 

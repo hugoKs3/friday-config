@@ -209,7 +209,7 @@ frontend:
         #             SIDEBAR BOTTOM ICONS              #
         #                                               #
         #################################################
-        "hui-masonry-view$restriction-card$hui-button-card$": |
+        "hui-masonry-view$hui-button-card$": |
           {% if is_state('input_boolean.enable_alarm', 'on') %}
 
             ha-card, ha-state-icon, ha-icon {
@@ -318,7 +318,7 @@ frontend:
               }
 
           #conditional color
-          "$restriction-card$hui-button-card$": |
+          "$hui-button-card:nth-of-type(2)$": |
             {% if is_state('input_boolean.enable_alarm', 'on') %}
 
               ha-card, ha-state-icon, ha-icon {
@@ -360,7 +360,7 @@ frontend:
               }
 
           #conditional color
-          "$hui-button-card:nth-of-type(2)$": |
+          "$hui-button-card:nth-of-type(3)$": |
             {% if is_state('binary_sensor.network_pings', 'off') or is_state('binary_sensor.battery_low', 'on') or is_state('binary_sensor.wan_status', 'off') or is_state('binary_sensor.gandi_up_to_date', 'off')%}
 
               ha-card, ha-state-icon, ha-icon {
@@ -398,7 +398,7 @@ frontend:
               }
 
           #conditional color
-          "$hui-button-card:nth-of-type(3)$": |
+          "$hui-button-card:nth-of-type(4)$": |
             {% if states('sensor.myups_status_data') != 'OL' or states('sensor.s_cert_exiry_d') | int < 30 or states('binary_sensor.cartouche_imprimante_low') == 'on' or states('sensor.localhost_media_ext_used_percent') | int > 85 %}
 
               ha-card, ha-state-icon, ha-icon {

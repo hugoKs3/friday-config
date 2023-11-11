@@ -226,7 +226,8 @@ browser_mod:
               show_icon: true
               aspect_ratio: 1/.75
               tap_action:
-                action: none
+                action: call-service
+                service: script.1699700468585
               icon: mdi:check-circle-outline
               color: 'rgb(40, 106, 35)'
               size: 100%
