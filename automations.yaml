@@ -789,3 +789,20 @@
     target:
       entity_id: media_player.0328af0c_cc17ac79
   mode: single
+- id: '1700582785568'
+  alias: Reveil Tablette Bas
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.presence_bas
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: script.turn_on
+    data: {}
+    target:
+      entity_id:
+      - script.wake_up_tablet_bas
+  mode: single

@@ -3,7 +3,7 @@ input_select:
     name: Démarrage
     icon: mdi:clock-start
     options:
-      - "00:00"
+      - "00:01"
       - "01:00"
       - "02:00"
       - "03:00"
@@ -31,7 +31,7 @@ input_select:
     name: Démarrage
     icon: mdi:clock-start
     options:
-      - "00:00"
+      - "00:01"
       - "01:00"
       - "02:00"
       - "03:00"
@@ -59,7 +59,6 @@ input_select:
     name: Arrêt
     icon: mdi:clock-end
     options:
-      - "00:00"
       - "01:00"
       - "02:00"
       - "03:00"
@@ -83,11 +82,11 @@ input_select:
       - "21:00"
       - "22:00"
       - "23:00"
+      - "23:59"
   cycle2_piscine_end:
     name: Arrêt
     icon: mdi:clock-end
     options:
-      - "00:00"
       - "01:00"
       - "02:00"
       - "03:00"
@@ -111,6 +110,7 @@ input_select:
       - "21:00"
       - "22:00"
       - "23:00"
+      - "23:59"
   arrosage_mode:
     name: Mode
     options:

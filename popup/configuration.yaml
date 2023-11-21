@@ -172,6 +172,7 @@ browser_mod:
             - entity: automation.renew_ssl_certificate
             - entity: automation.update_gandi_dns
             - entity: automation.reveil_tablette
+            - entity: automation.reveil_tablette_bas
             - entity: automation.decompte_arrosage
             - entity: automation.decompte_remplissage_piscine
             - entity: automation.push_config_to_github

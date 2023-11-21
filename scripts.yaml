@@ -44,6 +44,13 @@ wake_up_tablet:
     data:
       message: command_screen_on
   mode: single
+wake_up_tablet_bas:
+  alias: Wake-Up Tablet Bas
+  sequence:
+  - service: notify.mobile_app_sm_t530
+    data:
+      message: command_screen_on
+  mode: single
 notif_google_home:
   alias: Notif Google Home
   mode: single
