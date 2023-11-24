@@ -87,7 +87,7 @@ browser_mod:
                 - type: custom:mini-graph-card
                   entities:
                     - color: '#385581'
-                      entity: sensor.spot_temp_temperature
+                      entity: sensor.temp_piscine_preserved
                       name: Température Eau
                   align_state: left
                   line_width: 4

@@ -707,7 +707,7 @@ views:
               variables:
                 circle_input: >
                   [[[
-                    return states['sensor.spot_temp_temperature'].state;
+                    return states['sensor.temp_piscine_preserved'].state;
                   ]]]
 
           - type: conditional

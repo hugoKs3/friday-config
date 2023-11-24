@@ -140,6 +140,10 @@ binary_sensor:
     host: !secret ip_livebox_tv
     name: "Livebox TV"
     scan_interval: 30
+  - platform: ping
+    host: !secret ip_tablette_murale_bas
+    name: "Tablette Murale Bas"
+    scan_interval: 30
 
   - platform: group
     name: "Network pings"
@@ -168,6 +172,7 @@ binary_sensor:
       - binary_sensor.shelly_tv_set
       - binary_sensor.shelly_vanne
       - binary_sensor.tablette_murale
+      - binary_sensor.tablette_murale_bas
       - binary_sensor.thermostat
       - binary_sensor.yeelight_gabriel
       - binary_sensor.yeelight_lily
