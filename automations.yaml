@@ -755,7 +755,9 @@
     data:
       path: /lovelace/1
     target:
-      entity_id: media_player.0328af0c_cc17ac79
+      entity_id:
+      - media_player.0328af0c_cc17ac79
+      - media_player.c3cc03f1_cb97c73a
   mode: single
 - id: '1698957606433'
   alias: Desactivation Alarme
@@ -787,7 +789,9 @@
     data:
       path: /lovelace/0
     target:
-      entity_id: media_player.0328af0c_cc17ac79
+      entity_id:
+      - media_player.0328af0c_cc17ac79
+      - media_player.c3cc03f1_cb97c73a
   mode: single
 - id: '1700582785568'
   alias: Reveil Tablette Bas
