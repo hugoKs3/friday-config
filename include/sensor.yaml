@@ -61,10 +61,10 @@ sensor:
         unit_of_measurement: '°C'
         icon_template: mdi:thermometer
         value_template: >-
-          {% if states('sensor.sensor.spot_temp_temperature') not in ['unknown', 'unavailable'] and states('switch.pompe_switch_0') == 'on' %}
-            {{ states('sensor.sensor.spot_temp_temperature') }}
+          {% if states('sensor.spot_temp_temperature') not in ['unknown', 'unavailable'] and states('switch.pompe_switch_0') == 'on' %}
+            {{ states('sensor.spot_temp_temperature') }}
           {% else %}
-            {{ states('sensor.temperature_piscine_reelle') }}
+            {{ states('sensor.temp_piscine_preserved') }}
           {% endif %}
 
   - platform: rest
