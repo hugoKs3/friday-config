@@ -803,9 +803,23 @@
     from: 'off'
     to: 'on'
   condition:
-  - condition: time
-    after: 07:00:00
-    before: '22:00:00'
+  - condition: or
+    conditions:
+    - condition: time
+      after: 07:10:00
+      before: '22:00:00'
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+    - condition: time
+      after: 09:30:00
+      before: '22:00:00'
+      weekday:
+      - sun
+      - sat
   action:
   - service: script.turn_on
     data: {}
