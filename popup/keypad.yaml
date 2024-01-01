@@ -19,17 +19,19 @@ browser_mod:
           icon: mdi:none
           name: " "
           show_name: false
-          style: |
-            ha-card { 
-              --ha-card-background: none;
-              border: none;
-              text-align: center;
-            }
+          card_mod:
+            style: |
+              ha-card { 
+                --ha-card-background: none;
+                border: none;
+                text-align: center;
+              }
         - type: grid
-          style: |
-            #root {
-              grid-gap: 0px !important;
-            }
+          card_mod:
+            style: |
+              #root {
+                grid-gap: 0px !important;
+              }
           columns: 3
           square: false
           cards:

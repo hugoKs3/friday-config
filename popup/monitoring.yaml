@@ -87,195 +87,230 @@ browser_mod:
             - type: custom:badge-card
               badges:
                 - entity: binary_sensor.ap_buanderie
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.ap_buanderie', 'on') %} green {% else %} red {%endif %};
-                    } 
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.ap_buanderie', 'on') %} green {% else %} red {%endif %};
+                      } 
                 - entity: binary_sensor.ap_exterieur
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.ap_exterieur', 'on') %} green {% else %} red {%endif %};
-                    } 
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.ap_exterieur', 'on') %} green {% else %} red {%endif %};
+                      } 
                 - entity: binary_sensor.ap_garage
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.ap_garage', 'on') %} green {% else %} red {%endif %};
-                    }  
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.ap_garage', 'on') %} green {% else %} red {%endif %};
+                      }  
                 - entity: binary_sensor.ap_lily
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.ap_lily', 'on') %} green {% else %} red {%endif %};
-                    }                 
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.ap_lily', 'on') %} green {% else %} red {%endif %};
+                      }                 
                 - entity: binary_sensor.ap_salon
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.ap_salon', 'on') %} green {% else %} red {%endif %};
-                    }  
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.ap_salon', 'on') %} green {% else %} red {%endif %};
+                      }  
                 - entity: binary_sensor.camera_nord
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.camera_nord', 'on') %} green {% else %} red {%endif %};
-                    }
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.camera_nord', 'on') %} green {% else %} red {%endif %};
+                      }
                 - entity: binary_sensor.camera_sud
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.camera_sud', 'on') %} green {% else %} red {%endif %};
-                    }
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.camera_sud', 'on') %} green {% else %} red {%endif %};
+                      }
                 - entity: binary_sensor.chromecast
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.chromecast', 'on') %} green {% else %} red {%endif %};
-                    }
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.chromecast', 'on') %} green {% else %} red {%endif %};
+                      }
                 - entity: binary_sensor.gateway_xiaomi
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.gateway_xiaomi', 'on') %} green {% else %} red {%endif %};
-                    }
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.gateway_xiaomi', 'on') %} green {% else %} red {%endif %};
+                      }
                 - entity: binary_sensor.google_home
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.google_home', 'on') %} green {% else %} red {%endif %};
-                    } 
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.google_home', 'on') %} green {% else %} red {%endif %};
+                      } 
                 - entity: binary_sensor.imprimante
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.imprimante', 'on') %} green {% else %} red {%endif %};
-                    }  
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.imprimante', 'on') %} green {% else %} red {%endif %};
+                      }  
                 - entity: binary_sensor.livebox_tv
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.livebox_tv', 'on') %} green {% else %} red {%endif %};
-                    } 
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.livebox_tv', 'on') %} green {% else %} red {%endif %};
+                      } 
                 # - entity: binary_sensor.rpi_3
                 #   style: >
                 #     :host {
                 #       --label-badge-blue: {% if is_state('binary_sensor.rpi_3', 'on') %} green {% else %} red {%endif %};
                 #     }     
                 - entity: binary_sensor.rpi_4
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.rpi_4', 'on') %} green {% else %} red {%endif %};
-                    }              
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.rpi_4', 'on') %} green {% else %} red {%endif %};
+                      }              
                 - entity: binary_sensor.shelly_cheminee
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_cheminee', 'on') %} green {% else %} red {%endif %};
-                    }  
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_cheminee', 'on') %} green {% else %} red {%endif %};
+                      }  
                 - entity: binary_sensor.shelly_drip
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_drip', 'on') %} green {% else %} red {%endif %};
-                    } 
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_drip', 'on') %} green {% else %} red {%endif %};
+                      } 
                 - entity: binary_sensor.shelly_electrolyseur
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_electrolyseur', 'on') %} green {% else %} red {%endif %};
-                    }  
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_electrolyseur', 'on') %} green {% else %} red {%endif %};
+                      }  
                 - entity: binary_sensor.shelly_guirlande
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_guirlande', 'on') %} green {% else %} red {%endif %};
-                    }   
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_guirlande', 'on') %} green {% else %} red {%endif %};
+                      }   
                 - entity: binary_sensor.shelly_jardin_nord
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_jardin_nord', 'on') %} green {% else %} red {%endif %};
-                    }     
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_jardin_nord', 'on') %} green {% else %} red {%endif %};
+                      }     
                 - entity: binary_sensor.shelly_jardin_sud
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_jardin_sud', 'on') %} green {% else %} red {%endif %};
-                    }
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_jardin_sud', 'on') %} green {% else %} red {%endif %};
+                      }
                 - entity: binary_sensor.shelly_pilier
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_pilier', 'on') %} green {% else %} red {%endif %};
-                    }    
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_pilier', 'on') %} green {% else %} red {%endif %};
+                      }    
                 # - entity: binary_sensor.shelly_plafonnier
                 #   style: >
                 #     :host {
                 #       --label-badge-blue: {% if is_state('binary_sensor.shelly_plafonnier', 'on') %} green {% else %} red {%endif %};
                 #     }    
                 - entity: binary_sensor.shelly_pompe
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_pompe', 'on') %} green {% else %} red {%endif %};
-                    }    
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_pompe', 'on') %} green {% else %} red {%endif %};
+                      }    
                 - entity: binary_sensor.shelly_portail
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_portail', 'on') %} green {% else %} red {%endif %};
-                    }    
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_portail', 'on') %} green {% else %} red {%endif %};
+                      }    
                 - entity: binary_sensor.shelly_salon
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_salon', 'on') %} green {% else %} red {%endif %};
-                    }    
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_salon', 'on') %} green {% else %} red {%endif %};
+                      }    
                 - entity: binary_sensor.shelly_seche_linge
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_seche_linge', 'on') %} green {% else %} red {%endif %};
-                    }    
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_seche_linge', 'on') %} green {% else %} red {%endif %};
+                      }    
                 - entity: binary_sensor.shelly_spot
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_spot', 'on') %} green {% else %} red {%endif %};
-                    } 
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_spot', 'on') %} green {% else %} red {%endif %};
+                      } 
                 - entity: binary_sensor.shelly_sprinkler
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_sprinkler', 'on') %} green {% else %} red {%endif %};
-                    }  
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_sprinkler', 'on') %} green {% else %} red {%endif %};
+                      }  
                 - entity: binary_sensor.shelly_tv_set
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_tv_set', 'on') %} green {% else %} red {%endif %};
-                    }    
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_tv_set', 'on') %} green {% else %} red {%endif %};
+                      }    
                 - entity: binary_sensor.shelly_vanne
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.shelly_vanne', 'on') %} green {% else %} red {%endif %};
-                    }  
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.shelly_vanne', 'on') %} green {% else %} red {%endif %};
+                      }  
                 - entity: binary_sensor.sonos
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.sonos', 'on') %} green {% else %} red {%endif %};
-                    }    
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.sonos', 'on') %} green {% else %} red {%endif %};
+                      }    
                 # - entity: binary_sensor.synology
                 #   style: >
                 #     :host {
                 #       --label-badge-blue: {% if is_state('binary_sensor.synology', 'on') %} green {% else %} red {%endif %};
                 #     }    
                 - entity: binary_sensor.tablette_murale
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.tablette_murale', 'on') %} green {% else %} red {%endif %};
-                    }    
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.tablette_murale', 'on') %} green {% else %} red {%endif %};
+                      }    
                 - entity: binary_sensor.tablette_murale_bas
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.tablette_murale_bas', 'on') %} green {% else %} red {%endif %};
-                    }   
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.tablette_murale_bas', 'on') %} green {% else %} red {%endif %};
+                      }   
                 - entity: binary_sensor.thermostat
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.thermostat', 'on') %} green {% else %} red {%endif %};
-                    }    
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.thermostat', 'on') %} green {% else %} red {%endif %};
+                      }    
                 - entity: binary_sensor.yeelight_gabriel
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.yeelight_gabriel', 'on') %} green {% else %} red {%endif %};
-                    }    
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.yeelight_gabriel', 'on') %} green {% else %} red {%endif %};
+                      }    
                 - entity: binary_sensor.yeelight_lily
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.yeelight_lily', 'on') %} green {% else %} red {%endif %};
-                    }  
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.yeelight_lily', 'on') %} green {% else %} red {%endif %};
+                      }  
                 - entity: binary_sensor.yeelight_plafonnier
-                  style: >
-                    :host {
-                      --label-badge-blue: {% if is_state('binary_sensor.yeelight_plafonnier', 'on') %} green {% else %} red {%endif %};
-                    }  
+                  card_mod:
+                    style: >
+                      :host {
+                        --label-badge-blue: {% if is_state('binary_sensor.yeelight_plafonnier', 'on') %} green {% else %} red {%endif %};
+                      }  
 
         #################################################
         #                                               #
@@ -469,196 +504,208 @@ browser_mod:
                   badges:
                     - entity: sensor.cheminee_device_temperature
                       name: 'Cheminee'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.cheminee_device_temperature') %}
-                          {% if is_number(state) and state | float < 50 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 50 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 60)  or is_state('binary_sensor.cheminee_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        }
+                      card_mod:
+                        style: >
+                            :host {
+                              --label-badge-red: 
+                              {% set state = states('sensor.cheminee_device_temperature') %}
+                              {% if is_number(state) and state | float < 50 %}
+                                blue
+                              {% endif %}
+                              {% if is_number(state) and state | float > 50 %}
+                                orange
+                              {% endif %}
+                              {% if (is_number(state) and state | float > 60)  or is_state('binary_sensor.cheminee_overheating', 'on') %}
+                                red
+                              {% endif %}
+                            }
                     - entity: sensor.electrolyseur_device_temperature
                       name: 'Electrolyseur'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.electrolyseur_device_temperature') %}
-                          {% if is_number(state) and state | float < 70 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 70 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.electrolyseur_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        } 
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.electrolyseur_device_temperature') %}
+                            {% if is_number(state) and state | float < 70 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 70 %}
+                              orange
+                            {% endif %}
+                            {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.electrolyseur_overheating', 'on') %}
+                              red
+                            {% endif %}
+                          } 
                     - entity: sensor.guirlande_device_temperature
                       name: 'Guirlande'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.guirlande_device_temperature') %}
-                          {% if is_number(state) and state | float < 65 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 65 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.guirlande_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        } 
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.guirlande_device_temperature') %}
+                            {% if is_number(state) and state | float < 65 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 65 %}
+                              orange
+                            {% endif %}
+                            {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.guirlande_overheating', 'on') %}
+                              red
+                            {% endif %}
+                          } 
                     - entity: sensor.jardin_nord_device_temperature
                       name: 'Jardin Nord'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.jardin_nord_device_temperature') %}
-                          {% if is_number(state) and state | float < 75 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 75 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.jardin_nord_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        } 
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.jardin_nord_device_temperature') %}
+                            {% if is_number(state) and state | float < 75 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 75 %}
+                              orange
+                            {% endif %}
+                            {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.jardin_nord_overheating', 'on') %}
+                              red
+                            {% endif %}
+                          } 
                     - entity: sensor.jardin_est_device_temperature
                       name: 'Jardin Est'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.jardin_est_device_temperature') %}
-                          {% if is_number(state) and state | float < 65 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 65 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.jardin_est_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        } 
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.jardin_est_device_temperature') %}
+                            {% if is_number(state) and state | float < 65 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 65 %}
+                              orange
+                            {% endif %}
+                            {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.jardin_est_overheating', 'on') %}
+                              red
+                            {% endif %}
+                          } 
                     - entity: sensor.pilier_device_temperature
                       name: 'Pilier'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.pilier_device_temperature') %}
-                          {% if is_number(state) and state | float < 65 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 65 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.pilier_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        } 
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.pilier_device_temperature') %}
+                            {% if is_number(state) and state | float < 65 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 65 %}
+                              orange
+                            {% endif %}
+                            {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.pilier_overheating', 'on') %}
+                              red
+                            {% endif %}
+                          } 
                     - entity: sensor.pompe_switch_0_device_temperature
                       name: 'Pompe'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.pompe_switch_0_device_temperature') %}
-                          {% if is_number(state) and state | float < 70 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 70 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.pompe_switch_0_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        }  
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.pompe_switch_0_device_temperature') %}
+                            {% if is_number(state) and state | float < 70 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 70 %}
+                              orange
+                            {% endif %}
+                            {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.pompe_switch_0_overheating', 'on') %}
+                              red
+                            {% endif %}
+                          }  
                     - entity: sensor.processor_temperature
                       name: 'RPI 4'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.processor_temperature') %}
-                          {% if is_number(state) and state | float < 70 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 70 %}
-                            orange
-                          {% endif %}
-                          {% if is_number(state) and state | float > 80 %}
-                            red
-                          {% endif %}
-                        }   
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.processor_temperature') %}
+                            {% if is_number(state) and state | float < 70 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 70 %}
+                              orange
+                            {% endif %}
+                            {% if is_number(state) and state | float > 80 %}
+                              red
+                            {% endif %}
+                          }   
                     - entity: sensor.salon_device_temperature
                       name: 'Salon'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.salon_device_temperature') %}
-                          {% if is_number(state) and state | float < 70 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 70 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.salon_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        } 
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.salon_device_temperature') %}
+                            {% if is_number(state) and state | float < 70 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 70 %}
+                              orange
+                            {% endif %}
+                            {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.salon_overheating', 'on') %}
+                              red
+                            {% endif %}
+                          } 
                     - entity: sensor.seche_linge_device_temperature
                       name: 'Sèche-Linge'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.seche_linge_device_temperature') %}
-                          {% if is_number(state) and state | float < 65 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 65 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.seche_linge_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        } 
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.seche_linge_device_temperature') %}
+                            {% if is_number(state) and state | float < 65 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 65 %}
+                              orange
+                            {% endif %}
+                            {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.seche_linge_overheating', 'on') %}
+                              red
+                            {% endif %}
+                          } 
                     - entity: sensor.spot_temp_device_temperature
                       name: 'Spot'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.spot_temp_device_temperature') %}
-                          {% if is_number(state) and state | float < 70 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 70 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.spot_temp_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        } 
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.spot_temp_device_temperature') %}
+                            {% if is_number(state) and state | float < 70 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 70 %}
+                              orange
+                            {% endif %}
+                            {% if (is_number(state) and state | float > 80)  or is_state('binary_sensor.spot_temp_overheating', 'on') %}
+                              red
+                            {% endif %}
+                          } 
                     - entity: sensor.tv_set_device_temperature
                       name: 'TV Set'
-                      style: >
-                        :host {
-                          --label-badge-red: 
-                          {% set state = states('sensor.tv_set_device_temperature') %}
-                          {% if is_number(state) and state | float < 50 %}
-                            blue
-                          {% endif %}
-                          {% if is_number(state) and state | float > 50 %}
-                            orange
-                          {% endif %}
-                          {% if (is_number(state) and state | float > 60)  or is_state('binary_sensor.tv_set_overheating', 'on') %}
-                            red
-                          {% endif %}
-                        } 
+                      card_mod:
+                        style: >
+                          :host {
+                            --label-badge-red: 
+                            {% set state = states('sensor.tv_set_device_temperature') %}
+                            {% if is_number(state) and state | float < 50 %}
+                              blue
+                            {% endif %}
+                            {% if is_number(state) and state | float > 50 %}
+                              orange
+                            {% endif %}
+                            {% if (is_number(state) and state | float > 60)  or is_state('binary_sensor.tv_set_overheating', 'on') %}
+                              red
+                            {% endif %}
+                          } 
 
             - type: entities
               title: Internet
@@ -714,21 +761,23 @@ browser_mod:
                               }
               entities:
                 - entity: binary_sensor.wan_status
-                  style: >
-                    :host {
-                      color: 
-                      {% if is_state('binary_sensor.wan_status', 'off') %}
-                        red
-                      {% endif %}
-                    }
+                  card_mod:
+                    style: >
+                      :host {
+                        color: 
+                        {% if is_state('binary_sensor.wan_status', 'off') %}
+                          red
+                        {% endif %}
+                      }
                 - entity: sensor.gandi_synchro
-                  style: >
-                    :host {
-                      color: 
-                      {% if is_state('binary_sensor.gandi_up_to_date', 'off') %}
-                        red
-                      {% endif %}
-                    }
+                  card_mod:
+                    style: >
+                      :host {
+                        color: 
+                        {% if is_state('binary_sensor.gandi_up_to_date', 'off') %}
+                          red
+                        {% endif %}
+                      }
 
                 - button.livebox_restart
 

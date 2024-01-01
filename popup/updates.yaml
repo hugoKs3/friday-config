@@ -125,33 +125,36 @@ browser_mod:
             - entity: update.home_assistant_core_update
               name: Core
               icon: mdi:database
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.home_assistant_core_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.home_assistant_core_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.home_assistant_supervisor_update
               name: Supervisor
               icon: mdi:account-supervisor-circle
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.home_assistant_supervisor_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.home_assistant_supervisor_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.home_assistant_operating_system_update
               name: OS
               icon: mdi:home-assistant
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.home_assistant_operating_system_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.home_assistant_operating_system_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
 
         - type: entities
           view_layout:
@@ -168,113 +171,124 @@ browser_mod:
             - entity: update.file_editor_update
               name: File Editor
               icon: mdi:file-edit
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.file_editor_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.file_editor_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.hugoks3_ftp_update
               name: FTP Server
               icon: mdi:file-send
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.hugoks3_ftp_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.hugoks3_ftp_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.glances_update
               name: Glances
               icon: mdi:gauge
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.glances_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.glances_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.let_s_encrypt_update
               name: Let's Encrypt
               icon: mdi:lock-check
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.let_s_encrypt_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.let_s_encrypt_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.nginx_home_assistant_ssl_proxy_update
               name: Nginx
               icon: mdi:arrow-decision
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.nginx_home_assistant_ssl_proxy_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.nginx_home_assistant_ssl_proxy_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.jellyfin_nas_update
               name: Jellyfin
               icon: mdi:multimedia
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.jellyfin_nas_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.jellyfin_nas_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.network_ups_tools_update
               name: NUT Server
               icon: mdi:battery-heart
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.network_ups_tools_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.network_ups_tools_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.onedrive_backup_update
               name: OneDrive Backup
               icon: mdi:cloud-upload
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.onedrive_backup_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.onedrive_backup_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.samba_share_update
               name: Samba Share
               icon: mdi:folder-network
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.samba_share_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.samba_share_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: update.terminal_ssh_update
               name: Terminal SSH
               icon: mdi:ssh
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('update.terminal_ssh_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('update.terminal_ssh_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: sensor.hacs
               name: HACS
               icon: hacs:hacs
-              style: >
-                :host {
-                  color: 
-                  {% if not is_state('sensor.hacs', '0') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if not is_state('sensor.hacs', '0') %}
+                      #2d7bad
+                    {% endif %}
+                  }
 
         - type: entities
           view_layout:
@@ -291,23 +305,25 @@ browser_mod:
             - entity: binary_sensor.linksys_update
               name: Linksys
               icon: mdi:access-point-network
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('binary_sensor.linksys_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('binary_sensor.linksys_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             - entity: binary_sensor.shelly_update
               name: Shelly
               icon: mdi:meter-electric
-              style: >
-                :host {
-                  color: 
-                  {% if is_state('binary_sensor.shelly_update', 'on') %}
-                    #2d7bad
-                  {% endif %}
-                }
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if is_state('binary_sensor.shelly_update', 'on') %}
+                      #2d7bad
+                    {% endif %}
+                  }
             # - entity: update.diskstation_dsm_update
             #   name: Synology
             #   icon: mdi:server-network
