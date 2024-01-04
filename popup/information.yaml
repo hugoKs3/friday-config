@@ -212,13 +212,13 @@ browser_mod:
                     service_data:
                       entity_id: sensor.disk_use_percent
 
-                - entity: sensor.localhost_media_ext_used_percent
+                - entity: sensor.disk_use_percent_media_ext
                   name: SSD Disk use
                   tap_action:
                     action: call-service
                     service: homeassistant.update_entity
                     service_data:
-                      entity_id: sensor.localhost_media_ext_used_percent
+                      entity_id: sensor.disk_use_percent_media_ext
 
 
         # #################################################
