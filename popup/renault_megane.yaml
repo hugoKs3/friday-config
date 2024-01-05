@@ -84,13 +84,14 @@ browser_mod:
                 - entity: sensor.megane_burn_rate
                   name: Burn Rate
                   icon: mdi:fire
-                  style: |
-                    :host {
-                      {% if (states('sensor.megane_burn_rate')|int) > 0 %}
-                        --paper-item-icon-color: red;
-                        color: red;
-                      {% endif %}
-                    }
+                  card_mod:
+                    style: |
+                      :host {
+                        {% if (states('sensor.megane_burn_rate')|int) > 0 %}
+                          --paper-item-icon-color: red;
+                          color: red;
+                        {% endif %}
+                      }
                   
                 - type: divider
 

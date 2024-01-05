@@ -64,22 +64,25 @@ browser_mod:
               entities:
 
                 - entity: sensor.jours_bleu_restants
-                  style: |
-                    :host {
-                    --paper-item-icon-color: blue
-                    }
+                  card_mod:
+                    style: |
+                      :host {
+                      --paper-item-icon-color: blue
+                      }
 
                 - entity: sensor.jours_blanc_restants
-                  style: |
-                    :host {
-                    --paper-item-icon-color: white
-                    }
+                  card_mod:
+                    style: |
+                      :host {
+                      --paper-item-icon-color: white
+                      }
 
                 - entity: sensor.jours_rouge_restants
-                  style: |
-                    :host {
-                    --paper-item-icon-color: red
-                    }
+                  card_mod:
+                    style: |
+                      :host {
+                      --paper-item-icon-color: red
+                      }
 
 
          
