@@ -190,17 +190,6 @@ browser_mod:
                       #2d7bad
                     {% endif %}
                   }
-            - entity: update.glances_update
-              name: Glances
-              icon: mdi:gauge
-              card_mod:
-                style: >
-                  :host {
-                    color: 
-                    {% if is_state('update.glances_update', 'on') %}
-                      #2d7bad
-                    {% endif %}
-                  }
             - entity: update.let_s_encrypt_update
               name: Let's Encrypt
               icon: mdi:lock-check

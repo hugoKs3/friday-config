@@ -241,8 +241,6 @@ template:
             is_state('update.network_ups_tools_update', 'on')
             or
             is_state('update.hugoks3_ftp_update', 'on')
-            or
-            is_state('update.glances_update', 'on')
           }}"
 
       - name: "Shelly Update"
