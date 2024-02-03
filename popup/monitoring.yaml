@@ -760,12 +760,12 @@ browser_mod:
                                 margin: 0 8px 0 8px !important;
                               }
               entities:
-                - entity: binary_sensor.wan_status
+                - entity: binary_sensor.livebox_4_wan_status
                   card_mod:
                     style: >
                       :host {
                         color: 
-                        {% if is_state('binary_sensor.wan_status', 'off') %}
+                        {% if is_state('binary_sensor.livebox_4_wan_status', 'off') %}
                           red
                         {% endif %}
                       }

@@ -543,7 +543,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.wan_status
+    - binary_sensor.livebox_4_wan_status
     attribute: wan_ipaddress
   condition: []
   action:
