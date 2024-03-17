@@ -350,7 +350,7 @@ template:
       - name: "Gandi Up-to-date"
         state: "
           {{
-            state_attr('binary_sensor.livebox_4_wan_status', 'wan_ipaddress') == states('sensor.gandi_ip')
+            state_attr('binary_sensor.livebox_4_wan_status_2', 'wan_ipaddress') == states('sensor.gandi_ip')
           }}"
 
       - name: "Somebody Home"
