@@ -657,7 +657,12 @@
   trigger:
   - platform: time
     at: '20:15:00'
-  condition: []
+  condition:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: sensor.rte_tempo_prochaine_couleur
+      state: Bleu
   action:
   - service: script.notif_google_home
     data:
