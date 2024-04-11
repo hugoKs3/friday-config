@@ -238,6 +238,7 @@ views:
             hourly_forecast: false
             use_browser_time: false
             time_zone: null
+            show_decimal: true
             card_mod:
               style: |
                 ha-card {
