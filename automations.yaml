@@ -832,3 +832,19 @@
       entity_id:
       - script.wake_up_tablet_bas
   mode: single
+- id: '1715105932266'
+  alias: iOS Portail
+  description: ''
+  trigger:
+  - platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: open_portal
+  condition: []
+  action:
+  - service: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.portail
+  mode: single
