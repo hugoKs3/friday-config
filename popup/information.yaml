@@ -154,6 +154,14 @@ browser_mod:
             - entity: sensor.s_cert_exiry_d
               name: Expiration certificat
               icon: mdi:shield-lock
+              card_mod:
+                style: >
+                  :host {
+                    color: 
+                    {% if states('sensor.s_cert_exiry_d') | int < 30 %}
+                      red
+                    {% endif %}
+                  }
 
             - entity: sensor.onedrivebackup
               type: attribute
