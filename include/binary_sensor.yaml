@@ -30,7 +30,7 @@ binary_sensor:
       - binary_sensor.tablette_murale_bas
       - binary_sensor.thermostat
       - binary_sensor.yeelight_gabriel
-      - binary_sensor.yeelight_lily
+      #- binary_sensor.yeelight_lily
       - binary_sensor.rpi_4
       - binary_sensor.google_home
       - binary_sensor.sonos

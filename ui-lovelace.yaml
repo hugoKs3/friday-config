@@ -374,12 +374,12 @@ views:
                   - light_rgb
                   - icon_hue
                   
-              - type: custom:button-card
-                entity: light.yeelight_lily
-                name: Lily
-                template:
-                  - light_rgb
-                  - icon_hue
+              # - type: custom:button-card
+              #   entity: light.yeelight_lily
+              #   name: Lily
+              #   template:
+              #     - light_rgb
+              #     - icon_hue
 
               - type: custom:button-card
                 entity: binary_sensor.door_window_sensor_158d00024e4b12

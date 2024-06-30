@@ -299,12 +299,12 @@ browser_mod:
                       :host {
                         --label-badge-blue: {% if is_state('binary_sensor.yeelight_gabriel', 'on') %} green {% else %} red {%endif %};
                       }    
-                - entity: binary_sensor.yeelight_lily
-                  card_mod:
-                    style: >
-                      :host {
-                        --label-badge-blue: {% if is_state('binary_sensor.yeelight_lily', 'on') %} green {% else %} red {%endif %};
-                      }  
+                # - entity: binary_sensor.yeelight_lily
+                #   card_mod:
+                #     style: >
+                #       :host {
+                #         --label-badge-blue: {% if is_state('binary_sensor.yeelight_lily', 'on') %} green {% else %} red {%endif %};
+                #       }  
                 - entity: binary_sensor.yeelight_plafonnier
                   card_mod:
                     style: >
