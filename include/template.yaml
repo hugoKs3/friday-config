@@ -211,37 +211,7 @@ template:
   - binary_sensor:
       - name: "Any Update"
         state: "
-          {{
-            is_state('binary_sensor.shelly_update', 'on')
-            or
-            is_state('update.home_assistant_core_update', 'on')
-            or
-            is_state('update.home_assistant_supervisor_update', 'on')
-            or
-            is_state('update.home_assistant_operating_system_update', 'on')
-            or
-            states('sensor.hacs') != '0'
-            or
-            is_state('update.file_editor_update', 'on')
-            or
-            is_state('update.let_s_encrypt_update', 'on')
-            or
-            is_state('update.nginx_home_assistant_ssl_proxy_update', 'on')
-            or
-            is_state('update.jellyfin_nas_update', 'on')
-            or
-            is_state('update.onedrive_backup_update', 'on')
-            or
-            is_state('update.samba_share_update', 'on')
-            or
-            is_state('update.terminal_ssh_update', 'on')
-            or
-            is_state('update.linksys_update', 'on')
-            or
-            is_state('update.network_ups_tools_update', 'on')
-            or
-            is_state('update.hugoks3_ftp_update', 'on')
-          }}"
+          {{ states.update | selectattr('state','eq','on') | list | count > 0 }}"
 
       - name: "Shelly Update"
         state: "
