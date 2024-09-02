@@ -280,13 +280,7 @@ browser_mod:
                     style: >
                       :host {
                         --label-badge-blue: {% if is_state('binary_sensor.tablette_murale', 'on') %} green {% else %} red {%endif %};
-                      }    
-                - entity: binary_sensor.tablette_murale_bas
-                  card_mod:
-                    style: >
-                      :host {
-                        --label-badge-blue: {% if is_state('binary_sensor.tablette_murale_bas', 'on') %} green {% else %} red {%endif %};
-                      }   
+                      }     
                 - entity: binary_sensor.thermostat
                   card_mod:
                     style: >

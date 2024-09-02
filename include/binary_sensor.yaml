@@ -27,7 +27,7 @@ binary_sensor:
       - binary_sensor.shelly_tv_set
       - binary_sensor.shelly_vanne
       - binary_sensor.tablette_murale
-      - binary_sensor.tablette_murale_bas
+      #- binary_sensor.tablette_murale_bas
       - binary_sensor.thermostat
       - binary_sensor.yeelight_gabriel
       #- binary_sensor.yeelight_lily
