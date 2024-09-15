@@ -22,7 +22,6 @@ binary_sensor:
       - binary_sensor.shelly_pompe
       - binary_sensor.shelly_portail
       - binary_sensor.shelly_salon
-      - binary_sensor.shelly_seche_linge
       - binary_sensor.shelly_spot
       - binary_sensor.shelly_tv_set
       - binary_sensor.shelly_vanne

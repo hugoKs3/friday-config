@@ -64,161 +64,247 @@ views:
             entity: sensor.template_sidebar
             template: sidebar_template
 
-          - type: custom:badge-card
-            badges:
-              - entity: person.hugo
-                show_name: false
-                card_mod:
-                  style:
-                    ha-state-label-badge $: |
-                      .person {
-                        --ha-label-badge-color: rgb(35, 78 ,106);
-                        {% if is_state('person.hugo', 'not_home') %}
-                          filter: grayscale(100);
-                          opacity: 0.2;
-                        {% else %}
-                          {% if state_attr('person.hugo', 'source') == 'device_tracker.hugo_mob' %}
-                            --ha-label-badge-color: rgb(35, 78 ,106);
-                          {% else %}
-                            --ha-label-badge-color: #FFBA33;
-                          {% endif %}
-                        {% endif %}                       
-                      }
-                    ha-state-label-badge $ ha-label-badge $: |
-                      .badge-container .label-badge .label span::after {
-                        {% if is_state('person.hugo', 'home') %}
-                          {% if state_attr('person.hugo', 'source') == 'device_tracker.hugo_mob' %}
-                            content: "Home";
-                            color: white;
-                          {% else %}
-                            content: "Ext";
-                            color: black;
-                          {% endif %}
-                        {% else %}
-                          content: "Away";
-                          color: white;
-                        {% endif %}
-                        letter-spacing: normal;
-                      }
-                      .badge-container .label-badge .label span {
-                        color: transparent;
-                        letter-spacing: -8px;
-                      }
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-badge
+                content: |-
+                  {% if is_state('person.hugo', 'home') %}
+                  {% if state_attr('person.hugo', 'source') == 'device_tracker.hugo_mob' %}
+                  Home
+                  {% else %}
+                  Ext
+                  {% endif %}
+                  {% else %}
+                  Away
+                  {% endif %}
+                icon: ''
+                color: red
+                entity: person.hugo
+                picture: |-
+                  {% if is_state('person.hugo', 'home') %}
+                    {{ state_attr("person.hugo", "entity_picture" ) }}
+                  {% else %}
+                    {{ state_attr("person.hugo_off", "entity_picture" ) }}
+                  {% endif %}
+              - type: custom:mushroom-template-badge
+                content: |-
+                  {% if is_state('person.andrea', 'home') %}
+                  {% if state_attr('person.andrea', 'source') == 'device_tracker.andrea_mob' %}
+                  Home
+                  {% else %}
+                  Ext
+                  {% endif %}
+                  {% else %}
+                  Away
+                  {% endif %}
+                icon: mdi:mushroom
+                color: red
+                entity: person.andrea
+                picture: |-
+                  {% if is_state('person.andrea', 'home') %}
+                    {{ state_attr("person.andrea", "entity_picture" ) }}
+                  {% else %}
+                    {{ state_attr("person.andrea_off", "entity_picture" ) }}
+                  {% endif %}
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-badge
+                content: |-
+                  {% if is_state('person.lily_rose', 'home') %}
+                  {% if state_attr('person.lily_rose', 'source') == 'device_tracker.lily_mob' %}
+                  Home
+                  {% else %}
+                  Ext
+                  {% endif %}
+                  {% else %}
+                  Away
+                  {% endif %}
+                icon: ''
+                color: red
+                entity: person.lily_rose
+                picture: |-
+                  {% if is_state('person.lily_rose', 'home') %}
+                    {{ state_attr("person.lily_rose", "entity_picture" ) }}
+                  {% else %}
+                    {{ state_attr("person.lily_off", "entity_picture" ) }}
+                  {% endif %}
+              - type: custom:mushroom-template-badge
+                content: >-
+                  {% if is_state('person.gabriel', 'home') %}
+                  {% if state_attr('person.gabriel', 'source') == 'device_tracker.gabriel_mob'
+                  %}
+                  Home
+                  {% else %}
+                  Ext
+                  {% endif %}
+                  {% else %}
+                  Away
+                  {% endif %}
+                icon: mdi:mushroom
+                color: red
+                entity: person.gabriel
+                picture: |-
+                  {% if is_state('person.gabriel', 'home') %}
+                    {{ state_attr("person.gabriel", "entity_picture" ) }}
+                  {% else %}
+                    {{ state_attr("person.gabriel_off", "entity_picture" ) }}
+                  {% endif %}
 
-              - entity: person.andrea
-                show_name: false
-                card_mod:
-                  style:
-                    ha-state-label-badge $: |
-                      .person {
-                        --ha-label-badge-color: rgb(35, 78 ,106);
-                        {% if is_state('person.andrea', 'not_home') %}
-                          filter: grayscale(100);
-                          opacity: 0.2;
-                        {% else %}
-                          {% if state_attr('person.andrea', 'source') == 'device_tracker.andrea_mob' %}
-                            --ha-label-badge-color: rgb(35, 78 ,106);
-                          {% else %}
-                            --ha-label-badge-color: #FFBA33;
-                          {% endif %}
-                        {% endif %}                       
-                      }
-                    ha-state-label-badge $ ha-label-badge $: |
-                      .badge-container .label-badge .label span::after {
-                        {% if is_state('person.andrea', 'home') %}
-                          {% if state_attr('person.andrea', 'source') == 'device_tracker.andrea_mob' %}
-                            content: "Home";
-                            color: white;
-                          {% else %}
-                            content: "Ext";
-                            color: black;
-                          {% endif %}
-                        {% else %}
-                          content: "Away";
-                          color: white;
-                        {% endif %}
-                        letter-spacing: normal;
-                      }
-                      .badge-container .label-badge .label span {
-                        color: transparent;
-                        letter-spacing: -8px;
-                      }
-              - entity: person.lily_rose
-                show_name: false
-                card_mod:
-                  style:
-                    ha-state-label-badge $: |
-                      .person {
-                        --ha-label-badge-color: rgb(35, 78 ,106);
-                        {% if is_state('person.lily_rose', 'not_home') %}
-                          filter: grayscale(100);
-                          opacity: 0.2;
-                        {% else %}
-                          {% if state_attr('person.lily_rose', 'source') == 'device_tracker.lily_mob' %}
-                            --ha-label-badge-color: rgb(35, 78 ,106);
-                          {% else %}
-                            --ha-label-badge-color: #FFBA33;
-                          {% endif %}
-                        {% endif %}                       
-                      }
-                    ha-state-label-badge $ ha-label-badge $: |
-                      .badge-container .label-badge .label span::after {
-                        {% if is_state('person.lily_rose', 'home') %}
-                          {% if state_attr('person.lily_rose', 'source') == 'device_tracker.lily_mob' %}
-                            content: "Home";
-                            color: white;
-                          {% else %}
-                            content: "Ext";
-                            color: black;
-                          {% endif %}
-                        {% else %}
-                          content: "Away";
-                          color: white;
-                        {% endif %}
-                        letter-spacing: normal;
-                      }
-                      .badge-container .label-badge .label span {
-                        color: transparent;
-                        letter-spacing: -8px;
-                      }
-              - entity: person.gabriel
-                show_name: false
-                card_mod:
-                  style:
-                    ha-state-label-badge $: |
-                      .person {
-                        --ha-label-badge-color: rgb(35, 78 ,106);
-                        {% if is_state('person.gabriel', 'not_home') %}
-                          filter: grayscale(100);
-                          opacity: 0.2;
-                        {% else %}
-                          {% if state_attr('person.gabriel', 'source') == 'device_tracker.gabriel_mob' %}
-                            --ha-label-badge-color: rgb(35, 78 ,106);
-                          {% else %}
-                            --ha-label-badge-color: #FFBA33;
-                          {% endif %}
-                        {% endif %}                       
-                      }
-                    ha-state-label-badge $ ha-label-badge $: |
-                      .badge-container .label-badge .label span::after {
-                        {% if is_state('person.gabriel', 'home') %}
-                          {% if state_attr('person.gabriel', 'source') == 'device_tracker.gabriel_mob' %}
-                            content: "Home";
-                            color: white;
-                          {% else %}
-                            content: "Ext";
-                            color: black;
-                          {% endif %}
-                        {% else %}
-                          content: "Away";
-                          color: white;
-                        {% endif %}
-                        letter-spacing: normal;
-                      }
-                      .badge-container .label-badge .label span {
-                        color: transparent;
-                        letter-spacing: -8px;
-                      }
+          # - type: custom:badge-card
+          #   badges:
+          #     - entity: person.hugo
+          #       show_name: false
+          #       card_mod:
+          #         style:
+          #           ha-state-label-badge $: |
+          #             .person {
+          #               --ha-label-badge-color: rgb(35, 78 ,106);
+          #               {% if is_state('person.hugo', 'not_home') %}
+          #                 filter: grayscale(100);
+          #                 opacity: 0.2;
+          #               {% else %}
+          #                 {% if state_attr('person.hugo', 'source') == 'device_tracker.hugo_mob' %}
+          #                   --ha-label-badge-color: rgb(35, 78 ,106);
+          #                 {% else %}
+          #                   --ha-label-badge-color: #FFBA33;
+          #                 {% endif %}
+          #               {% endif %}                       
+          #             }
+          #           ha-state-label-badge $ ha-label-badge $: |
+          #             .badge-container .label-badge .label span::after {
+          #               {% if is_state('person.hugo', 'home') %}
+          #                 {% if state_attr('person.hugo', 'source') == 'device_tracker.hugo_mob' %}
+          #                   content: "Home";
+          #                   color: white;
+          #                 {% else %}
+          #                   content: "Ext";
+          #                   color: black;
+          #                 {% endif %}
+          #               {% else %}
+          #                 content: "Away";
+          #                 color: white;
+          #               {% endif %}
+          #               letter-spacing: normal;
+          #             }
+          #             .badge-container .label-badge .label span {
+          #               color: transparent;
+          #               letter-spacing: -8px;
+          #             }
+
+          #     - entity: person.andrea
+          #       show_name: false
+          #       card_mod:
+          #         style:
+          #           ha-state-label-badge $: |
+          #             .person {
+          #               --ha-label-badge-color: rgb(35, 78 ,106);
+          #               {% if is_state('person.andrea', 'not_home') %}
+          #                 filter: grayscale(100);
+          #                 opacity: 0.2;
+          #               {% else %}
+          #                 {% if state_attr('person.andrea', 'source') == 'device_tracker.andrea_mob' %}
+          #                   --ha-label-badge-color: rgb(35, 78 ,106);
+          #                 {% else %}
+          #                   --ha-label-badge-color: #FFBA33;
+          #                 {% endif %}
+          #               {% endif %}                       
+          #             }
+          #           ha-state-label-badge $ ha-label-badge $: |
+          #             .badge-container .label-badge .label span::after {
+          #               {% if is_state('person.andrea', 'home') %}
+          #                 {% if state_attr('person.andrea', 'source') == 'device_tracker.andrea_mob' %}
+          #                   content: "Home";
+          #                   color: white;
+          #                 {% else %}
+          #                   content: "Ext";
+          #                   color: black;
+          #                 {% endif %}
+          #               {% else %}
+          #                 content: "Away";
+          #                 color: white;
+          #               {% endif %}
+          #               letter-spacing: normal;
+          #             }
+          #             .badge-container .label-badge .label span {
+          #               color: transparent;
+          #               letter-spacing: -8px;
+          #             }
+          #     - entity: person.lily_rose
+          #       show_name: false
+          #       card_mod:
+          #         style:
+          #           ha-state-label-badge $: |
+          #             .person {
+          #               --ha-label-badge-color: rgb(35, 78 ,106);
+          #               {% if is_state('person.lily_rose', 'not_home') %}
+          #                 filter: grayscale(100);
+          #                 opacity: 0.2;
+          #               {% else %}
+          #                 {% if state_attr('person.lily_rose', 'source') == 'device_tracker.lily_mob' %}
+          #                   --ha-label-badge-color: rgb(35, 78 ,106);
+          #                 {% else %}
+          #                   --ha-label-badge-color: #FFBA33;
+          #                 {% endif %}
+          #               {% endif %}                       
+          #             }
+          #           ha-state-label-badge $ ha-label-badge $: |
+          #             .badge-container .label-badge .label span::after {
+          #               {% if is_state('person.lily_rose', 'home') %}
+          #                 {% if state_attr('person.lily_rose', 'source') == 'device_tracker.lily_mob' %}
+          #                   content: "Home";
+          #                   color: white;
+          #                 {% else %}
+          #                   content: "Ext";
+          #                   color: black;
+          #                 {% endif %}
+          #               {% else %}
+          #                 content: "Away";
+          #                 color: white;
+          #               {% endif %}
+          #               letter-spacing: normal;
+          #             }
+          #             .badge-container .label-badge .label span {
+          #               color: transparent;
+          #               letter-spacing: -8px;
+          #             }
+          #     - entity: person.gabriel
+          #       show_name: false
+          #       card_mod:
+          #         style:
+          #           ha-state-label-badge $: |
+          #             .person {
+          #               --ha-label-badge-color: rgb(35, 78 ,106);
+          #               {% if is_state('person.gabriel', 'not_home') %}
+          #                 filter: grayscale(100);
+          #                 opacity: 0.2;
+          #               {% else %}
+          #                 {% if state_attr('person.gabriel', 'source') == 'device_tracker.gabriel_mob' %}
+          #                   --ha-label-badge-color: rgb(35, 78 ,106);
+          #                 {% else %}
+          #                   --ha-label-badge-color: #FFBA33;
+          #                 {% endif %}
+          #               {% endif %}                       
+          #             }
+          #           ha-state-label-badge $ ha-label-badge $: |
+          #             .badge-container .label-badge .label span::after {
+          #               {% if is_state('person.gabriel', 'home') %}
+          #                 {% if state_attr('person.gabriel', 'source') == 'device_tracker.gabriel_mob' %}
+          #                   content: "Home";
+          #                   color: white;
+          #                 {% else %}
+          #                   content: "Ext";
+          #                   color: black;
+          #                 {% endif %}
+          #               {% else %}
+          #                 content: "Away";
+          #                 color: white;
+          #               {% endif %}
+          #               letter-spacing: normal;
+          #             }
+          #             .badge-container .label-badge .label span {
+          #               color: transparent;
+          #               letter-spacing: -8px;
+          #             }
 
           - type: custom:clock-weather-card
             entity: weather.biot

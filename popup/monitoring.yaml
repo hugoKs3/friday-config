@@ -233,13 +233,7 @@ browser_mod:
                     style: >
                       :host {
                         --label-badge-blue: {% if is_state('binary_sensor.shelly_salon', 'on') %} green {% else %} red {%endif %};
-                      }    
-                - entity: binary_sensor.shelly_seche_linge
-                  card_mod:
-                    style: >
-                      :host {
-                        --label-badge-blue: {% if is_state('binary_sensor.shelly_seche_linge', 'on') %} green {% else %} red {%endif %};
-                      }    
+                      }      
                 - entity: binary_sensor.shelly_spot
                   card_mod:
                     style: >
