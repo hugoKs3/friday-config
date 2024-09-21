@@ -979,7 +979,7 @@ views:
         content: >-
           {% if is_state('binary_sensor.network_pings', 'off') or
           is_state('binary_sensor.battery_low', 'on') or
-          is_state('binary_sensor.livebox_4_wan_status', 'off') or
+          is_state('binary_sensor.livebox_fibre_wan_status', 'off') or
           is_state('binary_sensor.gandi_up_to_date', 'off') or
           (states('sensor.s_cert_exiry_d') | int < 20) %}
 
@@ -993,7 +993,7 @@ views:
         icon: >-
           {% if is_state('binary_sensor.network_pings', 'off') or
           is_state('binary_sensor.battery_low', 'on') or
-          is_state('binary_sensor.livebox_4_wan_status', 'off') or
+          is_state('binary_sensor.livebox_fibre_wan_status', 'off') or
           is_state('binary_sensor.gandi_up_to_date', 'off') or
           (states('sensor.s_cert_exiry_d') | int < 20) %}
 
@@ -1007,7 +1007,7 @@ views:
         color: >-
           {% if is_state('binary_sensor.network_pings', 'off') or
           is_state('binary_sensor.battery_low', 'on') or
-          is_state('binary_sensor.livebox_4_wan_status', 'off') or
+          is_state('binary_sensor.livebox_fibre_wan_status', 'off') or
           is_state('binary_sensor.gandi_up_to_date', 'off') or
           (states('sensor.s_cert_exiry_d') | int < 20) %}
 
@@ -1074,7 +1074,7 @@ views:
       - type: grid
         cards:
           - type: tile
-            entity: binary_sensor.livebox_4_wan_status_2
+            entity: binary_sensor.livebox_fibre_wan_status
           - type: tile
             entity: sensor.gandi_synchro
           - type: custom:mushroom-title-card

@@ -33,6 +33,6 @@ binary_sensor:
       - binary_sensor.rpi_4
       - binary_sensor.google_home
       - binary_sensor.sonos
-      - binary_sensor.ap_buanderie
+      - binary_sensor.ap_bureau
       - binary_sensor.ap_garage
       - binary_sensor.ap_lily

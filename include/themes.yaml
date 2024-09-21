@@ -361,7 +361,7 @@ frontend:
 
           #conditional color
           "$hui-button-card:nth-of-type(3)$": |
-            {% if is_state('binary_sensor.network_pings', 'off') or is_state('binary_sensor.battery_low', 'on') or is_state('binary_sensor.livebox_4_wan_status', 'off') or is_state('binary_sensor.gandi_up_to_date', 'off')%}
+            {% if is_state('binary_sensor.network_pings', 'off') or is_state('binary_sensor.battery_low', 'on') or is_state('binary_sensor.livebox_fibre_wan_status', 'off') or is_state('binary_sensor.gandi_up_to_date', 'off')%}
 
               ha-card, ha-state-icon, ha-icon {
                 color: rgb(196, 74 ,99) !important;

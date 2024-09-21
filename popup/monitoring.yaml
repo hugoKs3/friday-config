@@ -86,11 +86,11 @@ browser_mod:
           entities:
             - type: custom:badge-card
               badges:
-                - entity: binary_sensor.ap_buanderie
+                - entity: binary_sensor.ap_bureau
                   card_mod:
                     style: >
                       :host {
-                        --label-badge-blue: {% if is_state('binary_sensor.ap_buanderie', 'on') %} green {% else %} red {%endif %};
+                        --label-badge-blue: {% if is_state('binary_sensor.ap_bureau', 'on') %} green {% else %} red {%endif %};
                       } 
                 - entity: binary_sensor.ap_exterieur
                   card_mod:
@@ -748,12 +748,12 @@ browser_mod:
                                 margin: 0 8px 0 8px !important;
                               }
               entities:
-                - entity: binary_sensor.livebox_4_wan_status_2
+                - entity: binary_sensor.livebox_fibre_wan_status
                   card_mod:
                     style: >
                       :host {
                         color: 
-                        {% if is_state('binary_sensor.livebox_4_wan_status_2', 'off') %}
+                        {% if is_state('binary_sensor.livebox_fibre_wan_status', 'off') %}
                           red
                         {% endif %}
                       }

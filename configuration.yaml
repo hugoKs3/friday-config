@@ -127,7 +127,7 @@ rest_command:
     content_type: application/json
     headers:
       authorization: !secret gandi_authorization
-    payload: '{"rrset_values":["{{ state_attr("binary_sensor.livebox_4_wan_status_2", "wan_ipaddress") }}"],"rrset_ttl":300}'
+    payload: '{"rrset_values":["{{ state_attr("binary_sensor.livebox_fibre_wan_status", "wan_ipaddress") }}"],"rrset_ttl":300}'
 
 shell_command:
   ha_gitpush: /bin/bash /config/shell_commands/ha_gitpush.sh

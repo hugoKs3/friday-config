@@ -247,16 +247,6 @@ template:
             is_state('update.vanne_firmware_update', 'on')
           }}"
 
-      - name: "Linksys Update"
-        state: "
-          {{
-            is_state('update.buanderie_update', 'on')
-            or
-            is_state('update.chambre_lily_update', 'on')
-            or
-            is_state('update.salon_update', 'on')
-          }}"
-
       - name: "Cycle Piscne"
         state: "
           {{
@@ -320,7 +310,7 @@ template:
       - name: "Gandi Up-to-date"
         state: "
           {{
-            state_attr('binary_sensor.livebox_4_wan_status_2', 'wan_ipaddress') == states('sensor.gandi_ip')
+            state_attr('binary_sensor.livebox_fibre_wan_status', 'wan_ipaddress') == states('sensor.gandi_ip')
           }}"
 
       - name: "Somebody Home"
