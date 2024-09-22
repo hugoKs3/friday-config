@@ -687,28 +687,28 @@
       entity_id: sensor.rte_tempo_couleur_actuelle
       state: Rouge
     then:
-    - service: automation.turn_off
-      data:
+    - data:
         stop_actions: true
       target:
         entity_id:
         - automation.piscine
         - automation.crepuscule
-    - service: switch.turn_off
-      data: {}
+      action: automation.turn_off
+    - data: {}
+      action: switch.turn_off
       target:
-        entity_id: switch.seche_linge
+        entity_id: switch.seche_linge_switch_0
     else:
-    - service: automation.turn_on
-      data: {}
+    - data: {}
       target:
         entity_id:
         - automation.piscine
         - automation.crepuscule
-    - service: switch.turn_on
-      data: {}
+      action: automation.turn_on
+    - data: {}
+      action: switch.turn_on
       target:
-        entity_id: switch.seche_linge
+        entity_id: switch.seche_linge_switch_0
   mode: single
 - id: '1698842284018'
   alias: Crepuscule ON Interieur

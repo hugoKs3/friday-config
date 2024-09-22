@@ -238,6 +238,8 @@ template:
             or
             is_state('update.salon_firmware_update', 'on')
             or
+            is_state('update.seche_linge_firmware_update', 'on')
+            or
             is_state('update.spot_temp_firmware_update', 'on')
             or
             is_state('update.sprinkler_firmware_update', 'on')
@@ -274,7 +276,7 @@ template:
       - name: "Seche-Linge en Marche"
         state: "
           {{
-            (states('sensor.seche_linge_power') | int) > 2
+            (states('sensor.sensor.seche_linge_switch_0_power') | int) > 2
           }}"
 
       - name: "Cartouche Imprimante Low"
