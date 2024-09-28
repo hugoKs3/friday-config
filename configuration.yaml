@@ -47,6 +47,10 @@ lovelace:
       type: module
     - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
       type: module
+    - url: /hacsfiles/power-flow-card-plus/power-flow-card-plus.js
+      type: module
+    - url: /hacsfiles/energy-flow-card-plus/energy-flow-card-plus.js
+      type: module
     - url: /local/font.css
       type: css
 

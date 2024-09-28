@@ -62,3 +62,11 @@ sensor:
     headers:
       authorization: !secret gandi_authorization
     value_template: "{{ value_json.rrset_values[0] }}"
+
+  - platform: 'gazpar'
+    name: 'gazpar'
+    username: !secret grdf_user
+    password: !secret grdf_pwd
+    pce_identifier: !secret grdf_pce
+    tmpdir: '/tmp'
+    scan_interval: '08:00:00'

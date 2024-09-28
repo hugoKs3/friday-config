@@ -202,6 +202,14 @@ template:
           {% set input_length = states('input_text.keypad_input')|length %}
           {{ '*' * input_length }}
 
+      - name: gas_energy
+        unit_of_measurement: 'kWh'      
+        state: >
+          {{ states('sensor.gazpar') }}
+        icon: mdi:fire
+        device_class: energy
+        state_class: total_increasing
+
   #################################################
   #                                               #
   #                    BINARY                     #
