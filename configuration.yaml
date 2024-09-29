@@ -51,6 +51,10 @@ lovelace:
       type: module
     - url: /hacsfiles/energy-flow-card-plus/energy-flow-card-plus.js
       type: module
+    - url: /hacsfiles/content-card-linky/content-card-linky.js
+      type: module
+    - url: /hacsfiles/lovelace-gazpar-card/gazpar-card.js
+      type: module
     - url: /local/font.css
       type: css
 

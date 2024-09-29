@@ -37,15 +37,8 @@
     target:
       entity_id: switch.tv_set
   mode: single
-wake_up_tablet:
-  alias: Wake-Up Tablet
-  sequence:
-  - service: notify.mobile_app_a10h
-    data:
-      message: command_screen_on
-  mode: single
 wake_up_tablet_bas:
-  alias: Wake-Up Tablet Bas
+  alias: Wake-Up Tablet
   sequence:
   - service: notify.mobile_app_sm_t530
     data:

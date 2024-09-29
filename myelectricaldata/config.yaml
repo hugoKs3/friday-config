@@ -24,7 +24,7 @@ home_assistant_ws:
   enable: true
   ssl: false
   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYmNmZDg4ODg0NmE0NGRhYTQ4YzJjYzAwMTU5MDAxNyIsImlhdCI6MTcyNzU0OTM4NSwiZXhwIjoyMDQyOTA5Mzg1fQ.AGdvOL5fStrF8XgomeqZlUteNznVbJEYixhXbd9oKqs
-  url: http://192.168.1.186:8123/
+  url: 192.168.1.186:8123
 influxdb:
   enable: false
   hostname: influxdb
