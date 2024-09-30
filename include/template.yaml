@@ -210,6 +210,19 @@ template:
         device_class: energy
         state_class: total_increasing
 
+      - name: Last Daily Gas Measure (-2d)
+        unique_id: last_daily_gas_measure
+        unit_of_measurement: "kWh"
+        state: >
+          {{ state_attr("sensor.gazpar", "daily")[0].energy_kwh }}
+
+      - name: Last Daily Electricity Measure (-2d)
+        unique_id: last_daily_electricy_measure
+        unit_of_measurement: "kWh"
+        state: >
+          {{ state_attr("sensor.linky_25979305334360_consumption", "day_2") }}
+
+
   #################################################
   #                                               #
   #                    BINARY                     #
