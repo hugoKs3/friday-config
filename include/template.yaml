@@ -297,7 +297,7 @@ template:
       - name: "Seche-Linge en Marche"
         state: "
           {{
-            (states('sensor.sensor.seche_linge_switch_0_power') | int) > 2
+            (states('sensor.seche_linge_switch_0_power') | int) > 2
           }}"
 
       - name: "Cartouche Imprimante Low"
