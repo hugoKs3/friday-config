@@ -814,3 +814,17 @@
     target:
       entity_id: switch.portail
   mode: single
+- id: '1728585708828'
+  alias: Start HA on tablet reboot
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.p30t_last_reboot
+  conditions: []
+  actions:
+  - action: notify.mobile_app_p30t
+    metadata: {}
+    data:
+      message: command_webview
+  mode: single
