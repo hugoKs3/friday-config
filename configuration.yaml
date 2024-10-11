@@ -55,6 +55,10 @@ lovelace:
       type: module
     - url: /hacsfiles/lovelace-gazpar-card/gazpar-card.js
       type: module
+    - url: /hacsfiles/lovelace-thermostat-dark-card/thermostat-dark-card.js
+      type: module
+    - url: /hacsfiles/bignumber-card/bignumber-card.js
+      type: module
     - url: /local/font.css
       type: css
 
