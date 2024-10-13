@@ -828,3 +828,88 @@
     data:
       message: command_webview
   mode: single
+- id: '1728831180829'
+  alias: Switch Camera
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    seconds: /4
+  conditions: []
+  actions:
+  - action: input_boolean.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.camera_show
+  mode: single
+- id: '1728833311908'
+  alias: Toggle All Indoor Lights
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.indoor_lights
+      state: 'on'
+    then:
+    - action: light.turn_off
+      target:
+        entity_id:
+        - light.yeelight_plafonnier
+      data: {}
+    - action: switch.turn_off
+      target:
+        entity_id:
+        - switch.salon
+        - switch.cheminee
+      data: {}
+    else:
+    - action: light.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.yeelight_plafonnier
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - switch.salon
+        - switch.cheminee
+  mode: single
+- id: '1728833467567'
+  alias: All Outdoor Toggle
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.outdoor_lights
+      state: 'on'
+    then:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - switch.guirlande
+        - switch.pilier
+        - switch.jardin_est
+        - switch.poulailler
+        - switch.cabane
+        - switch.spot_temp
+    else:
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - switch.guirlande
+        - switch.pilier
+        - switch.jardin_est
+        - switch.cabane
+        - switch.poulailler
+        - switch.spot_temp
+  mode: single

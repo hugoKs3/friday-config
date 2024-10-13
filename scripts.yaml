@@ -27,20 +27,11 @@
       area_id:
       - outdoor
       - living_room
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 5
-      milliseconds: 0
-  - service: switch.turn_off
-    data: {}
-    target:
-      entity_id: switch.tv_set
   mode: single
-wake_up_tablet_bas:
+wake_up_tablet:
   alias: Wake-Up Tablet
   sequence:
-  - service: notify.mobile_app_sm_t530
+  - service: notify.mobile_app_p30t
     data:
       message: command_screen_on
   mode: single

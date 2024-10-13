@@ -347,3 +347,29 @@ template:
             or
             is_state('person.gabriel', 'home')
           }}"
+
+      - name: "Indoor Lights"
+        state: "
+          {{
+            is_state('switch.cheminee', 'on')
+            or
+            is_state('switch.salon', 'on')
+            or
+            is_state('light.yeelight_plafonnier', 'on')
+          }}"
+
+      - name: "Outdoor Lights"
+        state: "
+          {{
+            is_state('switch.guirlande', 'on')
+            or
+            is_state('switch.jardin_est', 'on')
+            or
+            is_state('switch.pilier', 'on')
+            or
+            is_state('switch.cabane', 'on')
+            or
+            is_state('switch.poulailler', 'on')
+            or
+            is_state('switch.spot_temp', 'on')
+          }}"
