@@ -180,18 +180,20 @@
 - id: '1663517344914'
   alias: Reveil Tablette
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.presence_haut
     from: 'off'
     to: 'on'
-  condition: []
-  action:
-  - service: script.turn_on
-    data: {}
+    trigger: state
+  - trigger: time_pattern
+    minutes: /4
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id: script.wake_up_tablet
+    action: script.turn_on
   mode: single
 - id: '1663519278701'
   alias: Notification Poubelle
@@ -912,4 +914,36 @@
         - switch.cabane
         - switch.poulailler
         - switch.spot_temp
+  mode: single
+- id: '1729338407853'
+  alias: Stop Charge Tablette
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.p30t_battery_level
+    above: 80
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.chargeur
+  mode: single
+- id: '1729338460573'
+  alias: Start Charge Tablette
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.p30t_battery_level
+    below: 30
+  conditions: []
+  actions:
+  - action: switch.turn_on
+    target:
+      entity_id:
+      - switch.chargeur
+    data: {}
   mode: single
