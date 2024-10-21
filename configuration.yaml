@@ -59,6 +59,8 @@ lovelace:
       type: module
     - url: /hacsfiles/bignumber-card/bignumber-card.js
       type: module
+    - url: /hacsfiles/restriction-card/restriction-card.js
+      type: module
     - url: /local/font.css
       type: css
 

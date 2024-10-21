@@ -409,23 +409,23 @@
 - id: '1664560056333'
   alias: Alerte Intrusion
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.door_window_sensor_158d00024e4b12
     from: 'off'
     to: 'on'
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - binary_sensor.presence_haut
     from: 'off'
     to: 'on'
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - binary_sensor.presence_bas
     from: 'off'
     to: 'on'
-  condition:
+    trigger: state
+  conditions:
   - condition: and
     conditions:
     - condition: state
@@ -438,7 +438,7 @@
     - condition: state
       entity_id: binary_sensor.somebody_home
       state: 'off'
-  action:
+  actions:
   - delay:
       hours: 0
       minutes: 0
@@ -449,10 +449,10 @@
       entity_id: input_boolean.enable_alarm
       state: 'on'
     then:
-    - service: script.notif_google_home
-      data:
+    - data:
         bypass: true
         message: Vous avez 30 secondes pour désactiver l'alarme
+      action: script.notif_google_home
     - delay:
         hours: 0
         minutes: 0
@@ -463,10 +463,10 @@
         entity_id: input_boolean.enable_alarm
         state: 'on'
       then:
-      - service: script.notif_google_home
-        data:
+      - data:
           bypass: true
           message: Vous avez 20 secondes pour désactiver l'alarme
+        action: script.notif_google_home
       - delay:
           hours: 0
           minutes: 0
@@ -477,10 +477,10 @@
           entity_id: input_boolean.enable_alarm
           state: 'on'
         then:
-        - service: script.notif_google_home
-          data:
+        - data:
             bypass: true
             message: Vous avez 10 secondes pour désactiver l'alarme
+          action: script.notif_google_home
         - delay:
             hours: 0
             minutes: 0
@@ -491,16 +491,15 @@
             entity_id: input_boolean.enable_alarm
             state: 'on'
           then:
-          - service: input_boolean.turn_on
-            data: {}
+          - data: {}
             target:
               entity_id: input_boolean.intrusion_detected
-          - service: light.turn_on
-            data: {}
+            action: input_boolean.turn_on
+          - data: {}
             target:
               entity_id: light.yeelight_plafonnier
-          - service: switch.turn_on
-            data: {}
+            action: light.turn_on
+          - data: {}
             target:
               entity_id:
               - switch.cabane
@@ -510,17 +509,18 @@
               - switch.pilier
               - switch.poulailler
               - switch.salon
-          - service: script.notif_telegram
-            data:
+            action: switch.turn_on
+          - data:
               message: ALERTE INTRUSION !
+            action: script.notif_telegram
           - repeat:
               count: '3'
               sequence:
-              - service: script.notif_google_home
-                data:
+              - data:
                   bypass: true
                   message: Attention ! Alerte intrusion ! Les services de sécurité
                     ont été prévenus
+                action: script.notif_google_home
               - delay:
                   hours: 0
                   minutes: 0
@@ -529,10 +529,10 @@
           - repeat:
               count: '3'
               sequence:
-              - service: button.press
-                data: {}
+              - data: {}
                 target:
-                  entity_id: button.ring_your_phone
+                  entity_id: button.livebox_fibre_ring_your_phone
+                action: button.press
               - delay:
                   hours: 0
                   minutes: 0
@@ -633,14 +633,15 @@
 - id: '1682929018692'
   alias: Crepuscule OFF ALL
   description: ''
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: 0
-  condition: []
-  action:
-  - service: switch.turn_off
-    data: {}
+  triggers:
+  - trigger: time
+    at: '23:30:00'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.enable_alarm
+    state: 'on'
+  actions:
+  - data: {}
     target:
       entity_id:
       - switch.cheminee
@@ -648,10 +649,13 @@
       - switch.guirlande
       - switch.jardin_est
       - switch.salon
-  - service: light.turn_off
-    data: {}
+    action: switch.turn_off
+  - data: {}
     target:
-      entity_id: light.yeelight_plafonnier
+      entity_id:
+      - light.yeelight_plafonnier
+      - light.yeelight_gabriel
+    action: light.turn_off
   mode: single
 - id: '1698836134725'
   alias: Notification Tempo
@@ -736,9 +740,8 @@
 - id: '1698956706914'
   alias: Activation Alarme
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.somebody_home
     from: 'on'
     to: 'off'
@@ -746,32 +749,25 @@
       hours: 0
       minutes: 5
       seconds: 0
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: binary_sensor.door_window_sensor_158d00024e4b12
     state: 'off'
-  action:
-  - service: input_boolean.turn_on
-    data: {}
+  actions:
+  - data: {}
     target:
       entity_id: input_boolean.enable_alarm
-  - service: script.notif_telegram
-    data:
+    action: input_boolean.turn_on
+  - data:
       message: Alarme activée automatiquement
-  - service: browser_mod.navigate
-    data:
-      path: /lovelace/1
-    target:
-      entity_id:
-      - media_player.0328af0c_cc17ac79
-      - media_player.c3cc03f1_cb97c73a
+    action: script.notif_telegram
   mode: single
 - id: '1698957606433'
   alias: Desactivation Alarme
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.somebody_home
     from: 'off'
     to: 'on'
@@ -779,26 +775,15 @@
       hours: 0
       minutes: 0
       seconds: 0
-  condition: []
-  action:
-  - service: input_boolean.turn_off
-    data: {}
+    trigger: state
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id:
       - input_boolean.enable_alarm
       - input_boolean.intrusion_detected
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 3
-      milliseconds: 0
-  - service: browser_mod.navigate
-    data:
-      path: /lovelace/0
-    target:
-      entity_id:
-      - media_player.0328af0c_cc17ac79
-      - media_player.c3cc03f1_cb97c73a
+    action: input_boolean.turn_off
   mode: single
 - id: '1715105932266'
   alias: iOS Portail
