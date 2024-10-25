@@ -420,11 +420,6 @@
     from: 'off'
     to: 'on'
     trigger: state
-  - entity_id:
-    - binary_sensor.presence_bas
-    from: 'off'
-    to: 'on'
-    trigger: state
   conditions:
   - condition: and
     conditions:
