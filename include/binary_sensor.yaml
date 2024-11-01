@@ -5,6 +5,7 @@ binary_sensor:
     all: true
     entities:
       - binary_sensor.camera_nord
+      - binary_sensor.camera_porte
       - binary_sensor.camera_sud
       - binary_sensor.gateway_xiaomi
       - binary_sensor.imprimante

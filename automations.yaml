@@ -818,11 +818,11 @@
     seconds: /4
   conditions: []
   actions:
-  - action: input_boolean.toggle
-    metadata: {}
-    data: {}
+  - action: input_select.select_next
     target:
-      entity_id: input_boolean.camera_show
+      entity_id: input_select.camera_show
+    data:
+      cycle: true
   mode: single
 - id: '1728833311908'
   alias: Toggle All Indoor Lights
