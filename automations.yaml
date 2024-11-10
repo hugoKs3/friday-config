@@ -969,6 +969,17 @@
     - condition: numeric_state
       entity_id: sensor.temperature_lily
       below: 19.8
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.gg085jj_charging
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.gj468rk_charging
+        state: 'on'
+    - condition: state
+      entity_id: person.lily_rose
+      state: home
   actions:
   - action: switch.turn_on
     metadata: {}
@@ -991,4 +1002,42 @@
     data: {}
     target:
       entity_id: switch.chargeur
+  mode: single
+- id: '1731231169175'
+  alias: Surveillance Porte
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.somebody_home
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.somebody_home
+      state: 'off'
+    then:
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.camera_porte_indicator_led
+    - action: select.select_option
+      metadata: {}
+      data:
+        option: normal
+      target:
+        entity_id: select.camera_porte_motion_detection
+    else:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.camera_porte_indicator_led
+    - action: select.select_option
+      metadata: {}
+      data:
+        option: 'off'
+      target:
+        entity_id: select.camera_porte_motion_detection
   mode: single
