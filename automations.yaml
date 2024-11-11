@@ -948,6 +948,7 @@
         weekday:
         - sun
         - sat
+        - mon
       - condition: time
         after: 06:45:00
         before: 07:30:00
