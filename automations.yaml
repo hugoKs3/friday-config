@@ -673,11 +673,11 @@
 - id: '1698837169057'
   alias: Tempo
   description: ''
-  trigger:
-  - platform: time
-    at: sensor.rte_tempo_prochaine_couleur_changement
-  condition: []
-  action:
+  triggers:
+  - at: sensor.rte_tempo_prochaine_couleur_changement
+    trigger: time
+  conditions: []
+  actions:
   - delay:
       hours: 0
       minutes: 20
@@ -694,6 +694,7 @@
         entity_id:
         - automation.piscine
         - automation.crepuscule
+        - automation.chauffage_lily_on
       action: automation.turn_off
     - data: {}
       action: switch.turn_off
@@ -705,6 +706,7 @@
         entity_id:
         - automation.piscine
         - automation.crepuscule
+        - automation.chauffage_lily_on
       action: automation.turn_on
     - data: {}
       action: switch.turn_on
@@ -943,12 +945,11 @@
     - condition: or
       conditions:
       - condition: time
-        after: 07:30:00
-        before: '21:30:00'
+        after: '10:00:00'
+        before: '22:30:00'
         weekday:
         - sun
         - sat
-        - mon
       - condition: time
         after: 06:45:00
         before: 07:30:00
@@ -967,17 +968,32 @@
         - wed
         - thu
         - fri
+      - condition: time
+        after: '17:00:00'
+        before: '22:30:00'
+        weekday:
+        - fri
     - condition: numeric_state
       entity_id: sensor.temperature_lily
       below: 19.8
     - condition: not
       conditions:
-      - condition: state
-        entity_id: binary_sensor.gg085jj_charging
-        state: 'on'
-      - condition: state
-        entity_id: binary_sensor.gj468rk_charging
-        state: 'on'
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: binary_sensor.gg085jj_charging
+          state: 'on'
+        - condition: state
+          entity_id: device_tracker.gg085jj_location
+          state: home
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: binary_sensor.gj468rk_charging
+          state: 'on'
+        - condition: state
+          entity_id: device_tracker.gj468rk_location
+          state: home
     - condition: state
       entity_id: person.lily_rose
       state: home
