@@ -152,6 +152,10 @@ template:
         unit_of_measurement: "°C"
         state: "{{ state_attr('climate.bureau', 'current_temperature') }}"
 
+      - name: "Chambre Bas Current Temp"
+        unit_of_measurement: "°C"
+        state: "{{ state_attr('climate.chambre_bas', 'current_temperature') }}"
+
       - name: "Jours ROUGE restants"
         state: "{{ states.sensor.rte_tempo_cycle_jours_restants_rouge.state }}j / {{ (states.sensor.rte_tempo_cycle_jours_restants_rouge.state | int) + (states.sensor.rte_tempo_cycle_jours_deja_places_rouge.state | int) }}j"
         icon: mdi:circle
@@ -334,6 +338,8 @@ template:
             (states('sensor.battery_sdbbas') | int) <= 3
             or
             (states('sensor.valve_bureau_batterie') | int) <= 10
+            or
+            (states('sensor.valve_chambre_bas_batterie') | int) <= 10
             or
             (states('sensor.thermostat_battery_percent_2') | int) <= 10
           }}"
