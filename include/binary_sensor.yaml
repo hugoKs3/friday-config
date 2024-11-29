@@ -25,7 +25,7 @@ binary_sensor:
       - binary_sensor.shelly_salon
       - binary_sensor.shelly_seche_linge
       - binary_sensor.shelly_spot
-      - binary_sensor.shelly_tv_set
+      - binary_sensor.shelly_chauffage_lily
       - binary_sensor.shelly_vanne
       - binary_sensor.tablette_murale
       #- binary_sensor.tablette_murale_bas
@@ -38,3 +38,4 @@ binary_sensor:
       - binary_sensor.ap_bureau
       - binary_sensor.ap_garage
       - binary_sensor.ap_lily
+      - binary_sensor.shelly_chargeur
