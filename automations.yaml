@@ -1003,7 +1003,8 @@
     metadata: {}
     data: {}
     target:
-      entity_id: switch.chargeur
+      entity_id:
+      - switch.chauffage_lily
   mode: single
 - id: '1731150260533'
   alias: Chauffage Lily OFF
@@ -1019,7 +1020,8 @@
     metadata: {}
     data: {}
     target:
-      entity_id: switch.chargeur
+      entity_id:
+      - switch.chauffage_lily
   mode: single
 - id: '1731231169175'
   alias: Surveillance Porte
@@ -1058,4 +1060,35 @@
         option: 'off'
       target:
         entity_id: select.camera_porte_motion_detection
+  mode: single
+- id: '1732974991511'
+  alias: Reboot Camera Porte
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.camera_porte
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.camera_switch_0
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.camera_switch_0
   mode: single

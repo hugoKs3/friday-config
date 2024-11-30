@@ -39,3 +39,4 @@ binary_sensor:
       - binary_sensor.ap_garage
       - binary_sensor.ap_lily
       - binary_sensor.shelly_chargeur
+      - binary_sensor.shelly_camera
