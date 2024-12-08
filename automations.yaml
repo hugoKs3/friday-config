@@ -1092,3 +1092,17 @@
     target:
       entity_id: switch.camera_switch_0
   mode: single
+- id: '1733679922973'
+  alias: Switch Temp Hum
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    seconds: /3
+  conditions: []
+  actions:
+  - action: input_boolean.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.temp_hum_show
+  mode: single
