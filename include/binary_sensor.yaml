@@ -40,3 +40,4 @@ binary_sensor:
       - binary_sensor.ap_lily
       - binary_sensor.shelly_chargeur
       - binary_sensor.shelly_camera
+      - binary_sensor.yeelight_tempo
