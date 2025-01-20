@@ -87,6 +87,8 @@ http:
     - !secret http_proxy_6
     - !secret http_proxy_7
     - !secret http_proxy_8
+    - !secret http_proxy_9
+    - !secret http_proxy_10
 
 automation: !include automations.yaml
 script: !include scripts.yaml
