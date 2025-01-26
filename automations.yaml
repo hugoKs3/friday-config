@@ -357,24 +357,40 @@
 - id: '1664304010323'
   alias: Notification Seche-Linge
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.seche_linge_en_marche
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - if:
     - condition: state
       entity_id: binary_sensor.seche_linge_en_marche
       state: 'on'
     then:
-    - service: script.notif_google_home
-      data:
+    - data:
         message: Le sèche-linge a démarré
-    else:
-    - service: script.notif_google_home
+      action: script.notif_google_home
+    - action: mqtt.publish
+      metadata: {}
       data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: awtrix_05ffac/indicator3
+        payload: '{"color":"#f78818"}'
+    else:
+    - data:
         message: Le sèche-linge a terminé
+      action: script.notif_google_home
+    - action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        payload: '{"color":"0"}'
+        topic: awtrix_05ffac/indicator3
   mode: single
 - id: '1664402305968'
   alias: Renew SSL Certificate
@@ -683,6 +699,7 @@
       minutes: 20
       seconds: 0
       milliseconds: 0
+    enabled: true
   - if:
     - condition: state
       entity_id: sensor.rte_tempo_couleur_actuelle
@@ -726,6 +743,45 @@
       data: {}
       target:
         entity_id: light.yeelight_tempo
+  - if:
+    - condition: state
+      entity_id: sensor.rte_tempo_couleur_actuelle
+      state: Rouge
+    then:
+    - action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: awtrix_05ffac/indicator1
+        payload: '{"color":"#f60017"}'
+  - if:
+    - condition: state
+      entity_id: sensor.rte_tempo_couleur_actuelle
+      state: Blanc
+    then:
+    - action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: awtrix_05ffac/indicator1
+        payload: '{"color":"#ffffff"}'
+  - if:
+    - condition: state
+      entity_id: sensor.rte_tempo_couleur_actuelle
+      state: Bleu
+    then:
+    - action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: awtrix_05ffac/indicator1
+        payload: '{"color":"#49bdfe"}'
   mode: single
 - id: '1698842284018'
   alias: Crepuscule ON Interieur
@@ -1119,4 +1175,139 @@
     data: {}
     target:
       entity_id: input_boolean.temp_hum_show
+  mode: single
+- id: '1737906135527'
+  alias: udanzi infos
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    minutes: /1
+  conditions: []
+  actions:
+  - alias: zoe
+    action: mqtt.publish
+    metadata: {}
+    data:
+      evaluate_payload: false
+      qos: 0
+      retain: false
+      topic: awtrix_05ffac/custom/zoe
+      payload: '{"icon": {% if is_state(''binary_sensor.gg085jj_charging'', ''on'')
+        %} "65765" {% else %} "65762" {% endif %}, "text": "{{states(''sensor.gg085jj_battery_autonomy'')}}
+        k", "duration": 5, "draw":[ {"dl": [10, 7, {{10 + ((states(''sensor.gg085jj_battery_level'')|int)
+        * 20 / 100)|round(0)}}, 7, "#22aa13"]}, {"dl": [{{11 + ((states(''sensor.gg085jj_battery_level'')|int)
+        * 20 / 100)|round(0)}}, 7, 29, 7, "#042201"]}]}'
+  - alias: megane
+    action: mqtt.publish
+    metadata: {}
+    data:
+      evaluate_payload: false
+      qos: 0
+      retain: false
+      topic: awtrix_05ffac/custom/megane
+      payload: '{"icon": {% if is_state(''binary_sensor.gg085jj_charging'', ''on'')
+        %} "65764" {% else %} "65761" {% endif %}, "text": "{{states(''sensor.gj468rk_battery_autonomy'')}}
+        k", "duration": 5, "draw":[ {"dl": [10, 7, {{10 + ((states(''sensor.gj468rk_battery_level'')|int)
+        * 20 / 100)|round(0)}}, 7, "#22aa13"]}, {"dl": [{{11 + ((states(''sensor.gj468rk_battery_level'')|int)
+        * 20 / 100)|round(0)}}, 7, 29, 7, "#042201"]}]}'
+  - alias: temp indoor
+    action: mqtt.publish
+    metadata: {}
+    data:
+      evaluate_payload: false
+      qos: 0
+      retain: false
+      topic: awtrix_05ffac/custom/temp_indoor
+      payload: '{"icon": "2355", "text": "{{state_attr(''climate.general'', ''current_temperature''
+        )}}°C", "duration": 5}'
+  - alias: temp outdoor
+    action: mqtt.publish
+    metadata: {}
+    data:
+      evaluate_payload: false
+      qos: 0
+      retain: false
+      topic: awtrix_05ffac/custom/temp_outdoor
+      payload: '{"icon": "65770", "text": "{{states(''sensor.temperature_outdoor'')}}°C",
+        "duration": 5}'
+  - alias: temp pool
+    action: mqtt.publish
+    metadata: {}
+    data:
+      evaluate_payload: false
+      qos: 0
+      retain: false
+      topic: awtrix_05ffac/custom/temp_pool
+      payload: '{"icon": "61984", "text": "{{states(''sensor.temp_piscine_preserved'')}}°C",
+        "duration": 5}'
+  mode: single
+- id: '1737920071030'
+  alias: udanzi poubelle indicator
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - calendar.poubelles
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: calendar.poubelles
+      state: 'on'
+    then:
+    - action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: awtrix_05ffac/indicator2
+        payload: '{"color": {% if state_attr(''calendar.poubelles'', ''message'')
+          == ''Jaune'' %} "#f9ff1b" {% else %} {% if state_attr(''calendar.poubelles'',
+          ''message'') == ''Verte'' %} "#22aa13" {% else %} {% if state_attr(''calendar.poubelles'',
+          ''message'' ) == ''Végétaux'' %} "#865b26" {% endif %}{% endif %}{% endif
+          %}}'
+    else:
+    - action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: awtrix_05ffac/indicator2
+        payload: '{"color":"0"}'
+  mode: single
+- id: '1737920594694'
+  alias: udanzi ON
+  description: ''
+  triggers:
+  - trigger: time
+    at: 07:00:00
+  conditions: []
+  actions:
+  - action: mqtt.publish
+    metadata: {}
+    data:
+      evaluate_payload: false
+      qos: 0
+      retain: false
+      topic: awtrix_05ffac/power
+      payload: '{"power": true}'
+  mode: single
+- id: '1737920623358'
+  alias: udanzi OFF
+  description: ''
+  triggers:
+  - trigger: time
+    at: '22:00:00'
+  conditions: []
+  actions:
+  - action: mqtt.publish
+    metadata: {}
+    data:
+      evaluate_payload: false
+      qos: 0
+      retain: false
+      topic: awtrix_05ffac/power
+      payload: '{"power": false}'
   mode: single
