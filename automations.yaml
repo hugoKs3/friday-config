@@ -1194,9 +1194,9 @@
       topic: awtrix_05ffac/custom/zoe
       payload: '{"icon": {% if is_state(''binary_sensor.gg085jj_charging'', ''on'')
         %} "65765" {% else %} "65762" {% endif %}, "text": "{{states(''sensor.gg085jj_battery_autonomy'')}}
-        k", "duration": 5, "draw":[ {"dl": [10, 7, {{10 + ((states(''sensor.gg085jj_battery_level'')|int)
-        * 20 / 100)|round(0)}}, 7, "#22aa13"]}, {"dl": [{{11 + ((states(''sensor.gg085jj_battery_level'')|int)
-        * 20 / 100)|round(0)}}, 7, 29, 7, "#042201"]}]}'
+        k", "duration": 5, "draw":[ {"dl": [10, 7, 29, 7, "#042201"]}, {"dl": [10,
+        7, {{9 + ((states(''sensor.gg085jj_battery_level'')|int) * 20 / 100)|round(0)}},
+        7, "#22aa13"]}]}'
   - alias: megane
     action: mqtt.publish
     metadata: {}
@@ -1205,11 +1205,11 @@
       qos: 0
       retain: false
       topic: awtrix_05ffac/custom/megane
-      payload: '{"icon": {% if is_state(''binary_sensor.gg085jj_charging'', ''on'')
+      payload: '{"icon": {% if is_state(''binary_sensor.gj468rk_charging'', ''on'')
         %} "65764" {% else %} "65761" {% endif %}, "text": "{{states(''sensor.gj468rk_battery_autonomy'')}}
-        k", "duration": 5, "draw":[ {"dl": [10, 7, {{10 + ((states(''sensor.gj468rk_battery_level'')|int)
-        * 20 / 100)|round(0)}}, 7, "#22aa13"]}, {"dl": [{{11 + ((states(''sensor.gj468rk_battery_level'')|int)
-        * 20 / 100)|round(0)}}, 7, 29, 7, "#042201"]}]}'
+        k", "duration": 5, "draw":[ {"dl": [10, 7, 29, 7, "#042201"]}, {"dl": [10,
+        7, {{9 + ((states(''sensor.gj468rk_battery_level'')|int) * 20 / 100)|round(0)}},
+        7, "#22aa13"]}]}'
   - alias: temp indoor
     action: mqtt.publish
     metadata: {}
@@ -1218,8 +1218,10 @@
       qos: 0
       retain: false
       topic: awtrix_05ffac/custom/temp_indoor
-      payload: '{"icon": "2355", "text": "{{state_attr(''climate.general'', ''current_temperature''
-        )}}°C", "duration": 5}'
+      payload: '{"icon": "2355", "text": "{{states(''sensor.temperature_salon'')}}°C",
+        "duration": 5, "draw":[ {"dl": [10, 7, 29, 7, "#000664"]}, {"dl": [10, 7,
+        {{9 + ((states(''sensor.humidity_salon'')|int) * 20 / 100)|round(0)}}, 7,
+        "#49bdfe"]}]}'
   - alias: temp outdoor
     action: mqtt.publish
     metadata: {}
@@ -1228,8 +1230,9 @@
       qos: 0
       retain: false
       topic: awtrix_05ffac/custom/temp_outdoor
-      payload: '{"icon": "65770", "text": "{{states(''sensor.temperature_outdoor'')}}°C",
-        "duration": 5}'
+      payload: '{"icon": "65770", "text": "{{states(''sensor.temperature_outdoor'')}}°C",  "duration":
+        5, "draw":[ {"dl": [10, 7, 29, 7, "#000664"]}, {"dl": [10, 7, {{9 + ((states(''sensor.humidity_outdoor'')|int)
+        * 20 / 100)|round(0)}}, 7, "#49bdfe"]}]}'
   - alias: temp pool
     action: mqtt.publish
     metadata: {}
@@ -1310,4 +1313,22 @@
       retain: false
       topic: awtrix_05ffac/power
       payload: '{"power": false}'
+  mode: single
+- id: '1737984226619'
+  alias: udanzi clock
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.awtrix_05ffac_button_select
+  conditions: []
+  actions:
+  - action: mqtt.publish
+    metadata: {}
+    data:
+      evaluate_payload: false
+      qos: 0
+      retain: false
+      topic: awtrix_05ffac/switch
+      payload: '{"name":"Time"}'
   mode: single
