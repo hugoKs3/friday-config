@@ -1218,7 +1218,7 @@
       qos: 0
       retain: false
       topic: awtrix_05ffac/custom/temp_indoor
-      payload: '{"icon": "2355", "text": "{{states(''sensor.temperature_salon'')}}°C",
+      payload: '{"icon": "1430", "text": "{{states(''sensor.temperature_salon'')}}°C",
         "duration": 5, "draw":[ {"dl": [10, 7, 29, 7, "#000664"]}, {"dl": [10, 7,
         {{9 + ((states(''sensor.humidity_salon'')|int) * 20 / 100)|round(0)}}, 7,
         "#49bdfe"]}]}'
@@ -1230,7 +1230,8 @@
       qos: 0
       retain: false
       topic: awtrix_05ffac/custom/temp_outdoor
-      payload: '{"icon": "65770", "text": "{{states(''sensor.temperature_outdoor'')}}°C",  "duration":
+      payload: '{"icon": {% if is_state(''weather.biot'', ''rainy'') %} "46484" {%
+        else %} "4471" {% endif %}, "text": "{{states(''sensor.temperature_outdoor'')}}°C",  "duration":
         5, "draw":[ {"dl": [10, 7, 29, 7, "#000664"]}, {"dl": [10, 7, {{9 + ((states(''sensor.humidity_outdoor'')|int)
         * 20 / 100)|round(0)}}, 7, "#49bdfe"]}]}'
   - alias: temp pool
@@ -1241,8 +1242,16 @@
       qos: 0
       retain: false
       topic: awtrix_05ffac/custom/temp_pool
-      payload: '{"icon": "61984", "text": "{{states(''sensor.temp_piscine_preserved'')}}°C",
-        "duration": 5}'
+      payload: '{"icon": {% if is_state(''switch.pompe_switch_0'', ''on'') %} "54848"
+        {% else %} "54847" {% endif %}, "text": "{{states(''sensor.temp_piscine_preserved'')}}°C",
+        "duration": 5, "draw":[ {"dl": [10, 7, 12, 7, "#232323"]}, {"dl": [14, 7,
+        16, 7, "#232323"]}, {"dl": [18, 7, 20, 7, "#232323"]},  {"dl": [22, 7, 24,
+        7, "#232323"]}, {"dl": [26, 7, 28, 7, "#232323"]} {% if is_state(''input_boolean.mode_piscine'',
+        ''on'') %} , {"dl": [10, 7, 12, 7, "#ffffff"]} {% endif %} {% if is_state(''switch.pompe_switch_0'',
+        ''on'') %} , {"dl": [14, 7, 16, 7, "#f78818"]} {% endif %} {% if is_state(''switch.electrolyseur'',
+        ''on'') %} , {"dl": [18, 7, 20, 7, "#f60017"]} {% endif %} {% if is_state(''switch.vanne'',
+        ''on'') %} , {"dl": [22, 7, 24, 7, "#49bdfe"]} {% endif %} {% if is_state(''switch.spot_temp'',
+        ''on'') %} , {"dl": [26, 7, 28, 7, "#f9ff1b"]} {% endif %} ]}'
   mode: single
 - id: '1737920071030'
   alias: udanzi poubelle indicator

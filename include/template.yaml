@@ -228,7 +228,7 @@ template:
         unique_id: last_daily_electricy_measure
         unit_of_measurement: "kWh"
         state: >
-          {{ state_attr("sensor.linky_25979305334360_consumption", "day_2") }}
+          {{ state_attr("sensor.linky_25979305334360_consumption", "day_3") }}
 
 
   #################################################
