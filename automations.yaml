@@ -1242,8 +1242,10 @@
       qos: 0
       retain: false
       topic: awtrix_05ffac/custom/temp_pool
-      payload: '{"icon": {% if is_state(''switch.pompe_switch_0'', ''on'') %} "54848"
-        {% else %} "54847" {% endif %}, "text": "{{states(''sensor.temp_piscine_preserved'')}}°C",
+      payload: '{"icon": {% if is_state(''switch.pompe_switch_0'', ''on'') %} {% if
+        is_state(''switch.spot_temp'', ''on'') %} "66020" {% else %} "54848" {% endif
+        %} {% else %} {% if is_state(''switch.spot_temp'', ''on'') %} "66019" {% else
+        %} "54847" {% endif %} {% endif %}, "text": "{{states(''input_number.pool_temp'')}}°C",
         "duration": 5, "draw":[ {"dl": [10, 7, 12, 7, "#232323"]}, {"dl": [14, 7,
         16, 7, "#232323"]}, {"dl": [18, 7, 20, 7, "#232323"]},  {"dl": [22, 7, 24,
         7, "#232323"]}, {"dl": [26, 7, 28, 7, "#232323"]} {% if is_state(''input_boolean.mode_piscine'',
@@ -1340,4 +1342,23 @@
       retain: false
       topic: awtrix_05ffac/switch
       payload: '{"name":"Time"}'
+  mode: single
+- id: '1738694843904'
+  alias: Save real pool temperature
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.spot_temp_temperature
+  conditions:
+  - condition: state
+    entity_id: switch.pompe_switch_0
+    state: 'on'
+  actions:
+  - action: input_number.set_value
+    metadata: {}
+    data_template:
+      value: '{{ states(''sensor.spot_temp_temperature'') }}'
+    target:
+      entity_id: input_number.pool_temp
   mode: single

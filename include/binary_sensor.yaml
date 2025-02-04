@@ -25,20 +25,18 @@ binary_sensor:
       - binary_sensor.shelly_salon
       - binary_sensor.shelly_seche_linge
       - binary_sensor.shelly_spot
-      - binary_sensor.shelly_chauffage_lily
+      #- binary_sensor.shelly_chauffage_lily
       - binary_sensor.shelly_vanne
       - binary_sensor.tablette_murale
-      #- binary_sensor.tablette_murale_bas
       - binary_sensor.thermostat
       - binary_sensor.yeelight_gabriel
-      #- binary_sensor.yeelight_lily
       - binary_sensor.rpi_4
       - binary_sensor.google_home
       - binary_sensor.sonos
       - binary_sensor.ap_bureau
       - binary_sensor.ap_garage
       - binary_sensor.ap_lily
-      #- binary_sensor.shelly_chargeur
+      - binary_sensor.shelly_chargeur
       - binary_sensor.shelly_camera
       - binary_sensor.yeelight_tempo
       - binary_sensor.ulanzi
