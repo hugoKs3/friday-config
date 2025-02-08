@@ -17,7 +17,7 @@ binary_sensor:
       - binary_sensor.shelly_sprinkler
       - binary_sensor.shelly_drip
       - binary_sensor.shelly_guirlande
-      - binary_sensor.shelly_jardin_nord
+      #- binary_sensor.shelly_jardin_nord
       - binary_sensor.shelly_pilier
       - binary_sensor.yeelight_plafonnier
       - binary_sensor.shelly_pompe
