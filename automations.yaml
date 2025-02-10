@@ -1218,7 +1218,8 @@
       qos: 0
       retain: false
       topic: awtrix_05ffac/custom/temp_indoor
-      payload: '{"icon": "1430", "text": "{{states(''sensor.temperature_salon'')}}°C",
+      payload: '{"icon": {% if is_state(''binary_sensor.door_window_sensor_158d00024e4b12'',
+        ''on'') %} "66186" {% else %} "1430" {% endif %}, "text": "{{states(''sensor.temperature_salon'')}}°C",
         "duration": 5, "draw":[ {"dl": [10, 7, 29, 7, "#000664"]}, {"dl": [10, 7,
         {{9 + ((states(''sensor.humidity_salon'')|int) * 20 / 100)|round(0)}}, 7,
         "#49bdfe"]}]}'
