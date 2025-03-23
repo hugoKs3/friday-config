@@ -1181,7 +1181,7 @@
   description: ''
   triggers:
   - trigger: time_pattern
-    minutes: /1
+    seconds: /30
   conditions: []
   actions:
   - alias: zoe
