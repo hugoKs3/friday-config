@@ -8,7 +8,7 @@ input_number:
   elapsed_remplissage_piscine:
     name: Elapsed
     min: 0
-    max: 3600
+    max: 60
     step: 1
   temps_arrosage:
     name: Temps
@@ -19,5 +19,5 @@ input_number:
   elapsed_arrosage:
     name: Elapsed
     min: 0
-    max: 1200
+    max: 20
     step: 1

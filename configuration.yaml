@@ -106,12 +106,12 @@ media_player:
   #   access_token: !secret lg_pairing_key
   #   name: LG TV
 
-telegram_bot:
-  - platform: polling
-    api_key: !secret telegram_token
-    allowed_chat_ids:
-      - !secret id_telegram_hugo
-      - !secret id_telegram_andrea
+# telegram_bot:
+#   - platform: polling
+#     api_key: !secret telegram_token
+#     allowed_chat_ids:
+#       - !secret id_telegram_hugo
+#       - !secret id_telegram_andrea
 
 notify:
   - name: Telegram Andrea
