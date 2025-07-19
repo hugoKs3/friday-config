@@ -1448,3 +1448,51 @@
       message: Eléctricité rétablie !
     action: script.notif_telegram
   mode: single
+- id: '1752937056675'
+  alias: Save printer color level
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.canon_ts5100_series_color
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: sensor.canon_ts5100_series_color
+      state: unavailable
+    - condition: state
+      entity_id: sensor.canon_ts5100_series_color
+      state: unknown
+  actions:
+  - action: input_number.set_value
+    metadata: {}
+    data_template:
+      value: '{{ states(''sensor.canon_ts5100_series_color'') | float(0) }}'
+    target:
+      entity_id: input_number.color_level
+  mode: single
+- id: '1752937233472'
+  alias: Save printer black level
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.canon_ts5100_series_black
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      state: unavailable
+      entity_id: sensor.canon_ts5100_series_black
+    - condition: state
+      state: unknown
+      entity_id: sensor.canon_ts5100_series_black
+  actions:
+  - action: input_number.set_value
+    metadata: {}
+    data_template:
+      value: '{{ states(''sensor.canon_ts5100_series_black'') | float(0) }}'
+    target:
+      entity_id: input_number.black_level
+  mode: single

@@ -308,14 +308,6 @@ template:
             (states('sensor.seche_linge_switch_0_power') | int) > 2
           }}"
 
-      - name: "Cartouche Imprimante Low"
-        state: "
-          {{
-            (states('sensor.niveau_encre_couleur_preserved') | int) <= 5
-            or
-            (states('sensor.niveau_encre_noire_preserved') | int) <= 5
-          }}"
-
       - name: "Battery Low"
         state: "
           {{

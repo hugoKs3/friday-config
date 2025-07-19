@@ -24,36 +24,6 @@ sensor:
         value_template: >
           {{ states("sensor.pluiviometrie_last_24h") | float(0) }}
         unit_of_measurement: 'mm'
-      niveau_encre_noire_preserved:
-        friendly_name: Niveau Encre Noire
-        unit_of_measurement: '%'
-        icon_template: mdi:water
-        value_template: >-
-          {% if states('sensor.canon_ts5100_series_black') not in ['unknown', 'unavailable'] and (states('sensor.canon_ts5100_series_black') | int) > 0 %}
-            {{ states('sensor.canon_ts5100_series_black') }}
-          {% else %}
-            {{ states('sensor.niveau_encre_noire_preserved') }}
-          {% endif %}
-      niveau_encre_couleur_preserved:
-        friendly_name: Niveau Encre Couleur
-        unit_of_measurement: '%'
-        icon_template: mdi:water
-        value_template: >-
-          {% if states('sensor.canon_ts5100_series_color') not in ['unknown', 'unavailable'] and (states('sensor.canon_ts5100_series_color') | int) > 0 %}
-            {{ states('sensor.canon_ts5100_series_color') }}
-          {% else %}
-            {{ states('sensor.niveau_encre_couleur_preserved') }}
-          {% endif %}
-      temp_piscine_preserved:
-        friendly_name: Température Piscine Réelle
-        unit_of_measurement: '°C'
-        icon_template: mdi:thermometer
-        value_template: >-
-          {% if states('sensor.spot_temp_temperature') not in ['unknown', 'unavailable'] and states('switch.pompe_switch_0') == 'on' %}
-            {{ states('sensor.spot_temp_temperature') }}
-          {% else %}
-            {{ states('sensor.temp_piscine_preserved') }}
-          {% endif %}
 
   - platform: rest
     name: Gandi IP
