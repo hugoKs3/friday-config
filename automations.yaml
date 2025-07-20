@@ -29,52 +29,52 @@
 - id: '1662839324434'
   alias: Remplissage Piscine
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - switch.vanne
     from: 'off'
     to: 'on'
-  condition: []
-  action:
-  - service: input_number.set_value
-    data_template:
-      value: '{{ (states(''input_number.temps_remplissage_piscine'') | int) * 60 }}'
+    trigger: state
+  conditions: []
+  actions:
+  - data_template:
+      value: '{{ (states(''input_number.temps_remplissage_piscine'') | int) }}'
       entity_id: input_number.elapsed_remplissage_piscine
-  - service: automation.turn_on
-    data: {}
+    action: input_number.set_value
+  - data: {}
     target:
       entity_id: automation.decompte_remplissage_piscine
-  - service: input_boolean.turn_off
-    data: {}
+    action: automation.turn_on
+  - data: {}
     target:
       entity_id: input_boolean.mode_piscine
-  - service: switch.turn_off
-    data: {}
+    action: input_boolean.turn_off
+  - data: {}
     target:
       entity_id: switch.electrolyseur
+    action: switch.turn_off
   - delay:
       minutes: '{{ states(''input_number.temps_remplissage_piscine'') | int }}'
-  - service: switch.turn_off
-    data: {}
+  - data: {}
     target:
       entity_id: switch.vanne
-  - service: script.notif_google_home
-    data:
+    action: switch.turn_off
+  - data:
       message: Le remplissage de la piscine est terminé
+    action: script.notif_google_home
   - delay:
       hours: 0
       minutes: 15
       seconds: 0
       milliseconds: 0
-  - service: input_boolean.turn_on
-    data: {}
+  - data: {}
     target:
       entity_id: input_boolean.mode_piscine
-  - service: automation.turn_off
-    data: {}
+    action: input_boolean.turn_on
+  - data: {}
     target:
       entity_id: automation.decompte_remplissage_piscine
+    action: automation.turn_off
   mode: single
 - id: '1662898775387'
   alias: Crepuscule ON Exterieur
