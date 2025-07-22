@@ -122,6 +122,10 @@ notify:
     platform: telegram
     chat_id: !secret id_telegram_hugo
 
+  - name: Telegram Titi
+    platform: telegram
+    chat_id: !secret id_telegram_titi
+
 device_tracker:
   - platform: ping_arp
     count: 5

@@ -73,7 +73,10 @@ notif_telegram:
   - condition: state
     entity_id: input_boolean.enable_telegram_notifs
     state: 'on'
-  - service: notify.telegram_hugo
+  - data:
+      message: '{{ message }}'
+    action: notify.telegram_hugo
+  - action: notify.telegram_titi
     data:
       message: '{{ message }}'
 je_suis_rentre:
@@ -101,5 +104,6 @@ informations_tempo:
   sequence:
   - service: script.notif_google_home
     data:
-      message: Information Tempo. Aujourd'hui, journée {{ states.sensor.rte_tempo_couleur_actuelle.state }}. Demain, journée {{ states.sensor.rte_tempo_prochaine_couleur.state }}
+      message: Information Tempo. Aujourd'hui, journée {{ states.sensor.rte_tempo_couleur_actuelle.state
+        }}. Demain, journée {{ states.sensor.rte_tempo_prochaine_couleur.state }}
   mode: single

@@ -1203,10 +1203,10 @@
       qos: 0
       retain: false
       topic: awtrix_05ffac/custom/zoe
-      payload: '{"icon": {% if is_state(''binary_sensor.gg085jj_charging'', ''on'')
-        %} "65765" {% else %} "65762" {% endif %}, "text": "{{states(''sensor.gg085jj_battery_autonomy'')}}
+      payload: '{"icon": {% if is_state(''binary_sensor.hd850er_en_charge'', ''on'')
+        %} "65765" {% else %} "65762" {% endif %}, "text": "{{states(''sensor.hd850er_autonomie_de_la_batterie'')}}
         k", "duration": 5, "draw":[ {"dl": [10, 7, 29, 7, "#042201"]}, {"dl": [10,
-        7, {{9 + ((states(''sensor.gg085jj_battery_level'')|int) * 20 / 100)|round(0)}},
+        7, {{9 + ((states(''sensor.hd850er_batterie'')|int) * 20 / 100)|round(0)}},
         7, "#22aa13"]}]}'
   - alias: megane
     action: mqtt.publish
@@ -1495,4 +1495,31 @@
       value: '{{ states(''sensor.canon_ts5100_series_black'') | float(0) }}'
     target:
       entity_id: input_number.black_level
+  mode: single
+- id: '1753211893830'
+  alias: Aeration
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    hours: /2
+  conditions:
+  - condition: time
+    after: 07:59:00
+    before: '20:01:00'
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.chauffage_lily
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.chauffage_lily
   mode: single
