@@ -17,14 +17,14 @@
       - sensor.gj468rk_charging_remaining_time
       - device_tracker.gj468rk_location
       - sensor.gj468rk_mileage
-      - sensor.gg085jj_battery_autonomy
-      - sensor.gg085jj_battery_level
-      - binary_sensor.gg085jj_charging
-      - sensor.gg085jj_battery_available_energy
-      - sensor.gg085jj_charging_remaining_time
-      - device_tracker.gg085jj_location
-      - sensor.gg085jj_mileage
-      - binary_sensor.gg085jj_plugged_in
+      - sensor.hd850er_autonomie_de_la_batterie
+      - sensor.hd850er_batterie
+      - binary_sensor.hd850er_en_charge
+      - sensor.hd850er_energie_disponible_de_la_batterie
+      - sensor.hd850er_temps_de_charge_restant
+      - device_tracker.hd850er_emplacement
+      - sensor.hd850er_kilometrage
+      - binary_sensor.hd850er_prise
   mode: single
 - id: '1662839324434'
   alias: Remplissage Piscine
@@ -1204,7 +1204,7 @@
       retain: false
       topic: awtrix_05ffac/custom/r5
       payload: '{"icon": {% if is_state(''binary_sensor.hd850er_en_charge'', ''on'')
-        %} "69269" {% else %} "69628" {% endif %}, "text": "{{states(''sensor.hd850er_autonomie_de_la_batterie'')}}
+        %} "69644" {% else %} "69643" {% endif %}, "text": "{{states(''sensor.hd850er_autonomie_de_la_batterie'')}}
         k", "duration": 5, "draw":[ {"dl": [10, 7, 29, 7, "#042201"]}, {"dl": [10,
         7, {{9 + ((states(''sensor.hd850er_batterie'')|int) * 20 / 100)|round(0)}},
         7, "#22aa13"]}]}'
